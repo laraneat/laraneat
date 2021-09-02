@@ -1,0 +1,11 @@
+{
+    "name": "laraneat/authorization",
+    "description": "Authorization Container for laraneat.",
+    "type": "laraneat-container",
+    "require": {
+        "spatie/laravel-permission": "^4.0.0"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    }
+}

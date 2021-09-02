@@ -1,0 +1,20 @@
+{
+    "name": "laraneat/debugger-container",
+    "description": "An Laraneat container which helps to debug everything",
+    "type": "laraneat-container",
+    "license": "MIT",
+    "require": {
+        "jenssegers/agent": "^2.6.4",
+        "laravel/telescope": "^4.4.9"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
+    "extra": {
+        "laraneat": {
+            "container": {
+                "name": "Debugger"
+            }
+        }
+    }
+}

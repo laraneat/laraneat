@@ -1,0 +1,11 @@
+{
+    "name": "laraneat/authentication",
+    "description": "Authentication Container for laraneat.",
+    "require": {
+        "laravel/fortify": "^1.7.14",
+        "laravel/sanctum": "^2.11.2"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    }
+}
