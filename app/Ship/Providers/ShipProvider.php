@@ -2,10 +2,12 @@
 
 namespace App\Ship\Providers;
 
-use App\Ship\Parents\Providers\MainProvider;
-use App\Ship\Parents\Providers\RoutesProvider;
+use App\Ship\Abstracts\Providers\MainProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 
+/**
+ * A.K.A app/Providers/AppServiceProvider
+ */
 class ShipProvider extends MainProvider
 {
     /**

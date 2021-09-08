@@ -2,7 +2,7 @@
 
 namespace App\Ship\Middlewares\Http;
 
-use App\Ship\Parents\Providers\RoutesProvider;
+use App\Ship\Providers\RoutesProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
