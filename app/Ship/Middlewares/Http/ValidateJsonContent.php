@@ -3,7 +3,7 @@
 namespace App\Ship\Middlewares\Http;
 
 use App\Ship\Exceptions\MissingJSONHeaderException;
-use App\Ship\Parents\Middlewares\Middleware;
+use App\Ship\Abstracts\Middlewares\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 

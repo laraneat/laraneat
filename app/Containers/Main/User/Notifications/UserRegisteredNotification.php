@@ -3,7 +3,7 @@
 namespace App\Containers\Main\User\Notifications;
 
 use App\Containers\Main\User\Models\User;
-use App\Ship\Parents\Notifications\Notification;
+use App\Ship\Abstracts\Notifications\Notification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 

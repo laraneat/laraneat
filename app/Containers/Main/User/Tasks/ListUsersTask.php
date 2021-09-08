@@ -3,7 +3,7 @@
 namespace App\Containers\Main\User\Tasks;
 
 use App\Containers\Main\User\Models\User;
-use App\Ship\Parents\Tasks\Task;
+use App\Ship\Abstracts\Tasks\Task;
 
 class ListUsersTask extends Task
 {

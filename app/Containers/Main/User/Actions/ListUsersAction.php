@@ -4,7 +4,7 @@ namespace App\Containers\Main\User\Actions;
 
 use App\Containers\Main\User\Tasks\ListUsersTask;
 use App\Containers\Main\User\UI\API\Requests\ListUsersRequest;
-use App\Ship\Parents\Actions\Action;
+use App\Ship\Abstracts\Actions\Action;
 
 class ListUsersAction extends Action
 {

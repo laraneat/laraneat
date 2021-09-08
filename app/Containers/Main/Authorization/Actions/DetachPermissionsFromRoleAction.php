@@ -6,7 +6,7 @@ use App\Containers\Main\Authorization\Models\Role;
 use App\Containers\Main\Authorization\Tasks\DetachPermissionsFromRoleTask;
 use App\Containers\Main\Authorization\Tasks\FindRoleTask;
 use App\Containers\Main\Authorization\UI\API\Requests\DetachPermissionToRoleRequest;
-use App\Ship\Parents\Actions\Action;
+use App\Ship\Abstracts\Actions\Action;
 
 class DetachPermissionsFromRoleAction extends Action
 {

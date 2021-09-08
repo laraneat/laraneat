@@ -2,7 +2,7 @@
 
 namespace App\Containers\Main\Debugger\Values;
 
-use App\Ship\Parents\Values\Value;
+use App\Ship\Abstracts\Values\Value;
 use Jenssegers\Agent\Facades\Agent;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

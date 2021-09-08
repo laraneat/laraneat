@@ -5,7 +5,7 @@ namespace App\Containers\Main\Authorization\Actions;
 use Spatie\Permission\Models\Role;
 use App\Containers\Main\Authorization\Tasks\DeleteRoleTask;
 use App\Containers\Main\Authorization\UI\API\Requests\DeleteRoleRequest;
-use App\Ship\Parents\Actions\Action;
+use App\Ship\Abstracts\Actions\Action;
 
 class DeleteRoleAction extends Action
 {

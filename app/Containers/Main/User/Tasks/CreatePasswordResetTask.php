@@ -4,8 +4,8 @@ namespace App\Containers\Main\User\Tasks;
 
 use App\Containers\Main\User\Models\User;
 use App\Ship\Exceptions\InternalErrorException;
-use App\Ship\Parents\Exceptions\Exception;
-use App\Ship\Parents\Tasks\Task;
+use App\Ship\Abstracts\Exceptions\Exception;
+use App\Ship\Abstracts\Tasks\Task;
 
 class CreatePasswordResetTask extends Task
 {

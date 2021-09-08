@@ -2,7 +2,7 @@
 
 namespace App\Containers\Main\Authorization\Providers;
 
-use App\Ship\Parents\Providers\MainProvider;
+use App\Ship\Abstracts\Providers\MainProvider;
 use Spatie\Permission\PermissionServiceProvider;
 
 /**

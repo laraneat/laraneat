@@ -4,7 +4,7 @@ namespace App\Containers\Main\Debugger\Middlewares;
 
 use App\Containers\Main\Debugger\Values\Output;
 use App\Containers\Main\Debugger\Values\RequestsLogger;
-use App\Ship\Parents\Middlewares\Middleware;
+use App\Ship\Abstracts\Middlewares\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 

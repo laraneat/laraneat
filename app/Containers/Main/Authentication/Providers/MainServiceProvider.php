@@ -2,7 +2,7 @@
 
 namespace App\Containers\Main\Authentication\Providers;
 
-use App\Ship\Parents\Providers\MainProvider;
+use App\Ship\Abstracts\Providers\MainProvider;
 
 /**
  * The Main Service Provider of this container, it will be automatically registered in the framework.

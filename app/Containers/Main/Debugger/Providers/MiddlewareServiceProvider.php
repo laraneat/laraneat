@@ -3,7 +3,7 @@
 namespace App\Containers\Main\Debugger\Providers;
 
 use App\Containers\Main\Debugger\Middlewares\RequestsMonitorMiddleware;
-use App\Ship\Parents\Providers\MiddlewareProvider;
+use App\Ship\Abstracts\Providers\MiddlewareProvider;
 
 class MiddlewareServiceProvider extends MiddlewareProvider
 {

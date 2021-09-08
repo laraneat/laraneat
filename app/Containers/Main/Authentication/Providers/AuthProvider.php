@@ -3,7 +3,7 @@
 namespace App\Containers\Main\Authentication\Providers;
 
 use Laraneat\Core\Loaders\RoutesLoaderTrait;
-use App\Ship\Parents\Providers\AuthProvider as ParentAuthProvider;
+use App\Ship\Abstracts\Providers\AuthProvider as ParentAuthProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Auth\Notifications\ResetPassword;
 

@@ -3,7 +3,7 @@
 namespace App\Containers\Main\User\Mails;
 
 use App\Containers\Main\User\Models\User;
-use App\Ship\Parents\Mails\Mail;
+use App\Ship\Abstracts\Mails\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -26,7 +26,7 @@ class UserForgotPasswordMail extends Mail implements ShouldQueue
 
     public function build(): self
     {
-        return $this->view('Main@user::user-forgotPassword')
+        return $this->view('main@user::user-forgotPassword')
             ->to($this->recipient->email, $this->recipient->name)
             ->with([
                 'token' => $this->token,

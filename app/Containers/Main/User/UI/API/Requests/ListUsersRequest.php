@@ -3,7 +3,7 @@
 namespace App\Containers\Main\User\UI\API\Requests;
 
 use App\Containers\Main\User\Models\User;
-use App\Ship\Parents\Requests\Request;
+use App\Ship\Abstracts\Requests\Request;
 
 class ListUsersRequest extends Request
 {

@@ -3,7 +3,7 @@
 namespace App\Containers\Main\Authorization\Data\Seeders;
 
 use App\Containers\Main\Authorization\Tasks\CreateRoleTask;
-use App\Ship\Parents\Seeders\Seeder;
+use App\Ship\Abstracts\Seeders\Seeder;
 
 class AuthorizationRolesSeeder_2 extends Seeder
 {

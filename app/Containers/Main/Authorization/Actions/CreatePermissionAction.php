@@ -4,8 +4,8 @@ namespace App\Containers\Main\Authorization\Actions;
 
 use App\Containers\Main\Authorization\Models\Permission;
 use App\Containers\Main\Authorization\Tasks\CreatePermissionTask;
-use App\Ship\Parents\Actions\Action;
-use App\Ship\Parents\Requests\Request;
+use App\Ship\Abstracts\Actions\Action;
+use App\Ship\Abstracts\Requests\Request;
 
 class CreatePermissionAction extends Action
 {

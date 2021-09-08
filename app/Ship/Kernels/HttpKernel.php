@@ -37,7 +37,7 @@ class HttpKernel extends LaravelHttpKernel
      * @var array
      */
     protected $middleware = [
-        // Laravel middleware's
+        // Laravel middlewares
         // \App\Http\Middleware\TrustHosts::class,
         TrustProxies::class,
         HandleCors::class,

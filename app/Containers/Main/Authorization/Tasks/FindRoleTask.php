@@ -3,7 +3,7 @@
 namespace App\Containers\Main\Authorization\Tasks;
 
 use App\Containers\Main\Authorization\Models\Role;
-use App\Ship\Parents\Tasks\Task;
+use App\Ship\Abstracts\Tasks\Task;
 
 class FindRoleTask extends Task
 {

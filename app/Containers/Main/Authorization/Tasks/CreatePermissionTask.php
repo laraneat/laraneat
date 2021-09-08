@@ -4,7 +4,7 @@ namespace App\Containers\Main\Authorization\Tasks;
 
 use App\Containers\Main\Authorization\Models\Permission;
 use App\Ship\Exceptions\CreateResourceFailedException;
-use App\Ship\Parents\Tasks\Task;
+use App\Ship\Abstracts\Tasks\Task;
 use Exception;
 
 class CreatePermissionTask extends Task

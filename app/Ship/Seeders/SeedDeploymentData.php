@@ -2,7 +2,7 @@
 
 namespace App\Ship\Seeders;
 
-use App\Ship\Parents\Seeders\Seeder;
+use App\Ship\Abstracts\Seeders\Seeder;
 
 class SeedDeploymentData extends Seeder
 {

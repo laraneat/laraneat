@@ -3,7 +3,7 @@
 namespace App\Containers\Main\Debugger\Providers;
 
 use App\Containers\Main\Debugger\Tasks\QueryDebuggerTask;
-use App\Ship\Parents\Providers\MainProvider;
+use App\Ship\Abstracts\Providers\MainProvider;
 use Jenssegers\Agent\AgentServiceProvider;
 use Jenssegers\Agent\Facades\Agent;
 

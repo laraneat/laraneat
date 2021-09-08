@@ -2,7 +2,7 @@
 
 namespace App\Containers\Main\User\UI\API\Resources;
 
-use App\Ship\Parents\Resources\Json\JsonResource;
+use App\Ship\Abstracts\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
 {

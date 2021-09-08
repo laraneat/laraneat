@@ -3,7 +3,7 @@
 namespace App\Containers\Main\User\Data\Factories;
 
 use App\Containers\Main\User\Models\User;
-use App\Ship\Parents\Factories\Factory;
+use App\Ship\Abstracts\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 

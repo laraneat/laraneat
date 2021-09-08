@@ -4,7 +4,7 @@ namespace App\Containers\Main\User\Models;
 
 use App\Containers\Main\Authentication\Traits\AuthenticationTrait;
 use App\Containers\Main\Authorization\Traits\AuthorizationTrait;
-use App\Ship\Parents\Models\UserModel;
+use App\Ship\Abstracts\Models\UserModel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;

@@ -3,7 +3,7 @@
 namespace App\Containers\Main\Authentication\Providers;
 
 use App\Ship\Middlewares\Http\RedirectIfAuthenticated;
-use App\Ship\Parents\Providers\MiddlewareProvider;
+use App\Ship\Abstracts\Providers\MiddlewareProvider;
 
 class MiddlewareServiceProvider extends MiddlewareProvider
 {

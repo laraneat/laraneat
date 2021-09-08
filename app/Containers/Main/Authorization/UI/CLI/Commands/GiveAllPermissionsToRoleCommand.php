@@ -5,7 +5,7 @@ namespace App\Containers\Main\Authorization\UI\CLI\Commands;
 use App\Containers\Main\Authorization\Exceptions\RoleNotFoundException;
 use App\Containers\Main\Authorization\Models\Permission;
 use App\Containers\Main\Authorization\Tasks\FindRoleTask;
-use App\Ship\Parents\Commands\ConsoleCommand;
+use App\Ship\Abstracts\Commands\ConsoleCommand;
 
 class GiveAllPermissionsToRoleCommand extends ConsoleCommand
 {

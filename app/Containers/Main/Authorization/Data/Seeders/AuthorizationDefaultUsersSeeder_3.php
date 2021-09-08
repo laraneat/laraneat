@@ -4,7 +4,7 @@ namespace App\Containers\Main\Authorization\Data\Seeders;
 
 use App\Containers\Main\Authorization\Tasks\FindRoleTask;
 use App\Containers\Main\User\Tasks\CreateUserByCredentialsTask;
-use App\Ship\Parents\Seeders\Seeder;
+use App\Ship\Abstracts\Seeders\Seeder;
 
 class AuthorizationDefaultUsersSeeder_3 extends Seeder
 {

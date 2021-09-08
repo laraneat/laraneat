@@ -2,7 +2,7 @@
 
 namespace App\Containers\Main\Authorization\Providers;
 
-use App\Ship\Parents\Providers\MiddlewareProvider;
+use App\Ship\Abstracts\Providers\MiddlewareProvider;
 use Illuminate\Auth\Middleware\Authorize;
 
 class MiddlewareServiceProvider extends MiddlewareProvider

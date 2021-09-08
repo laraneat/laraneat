@@ -2,7 +2,7 @@
 
 namespace App\Containers\Main\Authorization\UI\API\Requests;
 
-use App\Ship\Parents\Requests\Request;
+use App\Ship\Abstracts\Requests\Request;
 
 class ViewPermissionRequest extends Request
 {

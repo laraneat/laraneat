@@ -2,7 +2,7 @@
 
 namespace App\Containers\Main\Debugger\Values;
 
-use App\Ship\Parents\Values\Value;
+use App\Ship\Abstracts\Values\Value;
 use Illuminate\Support\Facades\App;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;

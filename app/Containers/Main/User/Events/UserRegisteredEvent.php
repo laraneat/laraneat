@@ -3,7 +3,7 @@
 namespace App\Containers\Main\User\Events;
 
 use App\Containers\Main\User\Models\User;
-use App\Ship\Parents\Events\Event;
+use App\Ship\Abstracts\Events\Event;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Queue\ShouldQueue;

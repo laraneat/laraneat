@@ -4,7 +4,7 @@ namespace App\Containers\Main\Authorization\Tasks;
 
 use App\Containers\Main\Authorization\Models\Role;
 use App\Ship\Exceptions\DeleteResourceFailedException;
-use App\Ship\Parents\Tasks\Task;
+use App\Ship\Abstracts\Tasks\Task;
 use Exception;
 
 class DeleteRoleTask extends Task

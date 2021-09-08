@@ -31,7 +31,7 @@ use App\Containers\Main\Authorization\UI\API\Requests\SyncUserRolesRequest;
 use App\Containers\Main\Authorization\UI\API\Resources\PermissionResource;
 use App\Containers\Main\Authorization\UI\API\Resources\RoleResource;
 use App\Containers\Main\User\UI\API\Resources\UserResource;
-use App\Ship\Parents\Controllers\ApiController;
+use App\Ship\Abstracts\Controllers\ApiController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 

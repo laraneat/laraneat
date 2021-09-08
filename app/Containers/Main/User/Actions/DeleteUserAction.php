@@ -5,7 +5,7 @@ namespace App\Containers\Main\User\Actions;
 use App\Containers\Main\User\Models\User;
 use App\Containers\Main\User\Tasks\DeleteUserTask;
 use App\Containers\Main\User\UI\API\Requests\DeleteUserRequest;
-use App\Ship\Parents\Actions\Action;
+use App\Ship\Abstracts\Actions\Action;
 
 class DeleteUserAction extends Action
 {

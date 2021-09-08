@@ -218,6 +218,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        // NOTE: all packages aliases must be registered inside their containers service providers
+        /*
+         * NOTE: all packages aliases must be registered inside their containers service providers
+         */
     ],
 ];

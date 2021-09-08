@@ -8,7 +8,7 @@ use App\Containers\Main\User\Models\User;
 use App\Containers\Main\User\Notifications\UserRegisteredNotification;
 use App\Containers\Main\User\Tasks\CreateUserByCredentialsTask;
 use App\Containers\Main\User\UI\API\Requests\RegisterUserRequest;
-use App\Ship\Parents\Actions\Action;
+use App\Ship\Abstracts\Actions\Action;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;

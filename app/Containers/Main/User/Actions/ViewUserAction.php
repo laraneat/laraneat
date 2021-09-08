@@ -4,7 +4,7 @@ namespace App\Containers\Main\User\Actions;
 
 use App\Containers\Main\User\Models\User;
 use App\Containers\Main\User\UI\API\Requests\ViewUserRequest;
-use App\Ship\Parents\Actions\Action;
+use App\Ship\Abstracts\Actions\Action;
 
 class ViewUserAction extends Action
 {

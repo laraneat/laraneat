@@ -6,7 +6,7 @@ use App\Containers\Main\Authorization\Tasks\FindRoleTask;
 use App\Containers\Main\Authorization\UI\API\Requests\RevokeUserFromRoleRequest;
 use App\Containers\Main\User\Models\User;
 use App\Containers\Main\User\Tasks\FindUserByIdTask;
-use App\Ship\Parents\Actions\Action;
+use App\Ship\Abstracts\Actions\Action;
 use Illuminate\Database\Eloquent\Collection;
 
 class RevokeUserFromRoleAction extends Action

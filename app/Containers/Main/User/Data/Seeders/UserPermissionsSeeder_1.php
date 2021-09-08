@@ -3,7 +3,7 @@
 namespace App\Containers\Main\User\Data\Seeders;
 
 use App\Containers\Main\Authorization\Tasks\CreatePermissionTask;
-use App\Ship\Parents\Seeders\Seeder;
+use App\Ship\Abstracts\Seeders\Seeder;
 
 class UserPermissionsSeeder_1 extends Seeder
 {

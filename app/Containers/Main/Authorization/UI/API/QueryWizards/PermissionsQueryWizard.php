@@ -2,7 +2,7 @@
 
 namespace App\Containers\Main\Authorization\UI\API\QueryWizards;
 
-use App\Ship\Parents\QueryWizards\EloquentQueryWizard;
+use App\Ship\Abstracts\QueryWizards\EloquentQueryWizard;
 
 class PermissionsQueryWizard extends EloquentQueryWizard
 {

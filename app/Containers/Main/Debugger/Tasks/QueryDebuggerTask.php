@@ -2,7 +2,7 @@
 
 namespace App\Containers\Main\Debugger\Tasks;
 
-use App\Ship\Parents\Tasks\Task;
+use App\Ship\Abstracts\Tasks\Task;
 use DateTimeInterface;
 use DB;
 use Log;
