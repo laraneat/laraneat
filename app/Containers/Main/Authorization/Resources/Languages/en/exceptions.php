@@ -12,4 +12,5 @@ return [
     */
 
     'permission-not-found' => 'Permission not found.',
+    'role-not-found' => 'Role not found.',
 ];
