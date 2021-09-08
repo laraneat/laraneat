@@ -2,7 +2,7 @@
 
 namespace App\Ship\Exceptions\Handlers;
 
-use Laraneat\Core\Exceptions\Handlers\ExceptionsHandler as CoreExceptionsHandler;
+use Laraneat\Core\Abstracts\Exceptions\Handlers\ExceptionsHandler as CoreExceptionsHandler;
 use App\Ship\Abstracts\Exceptions\Exception as ParentException;
 use Throwable;
 
