@@ -21,6 +21,5 @@ return [
     'not-authorized-resource' => 'You are not authorized to request this resource.',
     'not-found' => 'The requested Resource was not found.',
     'not-implemented' => 'This method is not yet implemented.',
-    'unsupported-fractal-serializer' => 'Unsupported Fractal Serializer!',
     'validation-failed' => 'Invalid Input.',
 ];

@@ -21,6 +21,5 @@ return [
     'not-authorized-resource' => 'У вас нет прав на запрос этого ресурса.',
     'not-found' => 'Запрошенный ресурс не найден.',
     'not-implemented' => 'Этот метод еще не реализован.',
-    'unsupported-fractal-serializer' => 'Неподдерживаемый фрактальный сериализатор!',
     'validation-failed' => 'Неверный ввод.',
 ];
