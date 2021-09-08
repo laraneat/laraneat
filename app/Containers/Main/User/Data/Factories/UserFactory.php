@@ -7,6 +7,13 @@ use App\Ship\Abstracts\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
+/**
+ * @method \Illuminate\Support\Collection|User create($attributes = [], ?User $parent = null)
+ * @method \Illuminate\Support\Collection createMany(iterable $records)
+ * @method User createOne($attributes = [])
+ * @method \Illuminate\Support\Collection|User make($attributes = [], ?User $parent = null)
+ * @method User makeOne($attributes = [])
+ */
 class UserFactory extends Factory
 {
     protected $model = User::class;
