@@ -20,8 +20,8 @@ class SyncPermissionsOnRoleTest extends ApiTestCase
     protected string $url = 'v1/permissions/sync';
 
     protected array $access = [
-        'roles' => '',
         'permissions' => 'manage-roles',
+        'roles' => '',
     ];
 
     public function testSyncPermissionsOnRole(): void

@@ -17,8 +17,8 @@ class ViewPermissionTest extends ApiTestCase
     protected string $url = 'v1/permissions/{id}';
 
     protected array $access = [
-        'roles' => '',
         'permissions' => 'manage-roles',
+        'roles' => '',
     ];
 
     public function testFindPermissionById(): void

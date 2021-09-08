@@ -9,7 +9,10 @@ use Exception;
 
 class FindUserByIdTask extends Task
 {
-    public function run($userId): User
+    /**
+     * @throws NotFoundException
+     */
+    public function run(int $userId): User
     {
         try {
             $user = User::find($userId);

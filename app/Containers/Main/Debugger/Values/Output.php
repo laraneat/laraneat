@@ -44,7 +44,7 @@ class Output extends Value
         $this->append("$name: \n");
     }
 
-    private function append($output): string
+    private function append(string $output): string
     {
         return $this->output .= $output;
     }

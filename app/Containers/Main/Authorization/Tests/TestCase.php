@@ -2,7 +2,7 @@
 
 namespace App\Containers\Main\Authorization\Tests;
 
-use App\Ship\Abstracts\Tests\PhpUnit\TestCase as ShipTestCase;
+use App\Ship\Abstracts\Tests\TestCase as ShipTestCase;
 
 /**
  * Class TestCase

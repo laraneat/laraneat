@@ -123,7 +123,6 @@ class RegisterUserTest extends ApiTestCase
 
         $this->postJson($this->buildApiUrl($this->url), $data)
             ->assertStatus(422)
-            ->decodeResponseJson()
             ->assertJsonValidationErrors([
                 'password' => 'The password field is required.',
             ]);

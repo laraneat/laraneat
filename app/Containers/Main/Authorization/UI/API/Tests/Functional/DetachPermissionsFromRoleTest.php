@@ -17,8 +17,8 @@ class DetachPermissionsFromRoleTest extends ApiTestCase
     protected string $url = 'v1/permissions/detach';
 
     protected array $access = [
-        'roles' => '',
         'permissions' => 'manage-roles',
+        'roles' => '',
     ];
 
     public function testDetachPermissionsFromRole(): void

@@ -11,6 +11,10 @@ class CreatePermissionAction extends Action
 {
     public function run(Request $request): Permission
     {
-        return app(CreatePermissionTask::class)->run($request->name, $request->description, $request->display_name);
+        return app(CreatePermissionTask::class)->run(
+            $request->name,
+            $request->description,
+            $request->display_name
+        );
     }
 }

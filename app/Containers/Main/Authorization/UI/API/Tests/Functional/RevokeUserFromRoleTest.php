@@ -17,8 +17,8 @@ class RevokeUserFromRoleTest extends ApiTestCase
     protected string $url = 'v1/roles/revoke';
 
     protected array $access = [
+        'permissions' => 'manage-roles',
         'roles' => '',
-        'permissions' => 'assign-roles',
     ];
 
     public function testRevokeUserFromRoles(): void

@@ -17,8 +17,8 @@ class ListPermissionsTest extends ApiTestCase
     protected string $url = 'v1/permissions';
 
     protected array $access = [
-        'roles' => '',
         'permissions' => 'manage-roles',
+        'roles' => '',
     ];
 
     protected int $permissionsCount;

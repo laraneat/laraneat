@@ -17,6 +17,7 @@ use App\Containers\Main\User\UI\API\Requests\RegisterUserRequest;
 use App\Containers\Main\User\UI\API\Requests\UpdateUserRequest;
 use App\Containers\Main\User\UI\API\Resources\UserResource;
 use App\Ship\Abstracts\Controllers\ApiController;
+use App\Ship\Exceptions\NotFoundException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -52,6 +53,9 @@ class Controller extends ApiController
         return new UserResource($user);
     }
 
+    /**
+     * @throws NotFoundException
+     */
     public function getAuthenticatedUser(GetAuthenticatedUserRequest $request): UserResource
     {
         $user = app(GetAuthenticatedUserAction::class)->run($request);

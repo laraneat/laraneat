@@ -17,8 +17,8 @@ class AssignUserToRoleTest extends ApiTestCase
     protected string $url = 'v1/roles/assign';
 
     protected array $access = [
-        'roles' => '',
         'permissions' => 'assign-roles',
+        'roles' => '',
     ];
 
     public function testAssignUserToRoles(): void
@@ -35,6 +35,7 @@ class AssignUserToRoleTest extends ApiTestCase
         ];
 
         $this->getTestingUser();
+
         $response = $this->postJson($this->buildApiUrl($this->url), $data)
             ->assertOk()
             ->assertJsonStructure(['_profiler', 'data']);

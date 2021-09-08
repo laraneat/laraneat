@@ -16,9 +16,12 @@ class CreateRoleTest extends ApiTestCase
 {
     protected string $url = 'v1/roles';
 
+    /**
+     * @var array{permissions: string|array<string>, roles:string|array<string>}
+     */
     protected array $access = [
-        'roles' => '',
         'permissions' => 'manage-roles',
+        'roles' => '',
     ];
 
     public function testCreateRole(): void

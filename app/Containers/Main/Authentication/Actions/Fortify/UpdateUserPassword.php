@@ -2,6 +2,7 @@
 
 namespace App\Containers\Main\Authentication\Actions\Fortify;
 
+use App\Containers\Main\User\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
@@ -14,7 +15,7 @@ class UpdateUserPassword implements UpdatesUserPasswords
     /**
      * Validate and update the user's password.
      *
-     * @param mixed $user
+     * @param User $user
      * @param array $input
      * @return void
      * @throws ValidationException
