@@ -8,17 +8,17 @@
         <exclude>
             <directory suffix=".php">./app/Containers/Vendor</directory>
             <!-- NOTE: Exclude the following directories because they fail when directly included with code-coverage-->
-            <directory suffix=".php">./app/Containers/*/UI/*/Routes</directory>
-            <directory suffix=".php">./app/Containers/*/Data/Factories</directory>
+            <directory suffix=".php">./app/Containers/*/*/UI/*/Routes</directory>
+            <directory suffix=".php">./app/Containers/*/*/Data/Factories</directory>
         </exclude>
     </coverage>
     <testsuites>
         <testsuite name="Containers Tests">
-            <directory suffix="Test.php">./app/Containers</directory>
+            <directory suffix="Test.php">./app/Containers/*/*/Tests</directory>
+            <directory suffix="Test.php">./app/Containers/*/*/UI/*/Tests</directory>
         </testsuite>
     </testsuites>
     <php>
-        <env name="API_FULL_URL" value="http://api.laraneat.test/api"/>
         <server name="APP_ENV" value="testing"/>
         <server name="BCRYPT_ROUNDS" value="4"/>
         <server name="CACHE_DRIVER" value="array"/>
