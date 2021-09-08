@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Ship\Abstracts\Tests\PhpUnit;
+namespace App\Ship\Abstracts\Tests;
 
-use Laraneat\Core\Abstracts\Tests\PhpUnit\TestCase as AbstractTestCase;
+use Laraneat\Core\Abstracts\Tests\TestCase as AbstractTestCase;
 use Faker\Generator;
-use Illuminate\Contracts\Console\Kernel as LaraneatConsoleKernel;
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Application;
 
 abstract class TestCase extends AbstractTestCase
@@ -34,16 +34,11 @@ abstract class TestCase extends AbstractTestCase
      *
      * @return Application
      */
-    public function createApplication()
+    public function createApplication(): Application
     {
-        $this->baseUrl = env('API_FULL_URL'); // this reads the value from `phpunit.xml` during testing
-
-        // override the default subDomain of the base URL when subDomain property is declared inside a test
-        $this->overrideSubDomain();
-
         $app = require __DIR__ . '/../../../../../bootstrap/app.php';
 
-        $app->make(LaraneatConsoleKernel::class)->bootstrap();
+        $app->make(Kernel::class)->bootstrap();
 
         // create instance of faker and make it available in all tests
         $this->faker = $app->make(Generator::class);
