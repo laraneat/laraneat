@@ -25,6 +25,8 @@ class SyncUserRolesTest extends ApiTestCase
 
     public function testSyncRolesOnUser(): void
     {
+        $this->getTestingUser();
+
         $role1 = Role::factory()->create(['display_name' => '111']);
         $role2 = Role::factory()->create(['display_name' => '222']);
         $randomUser = User::factory()->create();
@@ -37,8 +39,7 @@ class SyncUserRolesTest extends ApiTestCase
             'user_id' => $randomUser->getKey(),
         ];
 
-        $this->getTestingUser();
-        $this->postJson($this->buildApiUrl($this->url), $data)
+        $this->postJson($this->buildApiUrl(), $data)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
             $json->has('_profiler')

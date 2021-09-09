@@ -22,17 +22,22 @@ class RegisterUserTest extends ApiTestCase
         'permissions' => 'create-users',
     ];
 
-    public function testRegisterNewUser(): void
+    protected function getTestData(): array
     {
-        $data = [
+        return [
             'email' => 'laraneat@mail.test',
             'name' => 'Laraneat',
             'password' => 'secret',
         ];
+    }
+
+    public function testRegisterNewUser(): void
+    {
+        $this->getTestingUser();
+        $data = $this->getTestData();
         $dataWithoutPassword = Arr::except($data, ['password']);
 
-        $this->getTestingUser();
-        $this->postJson($this->buildApiUrl($this->url), $data)
+        $this->postJson($this->buildApiUrl(), $data)
             ->assertCreated()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('_profiler')
@@ -43,37 +48,24 @@ class RegisterUserTest extends ApiTestCase
                         )
             );
 
-        $query = User::query();
-        foreach ($dataWithoutPassword as $key => $value) {
-            $query->where($key, $value);
-        }
-        $this->assertTrue($query->exists());
+        $this->assertExistsModelWithAttributes(User::class, $dataWithoutPassword);
     }
 
     public function testRegisterNewUserWithoutAccess(): void
     {
-        $data = [
-            'email' => 'laraneat@mail.test',
-            'name' => 'Laraneat',
-            'password' => 'secret',
-        ];
-
         $this->getTestingUserWithoutAccess();
-        $this->postJson($this->buildApiUrl($this->url), $data)
+        $data = $this->getTestData();
+
+        $this->postJson($this->buildApiUrl(), $data)
             ->assertForbidden();
     }
 
     public function testRegisterExistingUser(): void
     {
-        $data = [
-            'email' => 'laraneat@mail.test',
-            'name' => 'Laraneat',
-            'password' => 'secret',
-        ];
-
+        $data = $this->getTestData();
         $this->getTestingUser($data);
 
-        $this->postJson($this->buildApiUrl($this->url), $data)
+        $this->postJson($this->buildApiUrl(), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
                 'email' => 'The email has already been taken.',
@@ -82,14 +74,13 @@ class RegisterUserTest extends ApiTestCase
 
     public function testRegisterNewUserWithoutEmail(): void
     {
+        $this->getTestingUser();
         $data = [
             'name' => 'Laraneat',
             'password' => 'secret',
         ];
 
-        $this->getTestingUser();
-
-        $this->postJson($this->buildApiUrl($this->url), $data)
+        $this->postJson($this->buildApiUrl(), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
                 'email' => 'The email field is required.',
@@ -98,14 +89,13 @@ class RegisterUserTest extends ApiTestCase
 
     public function testRegisterNewUserWithoutName(): void
     {
+        $this->getTestingUser();
         $data = [
             'email' => 'laraneat@mail.test',
             'password' => 'secret',
         ];
 
-        $this->getTestingUser();
-
-        $this->postJson($this->buildApiUrl($this->url), $data)
+        $this->postJson($this->buildApiUrl(), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
                 'name' => 'The name field is required.',
@@ -114,14 +104,13 @@ class RegisterUserTest extends ApiTestCase
 
     public function testRegisterNewUserWithoutPassword(): void
     {
+        $this->getTestingUser();
         $data = [
             'email' => 'laraneat@mail.test',
             'name' => 'Laraneat',
         ];
 
-        $this->getTestingUser();
-
-        $this->postJson($this->buildApiUrl($this->url), $data)
+        $this->postJson($this->buildApiUrl(), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
                 'password' => 'The password field is required.',
@@ -130,15 +119,14 @@ class RegisterUserTest extends ApiTestCase
 
     public function testRegisterNewUserWithInvalidEmail(): void
     {
+        $this->getTestingUser();
         $data = [
             'email' => 'missing-at.test',
             'name' => 'Laraneat',
             'password' => 'secret',
         ];
 
-        $this->getTestingUser();
-
-        $this->postJson($this->buildApiUrl($this->url), $data)
+        $this->postJson($this->buildApiUrl(), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
                 'email' => 'The email must be a valid email address.',

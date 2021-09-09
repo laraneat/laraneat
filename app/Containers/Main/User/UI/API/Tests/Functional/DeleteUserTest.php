@@ -25,9 +25,7 @@ class DeleteUserTest extends ApiTestCase
         $user = $this->getTestingUser();
 
         $url = $this->buildApiUrl(
-            $this->url,
-            [],
-            ['{id}' => $user->getKey()]
+            replaces: ['{id}' => $user->getKey()]
         );
 
         $this->deleteJson($url)->assertNoContent();
@@ -37,15 +35,13 @@ class DeleteUserTest extends ApiTestCase
 
     public function testDeleteAnotherExistingUser(): void
     {
+        $this->getTestingUserWithoutAccess();
+
         $anotherUser = User::factory()->create();
 
-        $this->getTestingUserWithoutAccess();
         $url = $this->buildApiUrl(
-            $this->url,
-            [],
-            ['{id}' => $anotherUser->getKey()]
+            replaces: ['{id}' => $anotherUser->getKey()]
         );
-
         $this->deleteJson($url)->assertForbidden();
     }
 
@@ -54,9 +50,7 @@ class DeleteUserTest extends ApiTestCase
         $this->getTestingUser();
 
         $url = $this->buildApiUrl(
-            $this->url,
-            [],
-            ['{id}' => '12345']
+            replaces: ['{id}' => '12345']
         );
 
         $this->deleteJson($url)

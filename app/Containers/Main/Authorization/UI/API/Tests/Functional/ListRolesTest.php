@@ -33,7 +33,8 @@ class ListRolesTest extends ApiTestCase
     public function testListRoles(): void
     {
         $this->getTestingUser();
-        $this->getJson($this->buildApiUrl($this->url))
+
+        $this->getJson($this->buildApiUrl())
             ->assertOk()
             ->assertJsonStructure([
                 '_profiler',
@@ -52,15 +53,17 @@ class ListRolesTest extends ApiTestCase
         $this->getTestingUser();
 
         $role = Role::inRandomOrder()->first();
-        $url = $this->buildApiUrl($this->url, [
-            'filter' => [
-                'name' => $role->name,
-            ],
-            'fields' => [
-                'roles' => 'id,name',
-            ],
-            'include' => 'users'
-        ]);
+        $url = $this->buildApiUrl(
+            queryParameters: [
+                'filter' => [
+                    'name' => $role->name,
+                ],
+                'fields' => [
+                    'roles' => 'id,name',
+                ],
+                'include' => 'users'
+            ]
+        );
 
         $this->getJson($url)
             ->assertOk()

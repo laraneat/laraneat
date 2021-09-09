@@ -17,12 +17,14 @@ class RevokeUserFromRoleTest extends ApiTestCase
     protected string $url = 'v1/roles/revoke';
 
     protected array $access = [
-        'permissions' => 'manage-roles',
+        'permissions' => 'assign-roles',
         'roles' => '',
     ];
 
     public function testRevokeUserFromRoles(): void
     {
+        $this->getTestingUser();
+
         $randomUser = User::factory()->create();
         $roleA = Role::factory()->create();
         $roleB = Role::factory()->create();
@@ -34,8 +36,7 @@ class RevokeUserFromRoleTest extends ApiTestCase
             'user_id' => $randomUser->getKey(),
         ];
 
-        $this->getTestingUser();
-        $this->postJson($this->buildApiUrl($this->url), $data)
+        $this->postJson($this->buildApiUrl(), $data)
             ->assertOk();
 
         $this->assertFalse(

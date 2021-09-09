@@ -26,6 +26,8 @@ class SyncPermissionsOnRoleTest extends ApiTestCase
 
     public function testSyncPermissionsOnRole(): void
     {
+        $this->getTestingUser();
+
         $permissionA = Permission::factory()->create();
         $permissionB = Permission::factory()->create();
         $roleA = Role::factory()->create();
@@ -35,8 +37,7 @@ class SyncPermissionsOnRoleTest extends ApiTestCase
             'permissions_ids' => [$permissionA->getKey(), $permissionB->getKey()]
         ];
 
-        $this->getTestingUser();
-        $this->postJson($this->buildApiUrl($this->url), $data)
+        $this->postJson($this->buildApiUrl(), $data)
             ->assertOk()
                 ->assertJson(fn (AssertableJson $json) =>
                 $json->has('_profiler')

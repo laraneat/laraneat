@@ -20,12 +20,12 @@ class ListUsersTest extends ApiTestCase
         'permissions' => 'view-users',
     ];
 
-    public function testListUsersWithAccess(): void
+    public function testListUsers(): void
     {
+        $this->getTestingUser();
         User::factory()->count(2)->create();
 
-        $this->getTestingUser();
-        $this->getJson($this->buildApiUrl($this->url))
+        $this->getJson($this->buildApiUrl())
             ->assertOk()
             ->assertJsonStructure([
                 '_profiler',
@@ -36,10 +36,10 @@ class ListUsersTest extends ApiTestCase
 
     public function testListUsersWithoutAccess(): void
     {
+        $this->getTestingUserWithoutAccess();
         User::factory()->count(2)->create();
 
-        $this->getTestingUserWithoutAccess();
-        $this->getJson($this->buildApiUrl($this->url))
+        $this->getJson($this->buildApiUrl())
             ->assertForbidden();
     }
 }

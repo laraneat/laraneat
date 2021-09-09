@@ -4,6 +4,8 @@ namespace App\Containers\Main\User\UI\API\Tests\Functional;
 
 use App\Containers\Main\User\Models\User;
 use App\Containers\Main\User\Tests\ApiTestCase;
+use Illuminate\Support\Arr;
+use Illuminate\Testing\Fluent\AssertableJson;
 
 /**
  * Class UpdateUserTest.
@@ -13,7 +15,7 @@ use App\Containers\Main\User\Tests\ApiTestCase;
  */
 class UpdateUserTest extends ApiTestCase
 {
-    protected string $url = 'patch@api/v1/users/{id}';
+    protected string $url = 'v1/users/{id}';
 
     protected array $access = [
         'roles' => '',
@@ -23,77 +25,108 @@ class UpdateUserTest extends ApiTestCase
     public function testUpdateExistingUser(): void
     {
         $user = $this->getTestingUserWithoutAccess();
+
+        $url = $this->buildApiUrl(
+            replaces: ['{id}' => $user->getKey()]
+        );
         $data = [
             'name' => 'Updated Name',
             'password' => 'updated#Password'
         ];
+        $dataWithoutPassword = Arr::except($data, ['password']);
 
-        $response = $this->injectId($user->id)->makeCall($data);
+        $this->patchJson($url, $data)
+            ->assertOk()
+            ->assertJson(fn (AssertableJson $json) =>
+            $json->has('_profiler')
+                ->has('data', fn (AssertableJson $json) =>
+                $json->has('id')
+                    ->whereAll($dataWithoutPassword)
+                    ->etc()
+                )
+            );
 
-        $response->assertStatus(200);
-        $this->assertResponseContainKeyValue([
-            'email' => $user->email,
-            'name' => $data['name']
-        ]);
-        $this->assertDatabaseHas('users', ['name' => $data['name']]);
+        $this->assertExistsModelWithAttributes(User::class, $dataWithoutPassword);
     }
 
     public function testUpdateExistingUserWithoutData(): void
     {
         $user = $this->getTestingUserWithoutAccess();
 
-        $response = $this->injectId($user->id)->makeCall();
+        $url = $this->buildApiUrl(
+            replaces: ['{id}' => $user->getKey()]
+        );
 
-        $response->assertStatus(417);
+        $this->patchJson($url)
+            ->assertStatus(417);
     }
 
     public function testUpdateExistingUserWithEmptyValues(): void
     {
         $user = $this->getTestingUserWithoutAccess();
 
+        $url = $this->buildApiUrl(
+            replaces: ['{id}' => $user->getKey()]
+        );
         $data = [
             'name' => '',
             'password' => ''
         ];
 
-        $response = $this->injectId($user->id)->makeCall($data);
-
-        $response->assertStatus(422);
-        $this->assertValidationErrorContain([
-            // messages should be updated after modifying the validation rules, to pass this test
-            'password' => 'The password must be at least 6 characters.',
-            'name' => 'The name must be at least 2 characters.'
-        ]);
+        $this->patchJson($url, $data)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors([
+                // messages should be updated after modifying the validation rules, to pass this test
+                'password' => 'The password must be at least 6 characters.',
+                'name' => 'The name must be at least 2 characters.'
+            ]);
     }
 
     public function testUpdateNonExistingUser(): void
     {
+        $this->getTestingUser();
+
+        $fakeUserId = 7777;
+        $url = $this->buildApiUrl(
+            replaces: ['{id}' => $fakeUserId]
+        );
         $data = [
             'name' => 'Updated Name',
         ];
-        $fakeUserId = 7777;
 
-        $response = $this->injectId($fakeUserId)->makeCall($data);
-
-        $response->assertStatus(404);
+        $this->patchJson($url, $data)
+            ->assertStatus(404);
     }
 
-    public function testUpdateAnotherUserWithAccess(): void
+    public function testUpdateAnotherUser(): void
     {
+        $this->getTestingUser();
+
         $anotherUser = User::factory()->create();
+
+        $url = $this->buildApiUrl(
+            replaces: ['{id}' => $anotherUser->getKey()]
+        );
         $data = [
             'name' => 'Updated Name',
             'password' => 'updated#Password'
         ];
-
-        $response = $this->injectId($anotherUser->id)->makeCall($data);
-
-        $response->assertStatus(200);
-        $this->assertResponseContainKeyValue([
-            'email' => $anotherUser->email,
+        $expectedData = [
+            'id' => $anotherUser->getKey(),
             'name' => $data['name']
-        ]);
-        $this->assertDatabaseHas('users', ['name' => $data['name']]);
+        ];
+
+        $this->patchJson($url, $data)
+            ->assertOk()
+            ->assertJson(fn (AssertableJson $json) =>
+            $json->has('_profiler')
+                ->has('data', fn (AssertableJson $json) =>
+                $json->whereAll($expectedData)
+                    ->etc()
+                )
+            );
+
+        $this->assertExistsModelWithAttributes(User::class, $expectedData);
     }
 
     public function testUpdateAnotherUserWithoutAccess(): void
@@ -101,14 +134,16 @@ class UpdateUserTest extends ApiTestCase
         $this->getTestingUserWithoutAccess();
 
         $anotherUser = User::factory()->create();
+
+        $url = $this->buildApiUrl(
+            replaces: ['{id}' => $anotherUser->getKey()]
+        );
         $data = [
             'name' => 'Updated Name',
             'password' => 'updated#Password'
         ];
 
-        $response = $this->injectId($anotherUser->id)->makeCall($data);
-
-        $response->assertStatus(403);
-        $this->assertDatabaseMissing('users', ['name' => $data['name']]);
+        $this->patchJson($url, $data)
+            ->assertStatus(403);
     }
 }

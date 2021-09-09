@@ -23,6 +23,8 @@ class AssignUserToRoleTest extends ApiTestCase
 
     public function testAssignUserToRoles(): void
     {
+        $this->getTestingUser();
+
         $randomUser = User::factory()->create();
         $role1 = Role::factory()->create();
         $role2 = Role::factory()->create();
@@ -34,9 +36,7 @@ class AssignUserToRoleTest extends ApiTestCase
             'user_id' => $randomUser->getKey(),
         ];
 
-        $this->getTestingUser();
-
-        $response = $this->postJson($this->buildApiUrl($this->url), $data)
+        $response = $this->postJson($this->buildApiUrl(), $data)
             ->assertOk()
             ->assertJsonStructure(['_profiler', 'data']);
 

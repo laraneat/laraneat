@@ -36,7 +36,7 @@ abstract class TestCase extends AbstractTestCase
      */
     public function createApplication(): Application
     {
-        $app = require __DIR__ . '/../../../../../bootstrap/app.php';
+        $app = require __DIR__ . '/../../../../bootstrap/app.php';
 
         $app->make(Kernel::class)->bootstrap();
 

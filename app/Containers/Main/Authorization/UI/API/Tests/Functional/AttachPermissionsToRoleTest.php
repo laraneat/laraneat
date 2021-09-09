@@ -24,6 +24,8 @@ class AttachPermissionsToRoleTest extends ApiTestCase
 
     public function testAttachPermissionsToRole(): void
     {
+        $this->getTestingUser();
+
         $roleA = Role::factory()->create();
         $permissionA = Permission::factory()->create();
         $permissionB = Permission::factory()->create();
@@ -32,8 +34,7 @@ class AttachPermissionsToRoleTest extends ApiTestCase
             'permissions_ids' => [$permissionA->getKey(), $permissionB->getKey()]
         ];
 
-        $this->getTestingUser();
-        $this->postJson($this->buildApiUrl($this->url), $data)
+        $this->postJson($this->buildApiUrl(), $data)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('_profiler')

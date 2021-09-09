@@ -23,14 +23,13 @@ class ViewPermissionTest extends ApiTestCase
 
     public function testFindPermissionById(): void
     {
+        $this->getTestingUser();
+
         $permission = Permission::factory()->create();
         $url = $this->buildApiUrl(
-            $this->url,
-            [],
-            ['{id}' => $permission->getKey()]
+            replaces: ['{id}' => $permission->getKey()]
         );
 
-        $this->getTestingUser();
         $this->getJson($url)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>

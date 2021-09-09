@@ -33,7 +33,8 @@ class ListPermissionsTest extends ApiTestCase
     public function testListPermissions(): void
     {
         $this->getTestingUser();
-        $this->getJson($this->buildApiUrl($this->url))
+
+        $this->getJson($this->buildApiUrl())
             ->assertOk()
             ->assertJsonStructure([
                 '_profiler',
@@ -52,15 +53,17 @@ class ListPermissionsTest extends ApiTestCase
         $this->getTestingUser();
 
         $permission = Permission::inRandomOrder()->first();
-        $url = $this->buildApiUrl($this->url, [
-            'filter' => [
-                'name' => $permission->name,
-            ],
-            'fields' => [
-                'permissions' => 'id,name',
-            ],
-            'include' => 'roles'
-        ]);
+        $url = $this->buildApiUrl(
+            queryParameters: [
+                'filter' => [
+                    'name' => $permission->name,
+                ],
+                'fields' => [
+                    'permissions' => 'id,name',
+                ],
+                'include' => 'roles'
+            ]
+        );
 
         $this->getJson($url)
             ->assertOk()

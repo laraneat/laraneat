@@ -4,6 +4,7 @@ namespace App\Containers\Main\User\UI\API\Tests\Functional;
 
 use App\Containers\Main\User\Models\User;
 use App\Containers\Main\User\Tests\ApiTestCase;
+use Illuminate\Testing\Fluent\AssertableJson;
 
 /**
  * Class ViewUsersTest.
@@ -13,7 +14,7 @@ use App\Containers\Main\User\Tests\ApiTestCase;
  */
 class ViewUserTest extends ApiTestCase
 {
-    protected string $url = 'get@api/v1/users/{id}';
+    protected string $url = 'v1/users/{id}';
 
     protected array $access = [
         'roles' => '',
@@ -24,67 +25,73 @@ class ViewUserTest extends ApiTestCase
     {
         $user = $this->getTestingUserWithoutAccess();
 
-        $response = $this->injectId($user->id)->makeCall();
+        $url = $this->buildApiUrl(
+            replaces: ['{id}' => $user->getKey()]
+        );
 
-        $response->assertStatus(200);
-        $responseContent = $this->getResponseContentObject();
-        $this->assertEquals($user->name, $responseContent->data->name);
+        $expectedData = [
+            'id' => $user->getKey(),
+            'email' => $user->email,
+        ];
+
+        $this->getJson($url)
+            ->assertOk()
+            ->assertJson(fn (AssertableJson $json) =>
+            $json->has('_profiler')
+                ->has('data', fn (AssertableJson $json) =>
+                $json->whereAll($expectedData)
+                    ->etc()
+                )
+            );
     }
 
     public function testViewAnotherExistingUser(): void
     {
+        $this->getTestingUser();
+
         $anotherUser = User::factory()->create();
+        $url = $this->buildApiUrl(
+            replaces: ['{id}' => $anotherUser->getKey()]
+        );
+        $expectedData = [
+            'id' => $anotherUser->getKey(),
+            'email' => $anotherUser->email,
+        ];
 
-        $response = $this->injectId($anotherUser->id)->makeCall();
-
-        $response->assertStatus(200);
-        $responseContent = $this->getResponseContentObject();
-        $this->assertEquals($anotherUser->name, $responseContent->data->name);
+        $this->getJson($url)
+            ->assertOk()
+            ->assertJson(fn (AssertableJson $json) =>
+            $json->has('_profiler')
+                ->has('data', fn (AssertableJson $json) =>
+                $json->whereAll($expectedData)
+                    ->etc()
+                )
+            );
     }
 
     public function testViewAnotherExistingUserWithoutAccess(): void
     {
         $this->getTestingUserWithoutAccess();
+
         $anotherUser = User::factory()->create();
+        $url = $this->buildApiUrl(
+            replaces: ['{id}' => $anotherUser->getKey()]
+        );
 
-        $response = $this->injectId($anotherUser->id)->makeCall();
-
-        $response->assertStatus(403);
+        $this->getJson($url)
+            ->assertForbidden();
     }
 
     public function testViewAnotherNotExistingUser(): void
     {
+        $this->getTestingUser();
+
         $fakeUserId = 7777;
+        $url = $this->buildApiUrl(
+            replaces: ['{id}' => $fakeUserId]
+        );
 
-        $response = $this->injectId($fakeUserId)->makeCall();
-
-        $response->assertStatus(404);
+        $this->getJson($url)
+            ->assertNotFound();
     }
-
-    public function testViewFilteredUserResponse(): void
-    {
-        $user = $this->getTestingUser();
-
-        $response = $this->injectId($user->id)->endpoint($this->endpoint . '?filter=email;name')->makeCall();
-
-        $response->assertStatus(200);
-        $responseContent = $this->getResponseContentObject();
-
-        $this->assertEquals($user->name, $responseContent->data->name);
-        $this->assertEquals($user->email, $responseContent->data->email);
-        $this->assertNotContains('id', json_decode($response->getContent(), true));
-    }
-
-//    public function testViewUserWithRelation(): void
-//    {
-//        $user = $this->getTestingUser();
-//
-//        $response = $this->injectId($user->id)->endpoint($this->endpoint . '?include=roles')->makeCall();
-//
-//        $response->assertStatus(200);
-//        $responseContent = $this->getResponseContentObject();
-//
-//        $this->assertEquals($user->email, $responseContent->data->email);
-//        $this->assertNotNull($responseContent->data->roles);
-//    }
 }

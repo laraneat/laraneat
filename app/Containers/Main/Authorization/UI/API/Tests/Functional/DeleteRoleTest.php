@@ -22,14 +22,12 @@ class DeleteRoleTest extends ApiTestCase
 
     public function testDeleteExistingRole(): void
     {
+        $this->getTestingUser();
+
         $role = Role::factory()->create();
         $url = $this->buildApiUrl(
-            $this->url,
-            [],
-            ['{id}' => $role->getKey()]
+            replaces: ['{id}' => $role->getKey()]
         );
-
-        $this->getTestingUser();
         $this->deleteJson($url)->assertNoContent();
 
         $this->assertNull(Role::find($role->getKey()));
@@ -37,13 +35,12 @@ class DeleteRoleTest extends ApiTestCase
 
     public function testDeleteNotExistingRole(): void
     {
+        $this->getTestingUser();
+
         $url = $this->buildApiUrl(
-            $this->url,
-            [],
-            ['{id}' => '12345']
+            replaces: ['{id}' => '12345']
         );
 
-        $this->getTestingUser();
         $this->deleteJson($url)
             ->assertNotFound();
     }

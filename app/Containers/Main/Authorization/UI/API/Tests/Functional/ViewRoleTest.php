@@ -23,14 +23,13 @@ class ViewRoleTest extends ApiTestCase
 
     public function testFindRoleById(): void
     {
+        $this->getTestingUser();
+
         $role = Role::factory()->create();
         $url = $this->buildApiUrl(
-            $this->url,
-            [],
-            ['{id}' => $role->getKey()]
+            replaces: ['{id}' => $role->getKey()]
         );
 
-        $this->getTestingUser();
         $this->getJson($url)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>

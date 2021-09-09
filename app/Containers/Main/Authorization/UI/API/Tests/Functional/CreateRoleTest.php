@@ -26,14 +26,15 @@ class CreateRoleTest extends ApiTestCase
 
     public function testCreateRole(): void
     {
+        $this->getTestingUser();
+
         $data = [
             'name' => 'manager',
             'display_name' => 'manager',
             'description' => 'he manages things',
         ];
 
-        $this->getTestingUser();
-        $this->postJson($this->buildApiUrl($this->url), $data)
+        $this->postJson($this->buildApiUrl(), $data)
             ->assertCreated()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('_profiler')
@@ -44,11 +45,7 @@ class CreateRoleTest extends ApiTestCase
                         )
             );
 
-        $query = Role::query();
-        foreach ($data as $key => $value) {
-            $query->where($key, $value);
-        }
-        $this->assertTrue($query->exists());
+        $this->assertExistsModelWithAttributes(Role::class, $data);
     }
 
     public function testCreateRoleWithWrongName(): void
@@ -60,7 +57,7 @@ class CreateRoleTest extends ApiTestCase
         ];
 
         $this->getTestingUser();
-        $this->postJson($this->buildApiUrl($this->url), $data)
+        $this->postJson($this->buildApiUrl(), $data)
             ->assertStatus(422);
     }
 }

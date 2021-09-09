@@ -2,12 +2,10 @@
 
 namespace App\Containers\Main\Authorization\Actions;
 
-use App\Containers\Main\Authorization\Tasks\FindRoleTask;
 use App\Containers\Main\Authorization\UI\API\Requests\RevokeUserFromRoleRequest;
 use App\Containers\Main\User\Models\User;
 use App\Containers\Main\User\Tasks\FindUserByIdTask;
 use App\Ship\Abstracts\Actions\Action;
-use Illuminate\Database\Eloquent\Collection;
 
 class RevokeUserFromRoleAction extends Action
 {
@@ -23,16 +21,7 @@ class RevokeUserFromRoleAction extends Action
         // convert to array in case single ID was passed (could be Single Or Multiple Role Ids)
         $rolesIds = (array)$request->role_ids;
 
-        $roles = new Collection();
-
-        foreach ($rolesIds as $roleId) {
-            $role = app(FindRoleTask::class)->run($roleId);
-            $roles->add($role);
-        }
-
-        foreach ($roles->pluck('name')->toArray() as $roleName) {
-            $user->removeRole($roleName);
-        }
+        $user->roles()->detach($rolesIds);
 
         return $user;
     }
