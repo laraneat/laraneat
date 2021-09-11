@@ -43,7 +43,7 @@ class ListRolesTest extends ApiTestCase
                 'data'
             ])
             ->assertJsonCount(
-                $this->getCountOnPage(1, $this->rolesCount),
+                count_on_page(1, $this->rolesCount),
                 'data'
             );
     }
