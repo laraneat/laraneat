@@ -2,9 +2,12 @@
 
 namespace App\Ship\Abstracts\Notifications;
 
-use Laraneat\Core\Abstracts\Notifications\Notification as AbstractNotification;
+use Illuminate\Notifications\Notification as LaravelNotification;
 
-abstract class Notification extends AbstractNotification
+abstract class Notification extends LaravelNotification
 {
-    //
+    public function via($notifiable): array
+    {
+        return config('notification.channels');
+    }
 }

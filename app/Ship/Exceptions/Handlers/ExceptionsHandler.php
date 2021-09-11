@@ -2,18 +2,14 @@
 
 namespace App\Ship\Exceptions\Handlers;
 
-use Laraneat\Core\Abstracts\Exceptions\Handlers\ExceptionsHandler as CoreExceptionsHandler;
 use App\Ship\Abstracts\Exceptions\Exception as ParentException;
+use Illuminate\Foundation\Exceptions\Handler as LaravelExceptionHandler;
 use Throwable;
 
 /**
- * Class ExceptionsHandler
- *
  * A.K.A (app/Exceptions/Handler.php)
- *
- * @author  Mahmoud Zalt  <mahmoud@zalt.me>
  */
-class ExceptionsHandler extends CoreExceptionsHandler
+class ExceptionsHandler extends LaravelExceptionHandler
 {
     /**
      * A list of the exception types that are not reported.

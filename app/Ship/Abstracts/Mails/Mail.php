@@ -2,9 +2,10 @@
 
 namespace App\Ship\Abstracts\Mails;
 
-use Laraneat\Core\Abstracts\Mails\Mail as AbstractMail;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
 
-abstract class Mail extends AbstractMail
+abstract class Mail extends Mailable
 {
-    //
+    use SerializesModels;
 }

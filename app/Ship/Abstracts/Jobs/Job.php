@@ -2,11 +2,16 @@
 
 namespace App\Ship\Abstracts\Jobs;
 
-use Laraneat\Core\Abstracts\Jobs\Job as AbstractJob;
+use Illuminate\Bus\Queueable;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-abstract class Job extends AbstractJob implements ShouldQueue
+abstract class Job implements ShouldQueue
 {
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     /*
     |--------------------------------------------------------------------------
     | Queueable Jobs

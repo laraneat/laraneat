@@ -2,9 +2,9 @@
 
 namespace App\Ship\Abstracts\Resources\Json;
 
-use Laraneat\Core\Abstracts\Resources\Json\ResourceCollection as AbstractResourceCollection;
+use Illuminate\Http\Resources\Json\ResourceCollection as LaravelResourceCollection;
 
-abstract class ResourceCollection extends AbstractResourceCollection
+abstract class ResourceCollection extends LaravelResourceCollection
 {
     //
 }

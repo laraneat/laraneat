@@ -2,7 +2,7 @@
 
 namespace App\Ship\Providers;
 
-use Laraneat\Core\Abstracts\Providers\RoutesProvider as AbstractRoutesProvider;
+use App\Ship\Abstracts\Providers\RoutesProvider as AbstractRoutesProvider;
 
 /**
  * A.K.A app/Providers/RouteServiceProvider

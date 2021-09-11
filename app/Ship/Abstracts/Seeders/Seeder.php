@@ -2,9 +2,9 @@
 
 namespace App\Ship\Abstracts\Seeders;
 
-use Laraneat\Core\Abstracts\Seeders\Seeder as AbstractSeeder;
+use Illuminate\Database\Seeder as LaravelSeeder;
 
-abstract class Seeder extends AbstractSeeder
+abstract class Seeder extends LaravelSeeder
 {
     //
 }

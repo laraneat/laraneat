@@ -2,9 +2,9 @@
 
 namespace App\Ship\Abstracts\Factories;
 
-use Laraneat\Core\Abstracts\Factories\Factory as AbstractFatory;
+use Illuminate\Database\Eloquent\Factories\Factory as LaravelFactory;
 
-abstract class Factory extends AbstractFatory
+abstract class Factory extends LaravelFactory
 {
     //
 }

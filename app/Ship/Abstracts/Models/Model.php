@@ -2,9 +2,13 @@
 
 namespace App\Ship\Abstracts\Models;
 
-use Laraneat\Core\Abstracts\Models\Model as AbstractModel;
+use Laraneat\Core\Traits\FactoryLocatorTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model as LaravelEloquentModel;
 
-abstract class Model extends AbstractModel
+abstract class Model extends LaravelEloquentModel
 {
-    //
+    use HasFactory, FactoryLocatorTrait {
+        FactoryLocatorTrait::newFactory insteadof HasFactory;
+    }
 }

@@ -2,14 +2,28 @@
 
 namespace App\Ship\Abstracts\Tests;
 
-use Laraneat\Core\Abstracts\Tests\TestCase as AbstractTestCase;
 use Faker\Generator;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Application;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\TestCase as LaravelTestCase;
+use Laraneat\Core\Traits\TestsTraits\TestsAuthHelperTrait;
+use Laraneat\Core\Traits\TestsTraits\TestsModelHelperTrait;
+use Laraneat\Core\Traits\TestsTraits\TestsUrlHelperTrait;
 
-abstract class TestCase extends AbstractTestCase
+abstract class TestCase extends LaravelTestCase
 {
+    use TestsAuthHelperTrait,
+        TestsModelHelperTrait,
+        TestsUrlHelperTrait,
+        RefreshDatabase;
+
     protected Generator $faker;
+
+    /**
+     * Determine if the seed task should be run when refreshing the database.
+     */
+    protected bool $seed = true;
 
     /**
      * Setup the test environment, before each test.
@@ -44,20 +58,5 @@ abstract class TestCase extends AbstractTestCase
         $this->faker = $app->make(Generator::class);
 
         return $app;
-    }
-
-    protected function getCountOnPage(int $page, int $total, ?int $perPage = null): int
-    {
-        $perPage = $perPage ?? config('json-api-paginate.default_size');
-        $lastPage = (int) ceil($total / $perPage);
-
-        if ($page === $lastPage) {
-            return $total - ($page - 1) * $perPage;
-        }
-        if ($page > $lastPage) {
-            return 0;
-        }
-
-        return $perPage;
     }
 }

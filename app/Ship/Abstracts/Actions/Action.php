@@ -2,9 +2,9 @@
 
 namespace App\Ship\Abstracts\Actions;
 
-use Laraneat\Core\Abstracts\Actions\Action as AbstractAction;
+use Lorisleiva\Actions\Concerns\AsAction;
 
-abstract class Action extends AbstractAction
+abstract class Action
 {
-    //
+    use asAction;
 }

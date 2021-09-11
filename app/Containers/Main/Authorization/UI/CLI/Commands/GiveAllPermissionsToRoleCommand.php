@@ -5,9 +5,9 @@ namespace App\Containers\Main\Authorization\UI\CLI\Commands;
 use App\Containers\Main\Authorization\Exceptions\RoleNotFoundException;
 use App\Containers\Main\Authorization\Models\Permission;
 use App\Containers\Main\Authorization\Tasks\FindRoleTask;
-use App\Ship\Abstracts\Commands\ConsoleCommand;
+use App\Ship\Abstracts\Console\Command;
 
-class GiveAllPermissionsToRoleCommand extends ConsoleCommand
+class GiveAllPermissionsToRoleCommand extends Command
 {
     protected $signature = 'laraneat:permissions:toRole {role}';
 

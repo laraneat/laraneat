@@ -2,9 +2,11 @@
 
 namespace App\Ship\Abstracts\Events;
 
-use Laraneat\Core\Abstracts\Events\Event as AbstractEvent;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
-abstract class Event extends AbstractEvent
+abstract class Event
 {
-    //
+    use Dispatchable, InteractsWithSockets, SerializesModels;
 }

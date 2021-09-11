@@ -2,9 +2,17 @@
 
 namespace App\Ship\Abstracts\Middlewares;
 
-use Laraneat\Core\Abstracts\Middlewares\Middleware as AbstractMiddleware;
+use Closure;
+use Illuminate\Http\Request;
 
-abstract class Middleware extends AbstractMiddleware
+abstract class Middleware
 {
-    //
+    /**
+     * Handle an incoming request.
+     *
+     * @param Request $request
+     * @param Closure $next
+     * @return mixed
+     */
+    abstract public function handle(Request $request, Closure $next);
 }

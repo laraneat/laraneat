@@ -2,9 +2,12 @@
 
 namespace App\Ship\Abstracts\Requests;
 
-use Laraneat\Core\Abstracts\Requests\Request as AbstractRequest;
+use Laraneat\Core\Traits\SanitizerTrait;
+use Laraneat\Core\Traits\StateKeeperTrait;
+use Illuminate\Foundation\Http\FormRequest as LaravelRequest;
 
-abstract class Request extends AbstractRequest
+abstract class Request extends LaravelRequest
 {
-    //
+    use StateKeeperTrait;
+    use SanitizerTrait;
 }
