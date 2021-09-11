@@ -21,7 +21,7 @@ class ViewUserTest extends ApiTestCase
         'permissions' => 'view-users',
     ];
 
-    public function testViewExistingUser(): void
+    public function testViewCurrentUser(): void
     {
         $user = $this->getTestingUserWithoutAccess();
 
@@ -45,7 +45,7 @@ class ViewUserTest extends ApiTestCase
             );
     }
 
-    public function testViewAnotherExistingUser(): void
+    public function testViewAnotherUser(): void
     {
         $this->getTestingUser();
 
@@ -69,7 +69,7 @@ class ViewUserTest extends ApiTestCase
             );
     }
 
-    public function testViewAnotherExistingUserWithoutAccess(): void
+    public function testViewAnotherUserWithoutAccess(): void
     {
         $this->getTestingUserWithoutAccess();
 

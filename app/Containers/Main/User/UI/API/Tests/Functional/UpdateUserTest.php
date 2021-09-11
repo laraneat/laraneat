@@ -22,7 +22,7 @@ class UpdateUserTest extends ApiTestCase
         'permissions' => 'update-users',
     ];
 
-    public function testUpdateExistingUser(): void
+    public function testUpdateCurrentUser(): void
     {
         $user = $this->getTestingUserWithoutAccess();
 
@@ -49,7 +49,7 @@ class UpdateUserTest extends ApiTestCase
         $this->assertExistsModelWithAttributes(User::class, $dataWithoutPassword);
     }
 
-    public function testUpdateExistingUserWithoutData(): void
+    public function testUpdateCurrentUserWithoutData(): void
     {
         $user = $this->getTestingUserWithoutAccess();
 
@@ -61,7 +61,7 @@ class UpdateUserTest extends ApiTestCase
             ->assertStatus(417);
     }
 
-    public function testUpdateExistingUserWithEmptyValues(): void
+    public function testUpdateCurrentUserWithEmptyValues(): void
     {
         $user = $this->getTestingUserWithoutAccess();
 

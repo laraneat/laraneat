@@ -23,6 +23,7 @@ class ListUsersTest extends ApiTestCase
     public function testListUsers(): void
     {
         $this->getTestingUser();
+
         User::factory()->count(2)->create();
 
         $this->getJson($this->buildApiUrl())
@@ -37,6 +38,7 @@ class ListUsersTest extends ApiTestCase
     public function testListUsersWithoutAccess(): void
     {
         $this->getTestingUserWithoutAccess();
+
         User::factory()->count(2)->create();
 
         $this->getJson($this->buildApiUrl())

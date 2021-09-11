@@ -20,7 +20,7 @@ class DeleteUserTest extends ApiTestCase
         'permissions' => 'delete-users',
     ];
 
-    public function testDeleteExistingUser(): void
+    public function testDeleteCurrentUser(): void
     {
         $user = $this->getTestingUser();
 
@@ -33,7 +33,7 @@ class DeleteUserTest extends ApiTestCase
         $this->assertNull(User::find($user->getKey()));
     }
 
-    public function testDeleteAnotherExistingUser(): void
+    public function testDeleteAnotherUser(): void
     {
         $this->getTestingUserWithoutAccess();
 
