@@ -23,6 +23,7 @@ use Spatie\Permission\Models\Permission as SpatiePermission;
  * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Containers\Main\User\Models\User[] $users
  * @property-read int|null $users_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Permission create(array $attributes = [])
  * @method static \App\Containers\Main\Authorization\Data\Factories\PermissionFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Permission newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Permission newQuery()

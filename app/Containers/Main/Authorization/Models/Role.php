@@ -20,6 +20,7 @@ use Spatie\Permission\Models\Role as SpatieRole;
  * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Containers\Main\User\Models\User[] $users
  * @property-read int|null $users_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Role create(array $attributes = [])
  * @method static \App\Containers\Main\Authorization\Data\Factories\RoleFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Role newQuery()

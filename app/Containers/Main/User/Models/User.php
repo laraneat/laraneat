@@ -3,6 +3,7 @@
 namespace App\Containers\Main\User\Models;
 
 use App\Containers\Main\Authentication\Traits\AuthenticationTrait;
+use App\Containers\Main\Authorization\Models\Role;
 use App\Containers\Main\Authorization\Traits\AuthorizationTrait;
 use App\Ship\Abstracts\Models\UserModel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -30,11 +31,12 @@ use Illuminate\Notifications\Notifiable;
  * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
+ * @method static Builder|User create(array $attributes = [])
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|UserModel permission($permissions)
+ * @method static Builder|User permission($permissions)
  * @method static Builder|User query()
- * @method static \Illuminate\Database\Eloquent\Builder|UserModel role($roles, $guard = null)
+ * @method static Builder|User role($roles, $guard = null)
  * @method static Builder|User whereCreatedAt($value)
  * @method static Builder|User whereEmail($value)
  * @method static Builder|User whereEmailVerifiedAt($value)
@@ -76,8 +78,8 @@ class User extends UserModel implements MustVerifyEmail
     /**
      * Scope a query to only include popular users.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @param Builder $query
+     * @return Builder
      */
     public function scopeWithEmail(Builder $query): Builder
     {
