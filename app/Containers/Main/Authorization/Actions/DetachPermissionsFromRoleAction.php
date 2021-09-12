@@ -6,20 +6,21 @@ use App\Containers\Main\Authorization\Models\Permission;
 use App\Containers\Main\Authorization\Models\Role;
 use App\Containers\Main\Authorization\UI\API\Requests\DetachPermissionsFromRoleRequest;
 use App\Ship\Abstracts\Actions\Action;
+use Illuminate\Support\Arr;
 
 class DetachPermissionsFromRoleAction extends Action
 {
     /**
-     * Detach permission(s) from a role.
-     *
      * @param Role $role
-     * @param string|Permission|array $permissions
+     * @param array<int|Permission> $permissions
      *
      * @return Role
      */
-    public function handle(Role $role, ...$permissions): Role
+    public function handle(Role $role, $permissions): Role
     {
-        $role->revokePermissionTo($permissions);
+        $role->permissions()->detach($permissions);
+        $role->forgetCachedPermissions();
+        $role->load('permissions');
 
         return $role;
     }
@@ -33,7 +34,7 @@ class DetachPermissionsFromRoleAction extends Action
     public function asController(DetachPermissionsFromRoleRequest $request): Role
     {
         $role = Role::findOrFail($request->role_id);
-        $permissions = (array) $request->permissions_ids;
+        $permissions = Arr::wrap($request->permissions_ids);
 
         return $this->handle($role, $permissions);
     }

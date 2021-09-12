@@ -20,7 +20,7 @@ class SyncRolePermissionsTest extends ApiTestCase
         'roles' => '',
     ];
 
-    public function testSyncPermissionsOnRole(): void
+    public function testSyncRolePermissions(): void
     {
         $this->getTestingUser();
 

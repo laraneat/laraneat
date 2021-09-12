@@ -19,7 +19,7 @@ class AttachRolesToUserTest extends ApiTestCase
         'roles' => '',
     ];
 
-    public function testAssignUserToRoles(): void
+    public function testAttachRolesToUser(): void
     {
         $this->getTestingUser();
 

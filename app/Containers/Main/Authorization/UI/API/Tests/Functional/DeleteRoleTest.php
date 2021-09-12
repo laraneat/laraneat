@@ -18,7 +18,7 @@ class DeleteRoleTest extends ApiTestCase
         'roles' => '',
     ];
 
-    public function testDeleteExistingRole(): void
+    public function testDeleteRole(): void
     {
         $this->getTestingUser();
 

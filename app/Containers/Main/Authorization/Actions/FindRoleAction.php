@@ -7,6 +7,9 @@ use App\Ship\Abstracts\Actions\Action;
 
 class FindRoleAction extends Action
 {
+    /**
+     * @param string|int $roleNameOrId
+     */
     public function handle($roleNameOrId): Role
     {
         $query = is_numeric($roleNameOrId) ? ['id' => $roleNameOrId] : ['name' => $roleNameOrId];

@@ -9,7 +9,7 @@ class AttachRolesToUserRequest extends Request
     public function rules(): array
     {
         return [
-            'role_ids' => 'array|required',
+            'role_ids' => 'required|array',
             'role_ids.*' => 'exists:' . config('permission.table_names.roles') . ',id',
             'user_id' => 'required|exists:users,id',
         ];

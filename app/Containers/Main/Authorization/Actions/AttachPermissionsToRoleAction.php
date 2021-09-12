@@ -2,21 +2,22 @@
 
 namespace App\Containers\Main\Authorization\Actions;
 
+use App\Containers\Main\Authorization\Models\Permission;
 use App\Containers\Main\Authorization\Models\Role;
 use App\Containers\Main\Authorization\UI\API\Requests\AttachPermissionsToRoleRequest;
 use App\Containers\Main\Authorization\UI\API\Resources\RoleResource;
 use App\Ship\Abstracts\Actions\Action;
-use Spatie\Permission\Contracts\Permission;
+use Illuminate\Support\Arr;
 
 class AttachPermissionsToRoleAction extends Action
 {
     /**
      * @param Role $role
-     * @param string|Permission|array|\Illuminate\Support\Collection $permissions
+     * @param array<string|Permission>|\Illuminate\Support\Collection<string|Permission> $permissions
      *
      * @return Role
      */
-    public function handle(Role $role, ...$permissions): Role
+    public function handle(Role $role, $permissions): Role
     {
         return $role->givePermissionTo($permissions);
     }
@@ -30,7 +31,7 @@ class AttachPermissionsToRoleAction extends Action
     public function asController(AttachPermissionsToRoleRequest $request): RoleResource
     {
         $role = Role::findOrFail($request->role_id);
-        $permissions = (array) $request->permissions_ids;
+        $permissions = Arr::wrap($request->permissions_ids);
 
         return new RoleResource($this->handle($role, $permissions));
     }

@@ -29,7 +29,7 @@ class CreateUserTest extends ApiTestCase
         ];
     }
 
-    public function testRegisterNewUser(): void
+    public function testCreateUser(): void
     {
         $this->getTestingUser();
         $data = $this->getTestData();
@@ -49,7 +49,7 @@ class CreateUserTest extends ApiTestCase
         $this->assertExistsModelWithAttributes(User::class, $dataWithoutPassword);
     }
 
-    public function testRegisterNewUserWithoutAccess(): void
+    public function testCreateUserWithoutAccess(): void
     {
         $this->getTestingUserWithoutAccess();
         $data = $this->getTestData();
@@ -58,7 +58,7 @@ class CreateUserTest extends ApiTestCase
             ->assertForbidden();
     }
 
-    public function testRegisterExistingUser(): void
+    public function testCreateExistingUser(): void
     {
         $data = $this->getTestData();
         $this->getTestingUser($data);
@@ -70,7 +70,7 @@ class CreateUserTest extends ApiTestCase
             ]);
     }
 
-    public function testRegisterNewUserWithoutEmail(): void
+    public function testCreateUserWithoutEmail(): void
     {
         $this->getTestingUser();
         $data = [
@@ -85,7 +85,7 @@ class CreateUserTest extends ApiTestCase
             ]);
     }
 
-    public function testRegisterNewUserWithoutName(): void
+    public function testCreateUserWithoutName(): void
     {
         $this->getTestingUser();
         $data = [
@@ -100,7 +100,7 @@ class CreateUserTest extends ApiTestCase
             ]);
     }
 
-    public function testRegisterNewUserWithoutPassword(): void
+    public function testCreateUserWithoutPassword(): void
     {
         $this->getTestingUser();
         $data = [
@@ -115,7 +115,7 @@ class CreateUserTest extends ApiTestCase
             ]);
     }
 
-    public function testRegisterNewUserWithInvalidEmail(): void
+    public function testCreateUserWithInvalidEmail(): void
     {
         $this->getTestingUser();
         $data = [

@@ -19,7 +19,7 @@ class DetachRolesFromUserTest extends ApiTestCase
         'roles' => '',
     ];
 
-    public function testRevokeUserFromRoles(): void
+    public function testDetachRolesFromUser(): void
     {
         $this->getTestingUser();
 

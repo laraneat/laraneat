@@ -2,12 +2,12 @@
 
 namespace App\Containers\Main\Authorization\Actions;
 
+use App\Containers\Main\Authorization\Models\Role;
+use App\Containers\Main\Authorization\UI\API\Requests\DeleteRoleRequest;
+use App\Ship\Abstracts\Actions\Action;
 use App\Ship\Exceptions\DeleteResourceFailedException;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Spatie\Permission\Models\Role;
-use App\Containers\Main\Authorization\UI\API\Requests\DeleteRoleRequest;
-use App\Ship\Abstracts\Actions\Action;
 
 class DeleteRoleAction extends Action
 {
@@ -29,7 +29,7 @@ class DeleteRoleAction extends Action
     /**
      * @param DeleteRoleRequest $request
      * @param Role $role
-     * 
+     *
      * @return JsonResponse
      * @throws DeleteResourceFailedException
      */

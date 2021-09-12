@@ -19,7 +19,7 @@ class ViewRoleTest extends ApiTestCase
         'roles' => '',
     ];
 
-    public function testFindRoleById(): void
+    public function testViewRole(): void
     {
         $this->getTestingUser();
 

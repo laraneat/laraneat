@@ -20,7 +20,7 @@ class SyncUserRolesTest extends ApiTestCase
         'roles' => '',
     ];
 
-    public function testSyncRolesOnUser(): void
+    public function testSyncUserRoles(): void
     {
         $this->getTestingUser();
 

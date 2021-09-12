@@ -3,7 +3,6 @@
 namespace App\Containers\Main\User\Actions;
 
 use App\Containers\Main\User\Models\User;
-use App\Containers\Main\User\Tasks\DeleteUserTask;
 use App\Containers\Main\User\UI\API\Requests\DeleteUserRequest;
 use App\Ship\Abstracts\Actions\Action;
 use App\Ship\Exceptions\DeleteResourceFailedException;
@@ -30,7 +29,7 @@ class DeleteUserAction extends Action
     /**
      * @param DeleteUserRequest $request
      * @param User $user
-     * 
+     *
      * @return JsonResponse
      * @throws DeleteResourceFailedException
      */
