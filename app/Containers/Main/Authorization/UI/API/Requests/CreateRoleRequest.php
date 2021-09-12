@@ -10,8 +10,8 @@ class CreateRoleRequest extends Request
     {
         return [
             'name' => 'required|unique:' . config('permission.table_names.roles') . ',name|min:2|max:20|no_spaces',
-            'description' => 'max:255',
-            'display_name' => 'max:100',
+            'description' => 'string|max:255',
+            'display_name' => 'string|max:100',
         ];
     }
 

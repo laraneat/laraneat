@@ -2,6 +2,7 @@
 
 namespace App\Containers\Main\User\Data\Seeders;
 
+use App\Containers\Main\Authorization\Actions\CreatePermissionAction;
 use App\Containers\Main\Authorization\Tasks\CreatePermissionTask;
 use App\Ship\Abstracts\Seeders\Seeder;
 
@@ -9,31 +10,31 @@ class UserPermissionsSeeder_1 extends Seeder
 {
     public function run(): void
     {
-        $createPermissionTask = app(CreatePermissionTask::class);
-        $createPermissionTask->run(
-            'view-users',
-            'Просмотр пользователей',
-            'users'
+        $createPermissionAction = CreatePermissionAction::make();
+        $createPermissionAction->handle(
+            name: 'view-users',
+            displayName: 'Просмотр пользователей',
+            group: 'users'
         );
-        $createPermissionTask->run(
-            'create-users',
-            'Создание пользователей',
-            'users'
+        $createPermissionAction->handle(
+            name: 'create-users',
+            displayName: 'Создание пользователей',
+            group: 'users'
         );
-        $createPermissionTask->run(
-            'update-users',
-            'Изменение пользователей',
-            'users'
+        $createPermissionAction->handle(
+            name: 'update-users',
+            displayName: 'Изменение пользователей',
+            group: 'users'
         );
-        $createPermissionTask->run(
-            'delete-users',
-            'Удаление пользователей',
-            'users'
+        $createPermissionAction->handle(
+            name: 'delete-users',
+            displayName: 'Удаление пользователей',
+            group: 'users'
         );
-        $createPermissionTask->run(
-            'force-delete-users',
-            'Принудительное удаление пользователей',
-            'users'
+        $createPermissionAction->handle(
+            name: 'force-delete-users',
+            displayName: 'Принудительное удаление пользователей',
+            group: 'users'
         );
     }
 }

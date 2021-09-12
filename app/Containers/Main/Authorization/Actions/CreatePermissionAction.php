@@ -3,18 +3,40 @@
 namespace App\Containers\Main\Authorization\Actions;
 
 use App\Containers\Main\Authorization\Models\Permission;
-use App\Containers\Main\Authorization\Tasks\CreatePermissionTask;
 use App\Ship\Abstracts\Actions\Action;
-use App\Ship\Abstracts\Requests\Request;
+use App\Ship\Exceptions\CreateResourceFailedException;
+use Exception;
 
 class CreatePermissionAction extends Action
 {
-    public function run(Request $request): Permission
+    /**
+     * @param string $name
+     * @param string|null $displayName
+     * @param string|null $group
+     * @param string|null $description
+     *
+     * @return Permission
+     * @throws CreateResourceFailedException
+     */
+    public function handle(
+        string $name,
+        ?string $displayName = null,
+        ?string $group = null,
+        ?string $description = null
+    ): Permission
     {
-        return app(CreatePermissionTask::class)->run(
-            $request->name,
-            $request->description,
-            $request->display_name
-        );
+        try {
+            $permission = Permission::create([
+                'name' => $name,
+                'description' => $description,
+                'display_name' => $displayName,
+                'group' => $group,
+                'guard_name' => 'web',
+            ]);
+        } catch (Exception $exception) {
+            throw new CreateResourceFailedException();
+        }
+
+        return $permission;
     }
 }

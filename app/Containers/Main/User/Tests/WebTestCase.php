@@ -5,7 +5,7 @@ namespace App\Containers\Main\User\Tests;
 use App\Containers\Main\User\Tests\TestCase as BaseTestCase;
 
 /**
- * Class WebTestCase.
+ * Class WebTestCase
  *
  * This is the container WEB TestCase class. Use this class to add your container specific WEB related helper functions.
  */

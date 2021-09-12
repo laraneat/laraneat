@@ -8,12 +8,10 @@ use Illuminate\Support\Arr;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 /**
- * Class RegisterUserTest.
- *
  * @group user
  * @group api
  */
-class RegisterUserTest extends ApiTestCase
+class CreateUserTest extends ApiTestCase
 {
     protected string $url = 'v1/users';
 

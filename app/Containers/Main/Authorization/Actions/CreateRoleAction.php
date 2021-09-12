@@ -3,14 +3,53 @@
 namespace App\Containers\Main\Authorization\Actions;
 
 use App\Containers\Main\Authorization\Models\Role;
-use App\Containers\Main\Authorization\Tasks\CreateRoleTask;
 use App\Containers\Main\Authorization\UI\API\Requests\CreateRoleRequest;
+use App\Containers\Main\Authorization\UI\API\Resources\RoleResource;
 use App\Ship\Abstracts\Actions\Action;
+use App\Ship\Exceptions\CreateResourceFailedException;
+use Exception;
+use Illuminate\Http\JsonResponse;
 
 class CreateRoleAction extends Action
 {
-    public function run(CreateRoleRequest $request): Role
+    /**
+     * @param string $name
+     * @param string|null $description
+     * @param string|null $displayName
+     *
+     * @return Role
+     * @throws CreateResourceFailedException
+     */
+    public function handle(string $name, string $description = null, string $displayName = null): Role
     {
-        return app(CreateRoleTask::class)->run($request->name, $request->description, $request->display_name);
+        try {
+            $role = Role::create([
+                'name' => strtolower($name),
+                'description' => $description,
+                'display_name' => $displayName,
+                'guard_name' => 'web',
+            ]);
+        } catch (Exception $exception) {
+            throw new CreateResourceFailedException();
+        }
+
+        return $role;
+    }
+
+    /**
+     * @param CreateRoleRequest $request
+     *
+     * @return JsonResponse
+     * @throws CreateResourceFailedException
+     */
+    public function asController(CreateRoleRequest $request): JsonResponse
+    {
+        $role = $this->handle(
+            name: $request->name,
+            description: $request->description,
+            displayName: $request->display_name
+        );
+
+        return (new RoleResource($role))->created();
     }
 }

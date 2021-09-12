@@ -18,6 +18,6 @@ class SyncUserRolesRequest extends Request
     public function authorize(): bool
     {
         $user = $this->user();
-        return $user && $user->hasAnyPermission(['assign-roles']);
+        return $user && $user->hasAnyPermission(['attach-roles']);
     }
 }

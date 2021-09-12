@@ -4,7 +4,7 @@ namespace App\Containers\Main\Authorization\UI\API\Requests;
 
 use App\Ship\Abstracts\Requests\Request;
 
-class RevokeUserFromRoleRequest extends Request
+class DetachRolesFromUserRequest extends Request
 {
     public function rules(): array
     {
@@ -18,6 +18,6 @@ class RevokeUserFromRoleRequest extends Request
     public function authorize(): bool
     {
         $user = $this->user();
-        return $user && $user->hasAnyPermission(['assign-roles']);
+        return $user && $user->hasAnyPermission(['attach-roles']);
     }
 }

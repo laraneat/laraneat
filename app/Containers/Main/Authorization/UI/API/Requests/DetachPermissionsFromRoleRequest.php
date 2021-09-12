@@ -4,7 +4,7 @@ namespace App\Containers\Main\Authorization\UI\API\Requests;
 
 use App\Ship\Abstracts\Requests\Request;
 
-class DetachPermissionToRoleRequest extends Request
+class DetachPermissionsFromRoleRequest extends Request
 {
     public function rules(): array
     {

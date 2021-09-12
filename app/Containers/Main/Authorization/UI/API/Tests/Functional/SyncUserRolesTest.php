@@ -5,12 +5,9 @@ namespace App\Containers\Main\Authorization\UI\API\Tests\Functional;
 use App\Containers\Main\Authorization\Models\Role;
 use App\Containers\Main\Authorization\Tests\ApiTestCase;
 use App\Containers\Main\User\Models\User;
-use Illuminate\Support\Arr;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 /**
- * Class SyncUserRolesTest.
- *
  * @group authorization
  * @group api
  */
@@ -19,7 +16,7 @@ class SyncUserRolesTest extends ApiTestCase
     protected string $url = 'v1/roles/sync';
 
     protected array $access = [
-        'permissions' => 'assign-roles',
+        'permissions' => 'attach-roles',
         'roles' => '',
     ];
 

@@ -8,8 +8,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 /**
- * Class UpdateUserTest.
- *
  * @group user
  * @group api
  */

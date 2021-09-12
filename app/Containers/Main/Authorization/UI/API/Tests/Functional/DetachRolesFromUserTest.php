@@ -7,17 +7,15 @@ use App\Containers\Main\Authorization\Tests\ApiTestCase;
 use App\Containers\Main\User\Models\User;
 
 /**
- * Class RevokeUserFromRoleTest.
- *
  * @group authorization
  * @group api
  */
-class RevokeUserFromRoleTest extends ApiTestCase
+class DetachRolesFromUserTest extends ApiTestCase
 {
-    protected string $url = 'v1/roles/revoke';
+    protected string $url = 'v1/roles/detach';
 
     protected array $access = [
-        'permissions' => 'assign-roles',
+        'permissions' => 'attach-roles',
         'roles' => '',
     ];
 

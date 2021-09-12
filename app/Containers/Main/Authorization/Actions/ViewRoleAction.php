@@ -4,12 +4,19 @@ namespace App\Containers\Main\Authorization\Actions;
 
 use App\Containers\Main\Authorization\Models\Role;
 use App\Containers\Main\Authorization\UI\API\Requests\ViewRoleRequest;
+use App\Containers\Main\Authorization\UI\API\Resources\RoleResource;
 use App\Ship\Abstracts\Actions\Action;
 
 class ViewRoleAction extends Action
 {
-    public function run(ViewRoleRequest $request, Role $role): Role
+    /**
+     * @param ViewRoleRequest $request
+     * 
+     * @param Role $role
+     * @return RoleResource
+     */
+    public function handle(ViewRoleRequest $request, Role $role): RoleResource
     {
-        return $role;
+        return new RoleResource($role);
     }
 }

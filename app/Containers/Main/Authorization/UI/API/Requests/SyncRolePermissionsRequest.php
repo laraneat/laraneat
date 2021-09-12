@@ -4,7 +4,7 @@ namespace App\Containers\Main\Authorization\UI\API\Requests;
 
 use App\Ship\Abstracts\Requests\Request;
 
-class SyncPermissionsOnRoleRequest extends Request
+class SyncRolePermissionsRequest extends Request
 {
     public function rules(): array
     {

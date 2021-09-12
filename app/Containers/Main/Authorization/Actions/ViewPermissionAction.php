@@ -4,12 +4,19 @@ namespace App\Containers\Main\Authorization\Actions;
 
 use App\Containers\Main\Authorization\Models\Permission;
 use App\Containers\Main\Authorization\UI\API\Requests\ViewPermissionRequest;
+use App\Containers\Main\Authorization\UI\API\Resources\PermissionResource;
 use App\Ship\Abstracts\Actions\Action;
 
 class ViewPermissionAction extends Action
 {
-    public function run(ViewPermissionRequest $request, Permission $permission): Permission
+    /**
+     * @param ViewPermissionRequest $request
+     * 
+     * @param Permission $permission
+     * @return PermissionResource
+     */
+    public function handle(ViewPermissionRequest $request, Permission $permission): PermissionResource
     {
-        return $permission;
+        return new PermissionResource($permission);
     }
 }

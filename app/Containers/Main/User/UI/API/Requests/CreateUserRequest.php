@@ -5,7 +5,7 @@ namespace App\Containers\Main\User\UI\API\Requests;
 use App\Containers\Main\User\Models\User;
 use App\Ship\Abstracts\Requests\Request;
 
-class RegisterUserRequest extends Request
+class CreateUserRequest extends Request
 {
     public function rules(): array
     {

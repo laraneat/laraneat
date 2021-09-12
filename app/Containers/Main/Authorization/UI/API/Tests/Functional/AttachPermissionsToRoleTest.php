@@ -8,8 +8,6 @@ use App\Containers\Main\Authorization\Tests\ApiTestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 /**
- * Class AttachPermissionsToRoleTest.
- *
  * @group authorization
  * @group api
  */

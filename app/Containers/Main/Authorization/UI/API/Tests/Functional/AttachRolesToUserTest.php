@@ -7,17 +7,15 @@ use App\Containers\Main\Authorization\Tests\ApiTestCase;
 use App\Containers\Main\User\Models\User;
 
 /**
- * Class AssignUserToRoleTest.
- *
  * @group authorization
  * @group api
  */
-class AssignUserToRoleTest extends ApiTestCase
+class AttachRolesToUserTest extends ApiTestCase
 {
-    protected string $url = 'v1/roles/assign';
+    protected string $url = 'v1/roles/attach';
 
     protected array $access = [
-        'permissions' => 'assign-roles',
+        'permissions' => 'attach-roles',
         'roles' => '',
     ];
 

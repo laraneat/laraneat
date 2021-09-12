@@ -2,14 +2,22 @@
 
 namespace App\Containers\Main\Authorization\Data\Seeders;
 
-use App\Containers\Main\Authorization\Tasks\CreateRoleTask;
+use App\Containers\Main\Authorization\Actions\CreateRoleAction;
+use App\Containers\Main\Authorization\Models\Permission;
 use App\Ship\Abstracts\Seeders\Seeder;
 
 class AuthorizationRolesSeeder_2 extends Seeder
 {
     public function run(): void
     {
-        // Default Roles ----------------------------------------------------------------
-        $role = app(CreateRoleTask::class)->run('admin', 'Полный доступ ко всем возможностям системы', 'Администратор');
+        $allPermissions = Permission::all();
+
+        $role = CreateRoleAction::make()->handle(
+            name: 'admin',
+            description: 'Полный доступ ко всем возможностям системы.',
+            displayName: 'Администратор',
+        );
+        
+        $role->syncPermissions($allPermissions->pluck('name')->toArray());
     }
 }

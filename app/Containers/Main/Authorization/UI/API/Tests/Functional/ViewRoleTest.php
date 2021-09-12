@@ -7,8 +7,6 @@ use App\Containers\Main\Authorization\Tests\ApiTestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 /**
- * Class ViewRoleTest.
- *
  * @group authorization
  * @group api
  */

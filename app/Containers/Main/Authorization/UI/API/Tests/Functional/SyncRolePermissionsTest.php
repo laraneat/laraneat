@@ -8,14 +8,10 @@ use App\Containers\Main\Authorization\Tests\ApiTestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 /**
- * Class SyncPermissionsOnRoleTest.
- *
  * @group authorization
  * @group api
- *
- * @author  Mahmoud Zalt <mahmoud@zalt.me>
  */
-class SyncPermissionsOnRoleTest extends ApiTestCase
+class SyncRolePermissionsTest extends ApiTestCase
 {
     protected string $url = 'v1/permissions/sync';
 
