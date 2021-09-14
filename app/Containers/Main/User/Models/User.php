@@ -3,12 +3,13 @@
 namespace App\Containers\Main\User\Models;
 
 use App\Containers\Main\Authentication\Traits\AuthenticationTrait;
-use App\Containers\Main\Authorization\Models\Role;
 use App\Containers\Main\Authorization\Traits\AuthorizationTrait;
 use App\Ship\Abstracts\Models\UserModel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
+use Laraneat\Core\Traits\FactoryLocatorTrait;
 
 /**
  * App\Containers\Main\User\Models\User
@@ -32,11 +33,12 @@ use Illuminate\Notifications\Notifiable;
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Sanctum\PersonalAccessToken[] $tokens
  * @property-read int|null $tokens_count
  * @method static Builder|User create(array $attributes = [])
+ * @method static \App\Containers\Main\User\Data\Factories\UserFactory factory(...$parameters)
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()
- * @method static Builder|User permission($permissions)
+ * @method static Builder|UserModel permission($permissions)
  * @method static Builder|User query()
- * @method static Builder|User role($roles, $guard = null)
+ * @method static Builder|UserModel role($roles, $guard = null)
  * @method static Builder|User whereCreatedAt($value)
  * @method static Builder|User whereEmail($value)
  * @method static Builder|User whereEmailVerifiedAt($value)
@@ -55,6 +57,9 @@ class User extends UserModel implements MustVerifyEmail
     use AuthorizationTrait;
     use AuthenticationTrait;
     use Notifiable;
+    use HasFactory, FactoryLocatorTrait {
+        FactoryLocatorTrait::newFactory insteadof HasFactory;
+    }
 
     protected $table = 'users';
 

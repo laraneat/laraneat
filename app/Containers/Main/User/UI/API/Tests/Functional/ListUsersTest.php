@@ -28,19 +28,9 @@ class ListUsersTest extends ApiTestCase
             ->assertOk()
             ->assertJsonStructure([
                 '_profiler',
-                'current_page',
-                'data',
-                'first_page_url',
-                'from',
-                'last_page',
-                'last_page_url',
                 'links',
-                'next_page_url',
-                'path',
-                'per_page',
-                'prev_page_url',
-                'to',
-                'total'
+                'meta',
+                'data'
             ])
             ->assertJsonCount(User::query()->count(), 'data');
     }
