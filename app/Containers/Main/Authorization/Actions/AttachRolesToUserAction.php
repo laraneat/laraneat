@@ -13,7 +13,7 @@ class AttachRolesToUserAction extends Action
 {
     /**
      * @param User $user
-     * @param array<string|int|Role>|\Illuminate\Support\Collection<string|int|Role> $roles
+     * @param int|string|Role|array|\Illuminate\Support\Collection $roles
      *
      * @return User
      */
@@ -33,6 +33,8 @@ class AttachRolesToUserAction extends Action
         $user = User::findOrFail($request->user_id);
         $roles = Arr::wrap($request->role_ids);
 
-        return new UserResource($this->handle($user, $roles));
+        return new UserResource(
+            $this->handle($user, $roles)
+        );
     }
 }

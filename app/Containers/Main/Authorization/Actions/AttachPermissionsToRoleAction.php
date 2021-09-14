@@ -13,7 +13,7 @@ class AttachPermissionsToRoleAction extends Action
 {
     /**
      * @param Role $role
-     * @param array<string|Permission>|\Illuminate\Support\Collection<string|Permission> $permissions
+     * @param int|string|Permission|array|\Illuminate\Support\Collection $permissions
      *
      * @return Role
      */
@@ -33,6 +33,8 @@ class AttachPermissionsToRoleAction extends Action
         $role = Role::findOrFail($request->role_id);
         $permissions = Arr::wrap($request->permissions_ids);
 
-        return new RoleResource($this->handle($role, $permissions));
+        return new RoleResource(
+            $this->handle($role, $permissions)
+        );
     }
 }

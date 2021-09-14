@@ -29,11 +29,11 @@ class SyncUserRolesTest extends ApiTestCase
         $randomUser = User::factory()->create();
         $randomUser->assignRole($role1);
         $data = [
+            'user_id' => $randomUser->getKey(),
             'role_ids' => [
                 $role1->getKey(),
                 $role2->getKey(),
             ],
-            'user_id' => $randomUser->getKey(),
         ];
 
         $this->postJson($this->buildApiUrl(), $data)
@@ -53,5 +53,23 @@ class SyncUserRolesTest extends ApiTestCase
                 ->diff($data['role_ids'])
                 ->isEmpty()
         );
+    }
+
+    public function testSyncUserRolesWithWrongData(): void
+    {
+        $this->getTestingUser();
+
+        $data = [
+            'user_id' => 'foo',
+            'role_ids' => ['bar', 'baz']
+        ];
+
+        $this->postJson($this->buildApiUrl(), $data)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors([
+                'user_id',
+                'role_ids.0',
+                'role_ids.1'
+            ]);
     }
 }

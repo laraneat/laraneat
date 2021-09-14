@@ -36,19 +36,9 @@ class ListRolesTest extends ApiTestCase
             ->assertOk()
             ->assertJsonStructure([
                 '_profiler',
-                'current_page',
-                'data',
-                'first_page_url',
-                'from',
-                'last_page',
-                'last_page_url',
                 'links',
-                'next_page_url',
-                'path',
-                'per_page',
-                'prev_page_url',
-                'to',
-                'total'
+                'meta',
+                'data'
             ])
             ->assertJsonCount(
                 count_on_page(1, $this->rolesCount),
@@ -78,18 +68,8 @@ class ListRolesTest extends ApiTestCase
             ->assertJson(fn (AssertableJson $json) =>
                 $json
                     ->has('_profiler')
-                    ->has('current_page')
-                    ->has('first_page_url')
-                    ->has('from')
-                    ->has('last_page')
-                    ->has('last_page_url')
                     ->has('links')
-                    ->has('next_page_url')
-                    ->has('path')
-                    ->has('per_page')
-                    ->has('prev_page_url')
-                    ->has('to')
-                    ->has('total')
+                    ->has('meta')
                     ->has('data.0', fn (AssertableJson $json) =>
                         $json->where('id', $role->id)
                             ->where('name',$role->name)

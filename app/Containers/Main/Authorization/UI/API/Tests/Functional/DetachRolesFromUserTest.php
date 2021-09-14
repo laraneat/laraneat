@@ -44,4 +44,22 @@ class DetachRolesFromUserTest extends ApiTestCase
                 ->exists()
         );
     }
+
+    public function testDetachRolesFromUserWithWrongData(): void
+    {
+        $this->getTestingUser();
+
+        $data = [
+            'user_id' => 'foo',
+            'role_ids' => ['bar', 'baz']
+        ];
+
+        $this->postJson($this->buildApiUrl(), $data)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors([
+                'user_id',
+                'role_ids.0',
+                'role_ids.1'
+            ]);
+    }
 }

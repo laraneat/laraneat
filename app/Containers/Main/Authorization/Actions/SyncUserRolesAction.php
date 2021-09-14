@@ -13,7 +13,7 @@ class SyncUserRolesAction extends Action
 {
     /**
      * @param User $user
-     * @param array<int|Role> ...$roles
+     * @param int|string|Role|array|\Illuminate\Support\Collection $roles
      *
      * @return User
      */

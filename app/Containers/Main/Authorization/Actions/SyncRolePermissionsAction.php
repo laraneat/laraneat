@@ -13,7 +13,7 @@ class SyncRolePermissionsAction extends Action
 {
     /**
      * @param Role $role
-     * @param array<int|Permission> $permissions
+     * @param int|string|Permission|array|\Illuminate\Support\Collection $permissions
      *
      * @return Role
      */

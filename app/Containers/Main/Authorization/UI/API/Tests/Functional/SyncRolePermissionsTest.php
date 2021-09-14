@@ -51,4 +51,22 @@ class SyncRolePermissionsTest extends ApiTestCase
                 ->isEmpty()
         );
     }
+
+    public function testSyncRolePermissionsWithWrongData(): void
+    {
+        $this->getTestingUser();
+
+        $data = [
+            'role_id' => 'foo',
+            'permissions_ids' => ['bar', 'baz']
+        ];
+
+        $this->postJson($this->buildApiUrl(), $data)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors([
+                'role_id',
+                'permissions_ids.0',
+                'permissions_ids.1'
+            ]);
+    }
 }

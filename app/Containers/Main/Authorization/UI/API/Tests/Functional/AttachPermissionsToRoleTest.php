@@ -24,11 +24,11 @@ class AttachPermissionsToRoleTest extends ApiTestCase
     {
         $this->getTestingUser();
 
-        $roleA = Role::factory()->create();
+        $role = Role::factory()->create()->first();
         $permissionA = Permission::factory()->create();
         $permissionB = Permission::factory()->create();
         $data = [
-            'role_id' => $roleA->getKey(),
+            'role_id' => $role->getKey(),
             'permissions_ids' => [$permissionA->getKey(), $permissionB->getKey()]
         ];
 
@@ -37,16 +37,27 @@ class AttachPermissionsToRoleTest extends ApiTestCase
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('_profiler')
                     ->has('data', fn (AssertableJson $json) =>
-                        $json->where('id', $roleA->id)
+                        $json->where('id', $role->id)
                             ->etc()
                     )
             );
+    }
 
-        $this->assertTrue(
-            Role::find($data['role_id'])
-                ->permissions()
-                ->pluck('id')
-                ->every(fn($item) => in_array($item, $data['permissions_ids'], true))
-        );
+    public function testAttachPermissionsToRoleWithWrongData(): void
+    {
+        $this->getTestingUser();
+
+        $data = [
+            'role_id' => 'foo',
+            'permissions_ids' => ['bar', 'baz']
+        ];
+
+        $this->postJson($this->buildApiUrl(), $data)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors([
+                'role_id',
+                'permissions_ids.0',
+                'permissions_ids.1'
+            ]);
     }
 }

@@ -13,17 +13,45 @@ class DetachRolesFromUserAction extends Action
 {
     /**
      * @param User $user
-     * @param array<int|Role> $roles
+     * @param int|string|Role|array|\Illuminate\Support\Collection $roles
      *
      * @return User
      */
     public function handle(User $user, $roles): User
     {
-        $user->roles()->detach($roles);
+        $user->roles()->detach($this->prepareRoles($roles));
         $user->forgetCachedPermissions();
-        $user->load('roles');
 
         return $user;
+    }
+
+    /**
+     * @param int|string|Role|array|\Illuminate\Support\Collection $roles
+     *
+     * @return Role[]
+     */
+    protected function prepareRoles($roles): array
+    {
+        return collect(Arr::wrap($roles))
+            ->flatten()
+            ->map(function ($role) {
+                if (empty($role)) {
+                    return false;
+                }
+                if (is_string($role)) {
+                    return Role::findByName($role);
+                }
+                if (is_numeric($role)) {
+                    return Role::findById($role);
+                }
+
+                return $role;
+            })
+            ->filter(function ($role) {
+                return $role instanceof Role;
+            })
+            ->map->id
+            ->all();
     }
 
     /**
@@ -37,6 +65,8 @@ class DetachRolesFromUserAction extends Action
         $user = User::findOrFail($request->user_id);
         $roles = Arr::wrap($request->role_ids);
 
-        return new UserResource($this->handle($user, $roles));
+        return new UserResource(
+            $this->handle($user, $roles)
+        );
     }
 }

@@ -56,6 +56,7 @@ class CreateRoleTest extends ApiTestCase
 
         $this->getTestingUser();
         $this->postJson($this->buildApiUrl(), $data)
-            ->assertStatus(422);
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['name']);
     }
 }

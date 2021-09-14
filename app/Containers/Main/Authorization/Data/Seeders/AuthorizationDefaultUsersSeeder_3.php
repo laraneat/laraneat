@@ -10,7 +10,7 @@ class AuthorizationDefaultUsersSeeder_3 extends Seeder
 {
     public function run(): void
     {
-        $admin = CreateUserAction::run(
+        $admin = CreateUserAction::make()->handle(
             email: 'admin@admin.com',
             password: 'admin',
             name: 'Супер администратор'

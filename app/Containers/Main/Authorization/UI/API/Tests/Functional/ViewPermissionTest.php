@@ -25,7 +25,16 @@ class ViewPermissionTest extends ApiTestCase
 
         $permission = Permission::factory()->create();
         $url = $this->buildApiUrl(
-            replaces: ['{id}' => $permission->getKey()]
+            queryParameters: [
+                'fields' => [
+                    'permissions' => [
+                        'id',
+                        'name'
+                    ]
+                ],
+                'include' => 'roles'
+            ],
+            replaces: ['{id}' => $permission->getKey()],
         );
 
         $this->getJson($url)
@@ -35,7 +44,7 @@ class ViewPermissionTest extends ApiTestCase
                     ->has('data', fn (AssertableJson $json) =>
                         $json->where('id', $permission->getKey())
                             ->where('name', $permission->name)
-                            ->etc()
+                            ->has('roles', $permission->roles()->count())
                     )
             );
     }

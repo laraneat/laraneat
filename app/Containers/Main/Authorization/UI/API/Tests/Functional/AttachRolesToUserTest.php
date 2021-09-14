@@ -5,6 +5,7 @@ namespace App\Containers\Main\Authorization\UI\API\Tests\Functional;
 use App\Containers\Main\Authorization\Models\Role;
 use App\Containers\Main\Authorization\Tests\ApiTestCase;
 use App\Containers\Main\User\Models\User;
+use Illuminate\Testing\Fluent\AssertableJson;
 
 /**
  * @group authorization
@@ -23,32 +24,43 @@ class AttachRolesToUserTest extends ApiTestCase
     {
         $this->getTestingUser();
 
-        $randomUser = User::factory()->create();
-        $role1 = Role::factory()->create();
-        $role2 = Role::factory()->create();
+        $user = User::factory()->create()->first();
+        $roleA = Role::factory()->create();
+        $roleB = Role::factory()->create();
         $data = [
+            'user_id' => $user->getKey(),
             'role_ids' => [
-                $role1->getKey(),
-                $role2->getKey(),
+                $roleA->getKey(),
+                $roleB->getKey(),
             ],
-            'user_id' => $randomUser->getKey(),
         ];
 
-        $response = $this->postJson($this->buildApiUrl(), $data)
+        $this->postJson($this->buildApiUrl(), $data)
             ->assertOk()
-            ->assertJsonStructure(['_profiler', 'data']);
+            ->assertJson(fn (AssertableJson $json) =>
+                $json->has('_profiler')
+                    ->has('data', fn (AssertableJson $json) =>
+                        $json->where('id', $user->id)
+                            ->etc()
+                    )
+            );
+    }
 
-        $this->assertTrue(
-            collect($response->json('data.roles'))
-                ->pluck('id')
-                ->every(fn($item) => in_array($item, $data['role_ids'], true))
-        );
+    public function testAttachRolesToUserWithWrongData(): void
+    {
+        $this->getTestingUser();
 
-        $this->assertTrue(
-            User::find($data['user_id'])
-                ->roles()
-                ->pluck('id')
-                ->every(fn($item) => in_array($item, $data['role_ids'], true))
-        );
+        $data = [
+            'user_id' => 'foo',
+            'role_ids' => ['bar', 'baz']
+        ];
+
+        $this->postJson($this->buildApiUrl(), $data)
+            ->assertStatus(422)
+            ->assertJsonValidationErrors([
+                'user_id',
+                'role_ids.0',
+                'role_ids.1'
+            ]);
     }
 }

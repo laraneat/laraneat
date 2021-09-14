@@ -21,8 +21,8 @@ class GiveAllPermissionsToRoleCommand extends Command
         $roleNameOrId = $this->argument('role');
         $allPermissions = Permission::all();
 
-        $role = FindRoleAction::run($roleNameOrId);
-        
+        $role = FindRoleAction::make()->handle($roleNameOrId);
+
         if (!$role) {
             throw new RoleNotFoundException("Role $roleNameOrId is not found!");
         }

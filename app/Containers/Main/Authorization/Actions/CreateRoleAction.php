@@ -2,6 +2,7 @@
 
 namespace App\Containers\Main\Authorization\Actions;
 
+use App\Containers\Main\Authorization\Models\Permission;
 use App\Containers\Main\Authorization\Models\Role;
 use App\Containers\Main\Authorization\UI\API\Requests\CreateRoleRequest;
 use App\Containers\Main\Authorization\UI\API\Resources\RoleResource;
@@ -16,11 +17,17 @@ class CreateRoleAction extends Action
      * @param string $name
      * @param string|null $description
      * @param string|null $displayName
+     * @param null|int|string|Permission|array|\Illuminate\Support\Collection $permissions
      *
      * @return Role
      * @throws CreateResourceFailedException
      */
-    public function handle(string $name, string $description = null, string $displayName = null): Role
+    public function handle(
+        string $name,
+        ?string $description = null,
+        ?string $displayName = null,
+        $permissions = null
+    ): Role
     {
         try {
             $role = Role::create([
@@ -29,6 +36,10 @@ class CreateRoleAction extends Action
                 'display_name' => $displayName,
                 'guard_name' => 'web',
             ]);
+
+            if (!empty($permissions)) {
+                AttachPermissionsToRoleAction::make()->handle($role, $permissions);
+            }
         } catch (Exception $exception) {
             throw new CreateResourceFailedException();
         }
