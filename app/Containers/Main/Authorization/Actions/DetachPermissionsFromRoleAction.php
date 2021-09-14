@@ -56,13 +56,12 @@ class DetachPermissionsFromRoleAction extends Action
 
     /**
      * @param DetachPermissionsFromRoleRequest $request
+     * @param Role $role
      *
      * @return RoleResource
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function asController(DetachPermissionsFromRoleRequest $request): RoleResource
+    public function asController(DetachPermissionsFromRoleRequest $request, Role $role): RoleResource
     {
-        $role = Role::findOrFail($request->role_id);
         $permissions = Arr::wrap($request->permissions_ids);
 
         return new RoleResource(

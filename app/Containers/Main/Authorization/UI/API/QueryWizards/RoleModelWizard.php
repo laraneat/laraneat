@@ -19,6 +19,14 @@ class RoleModelWizard extends EloquentModelWizard
             'description',
             'created_at',
             'updated_at',
+            'permissions.id',
+            'permissions.name',
+            'permissions.guard_name',
+            'permissions.group',
+            'permissions.display_name',
+            'permissions.description',
+            'permissions.created_at',
+            'permissions.updated_at',
         ];
     }
 

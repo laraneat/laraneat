@@ -24,13 +24,12 @@ class SyncRolePermissionsAction extends Action
 
     /**
      * @param SyncRolePermissionsRequest $request
-     *
+     * @param Role $role
+     * 
      * @return RoleResource
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function asController(SyncRolePermissionsRequest $request): RoleResource
+    public function asController(SyncRolePermissionsRequest $request, Role $role): RoleResource
     {
-        $role = Role::findOrFail($request->role_id);
         $permissions = Arr::wrap($request->permissions_ids);
 
         return new RoleResource($this->handle($role, $permissions));

@@ -3,6 +3,7 @@
 namespace App\Containers\Main\Authorization\UI\API\Tests\Functional;
 
 use App\Containers\Main\Authorization\Models\Permission;
+use App\Containers\Main\Authorization\Models\Role;
 use App\Containers\Main\Authorization\Tests\ApiTestCase;
 use Illuminate\Testing\Fluent\AssertableJson;
 
@@ -23,14 +24,15 @@ class ViewPermissionTest extends ApiTestCase
     {
         $this->getTestingUser();
 
-        $permission = Permission::factory()->create();
+        $permission = Permission::factory()
+            ->has(Role::factory()->count(3))
+            ->create();
+
         $url = $this->buildApiUrl(
             queryParameters: [
                 'fields' => [
-                    'permissions' => [
-                        'id',
-                        'name'
-                    ]
+                    'permissions' => 'id,name',
+                    'roles' => 'id,display_name,name'
                 ],
                 'include' => 'roles'
             ],
@@ -45,6 +47,12 @@ class ViewPermissionTest extends ApiTestCase
                         $json->where('id', $permission->getKey())
                             ->where('name', $permission->name)
                             ->has('roles', $permission->roles()->count())
+                            ->has('roles.0', fn (AssertableJson $json) =>
+                                $json->has('id')
+                                    ->has('display_name')
+                                    ->has('name')
+                                    ->has('pivot')
+                            )
                     )
             );
     }

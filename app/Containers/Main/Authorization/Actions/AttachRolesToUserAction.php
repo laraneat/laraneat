@@ -24,13 +24,12 @@ class AttachRolesToUserAction extends Action
 
     /**
      * @param AttachRolesToUserRequest $request
-     *
+     * @param User $user
+     * 
      * @return UserResource
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function asController(AttachRolesToUserRequest $request): UserResource
+    public function asController(AttachRolesToUserRequest $request, User $user): UserResource
     {
-        $user = User::findOrFail($request->user_id);
         $roles = Arr::wrap($request->role_ids);
 
         return new UserResource(

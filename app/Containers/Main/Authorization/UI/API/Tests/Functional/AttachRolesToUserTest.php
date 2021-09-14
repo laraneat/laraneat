@@ -5,7 +5,6 @@ namespace App\Containers\Main\Authorization\UI\API\Tests\Functional;
 use App\Containers\Main\Authorization\Models\Role;
 use App\Containers\Main\Authorization\Tests\ApiTestCase;
 use App\Containers\Main\User\Models\User;
-use Illuminate\Testing\Fluent\AssertableJson;
 
 /**
  * @group authorization
@@ -13,7 +12,7 @@ use Illuminate\Testing\Fluent\AssertableJson;
  */
 class AttachRolesToUserTest extends ApiTestCase
 {
-    protected string $url = 'v1/roles/attach';
+    protected string $url = 'v1/users/{id}/roles/attach';
 
     protected array $access = [
         'permissions' => 'attach-roles',
@@ -27,38 +26,38 @@ class AttachRolesToUserTest extends ApiTestCase
         $user = User::factory()->create()->first();
         $roleA = Role::factory()->create();
         $roleB = Role::factory()->create();
+
+        $url = $this->buildApiUrl(replaces: ['{id}' => $user->getKey()]);
         $data = [
-            'user_id' => $user->getKey(),
             'role_ids' => [
                 $roleA->getKey(),
                 $roleB->getKey(),
             ],
         ];
 
-        $this->postJson($this->buildApiUrl(), $data)
-            ->assertOk()
-            ->assertJson(fn (AssertableJson $json) =>
-                $json->has('_profiler')
-                    ->has('data', fn (AssertableJson $json) =>
-                        $json->where('id', $user->id)
-                            ->etc()
-                    )
-            );
+        $this->postJson($url, $data)
+            ->assertOk();
+
+        $this->assertTrue(
+            User::find($user->getKey())
+                ->roles()
+                ->whereIn('id', $data['role_ids'])
+                ->exists()
+        );
     }
 
     public function testAttachRolesToUserWithWrongData(): void
     {
         $this->getTestingUser();
 
+        $url = $this->buildApiUrl(replaces: ['{id}' => 1]);
         $data = [
-            'user_id' => 'foo',
             'role_ids' => ['bar', 'baz']
         ];
 
-        $this->postJson($this->buildApiUrl(), $data)
+        $this->postJson($url, $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
-                'user_id',
                 'role_ids.0',
                 'role_ids.1'
             ]);

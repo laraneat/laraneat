@@ -11,7 +11,6 @@ class AttachPermissionsToRoleRequest extends Request
         return [
             'permissions_ids' => 'required|array',
             'permissions_ids.*' => 'exists:' . config('permission.table_names.permissions') . ',id',
-            'role_id' => 'required|exists:' . config('permission.table_names.roles') . ',id',
         ];
     }
 

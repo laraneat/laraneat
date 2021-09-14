@@ -20,33 +20,40 @@ class ViewRoleTest extends ApiTestCase
         'roles' => '',
     ];
 
-    public function testViewPermission(): void
+    public function testViewRole(): void
     {
         $this->getTestingUser();
 
-        $permission = Permission::factory()->create();
+        $role = Role::factory()
+            ->has(Permission::factory()->count(3))
+            ->create();
+
         $url = $this->buildApiUrl(
             queryParameters: [
                 'fields' => [
-                    'permissions' => [
-                        'id',
-                        'name'
-                    ]
+                    'roles' => 'id,name',
+                    'permissions' => 'id,display_name,group'
                 ],
-                'include' => 'roles'
+                'include' => 'permissions'
             ],
-            replaces: ['{id}' => $permission->getKey()],
+            replaces: ['{id}' => $role->getKey()],
         );
 
         $this->getJson($url)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
-            $json->has('_profiler')
-                ->has('data', fn (AssertableJson $json) =>
-                $json->where('id', $permission->getKey())
-                    ->where('name', $permission->name)
-                    ->has('roles', $permission->roles()->count())
-                )
+                $json->has('_profiler')
+                    ->has('data', fn (AssertableJson $json) =>
+                        $json->where('id', $role->getKey())
+                            ->where('name', $role->name)
+                            ->has('permissions', $role->permissions()->count())
+                            ->has('permissions.0', fn (AssertableJson $json) =>
+                                $json->has('id')
+                                    ->has('display_name')
+                                    ->has('group')
+                                    ->has('pivot')
+                            )
+                    )
             );
     }
 }

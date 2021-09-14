@@ -11,7 +11,6 @@ class DetachRolesFromUserRequest extends Request
         return [
             'role_ids' => 'required|array',
             'role_ids.*' => 'exists:' . config('permission.table_names.roles') . ',id',
-            'user_id' => 'required|exists:users,id',
         ];
     }
 

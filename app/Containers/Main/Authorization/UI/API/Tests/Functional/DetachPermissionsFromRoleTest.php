@@ -12,7 +12,7 @@ use App\Containers\Main\Authorization\Tests\ApiTestCase;
  */
 class DetachPermissionsFromRoleTest extends ApiTestCase
 {
-    protected string $url = 'v1/permissions/detach';
+    protected string $url = 'v1/roles/{id}/permissions/detach';
 
     protected array $access = [
         'permissions' => 'manage-roles',
@@ -25,19 +25,19 @@ class DetachPermissionsFromRoleTest extends ApiTestCase
 
         $permissionA = Permission::factory()->create();
         $permissionB = Permission::factory()->create();
-        $roleA = Role::factory()->create();
-        $roleA->givePermissionTo($permissionA);
-        $roleA->givePermissionTo($permissionB);
+        $role = Role::factory()->create();
+        $role->givePermissionTo($permissionA, $permissionB);
+
+        $url = $this->buildApiUrl(replaces: ['{id}' => $role->getKey()]);
         $data = [
-            'role_id' => $roleA->getKey(),
             'permissions_ids' => [$permissionA->getKey(), $permissionB->getKey()],
         ];
 
-        $this->postJson($this->buildApiUrl(), $data)
+        $this->postJson($url, $data)
             ->assertOk();
 
         $this->assertFalse(
-            Role::find($data['role_id'])
+            Role::find($role->getKey())
                 ->permissions()
                 ->whereIn('id', $data['permissions_ids'])
                 ->exists()
@@ -48,15 +48,14 @@ class DetachPermissionsFromRoleTest extends ApiTestCase
     {
         $this->getTestingUser();
 
+        $url = $this->buildApiUrl(replaces: ['{id}' => 1]);
         $data = [
-            'role_id' => 'foo',
             'permissions_ids' => ['bar', 'baz']
         ];
 
-        $this->postJson($this->buildApiUrl(), $data)
+        $this->postJson($url, $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
-                'role_id',
                 'permissions_ids.0',
                 'permissions_ids.1'
             ]);

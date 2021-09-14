@@ -19,7 +19,14 @@ class PermissionsQueryWizard extends EloquentQueryWizard
             'display_name',
             'description',
             'created_at',
-            'updated_at'
+            'updated_at',
+            'roles.id',
+            'roles.name',
+            'roles.guard_name',
+            'roles.display_name',
+            'roles.description',
+            'roles.created_at',
+            'roles.updated_at',
         ];
     }
 

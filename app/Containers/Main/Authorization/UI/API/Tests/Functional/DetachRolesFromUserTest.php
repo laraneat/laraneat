@@ -12,7 +12,7 @@ use App\Containers\Main\User\Models\User;
  */
 class DetachRolesFromUserTest extends ApiTestCase
 {
-    protected string $url = 'v1/roles/detach';
+    protected string $url = 'v1/users/{id}/roles/detach';
 
     protected array $access = [
         'permissions' => 'attach-roles',
@@ -23,22 +23,21 @@ class DetachRolesFromUserTest extends ApiTestCase
     {
         $this->getTestingUser();
 
-        $randomUser = User::factory()->create();
         $roleA = Role::factory()->create();
         $roleB = Role::factory()->create();
-        $randomUser->assignRole($roleA);
-        $randomUser->assignRole($roleB);
+        $user = User::factory()->create();
+        $user->assignRole($roleA, $roleB);
 
+        $url = $this->buildApiUrl(replaces: ['{id}' => $user->getKey()]);
         $data = [
             'role_ids' => [$roleA->getKey(), $roleB->getKey()],
-            'user_id' => $randomUser->getKey(),
         ];
 
-        $this->postJson($this->buildApiUrl(), $data)
+        $this->postJson($url, $data)
             ->assertOk();
 
         $this->assertFalse(
-            User::find($data['user_id'])
+            User::find($user->getKey())
                 ->roles()
                 ->whereIn('id', $data['role_ids'])
                 ->exists()
@@ -49,15 +48,14 @@ class DetachRolesFromUserTest extends ApiTestCase
     {
         $this->getTestingUser();
 
+        $url = $this->buildApiUrl(replaces: ['{id}' => 1]);
         $data = [
-            'user_id' => 'foo',
             'role_ids' => ['bar', 'baz']
         ];
 
-        $this->postJson($this->buildApiUrl(), $data)
+        $this->postJson($url, $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
-                'user_id',
                 'role_ids.0',
                 'role_ids.1'
             ]);

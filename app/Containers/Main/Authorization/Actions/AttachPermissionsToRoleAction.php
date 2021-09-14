@@ -24,13 +24,12 @@ class AttachPermissionsToRoleAction extends Action
 
     /**
      * @param AttachPermissionsToRoleRequest $request
+     * @param Role $role
      *
      * @return RoleResource
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function asController(AttachPermissionsToRoleRequest $request): RoleResource
+    public function asController(AttachPermissionsToRoleRequest $request, Role $role): RoleResource
     {
-        $role = Role::findOrFail($request->role_id);
         $permissions = Arr::wrap($request->permissions_ids);
 
         return new RoleResource(

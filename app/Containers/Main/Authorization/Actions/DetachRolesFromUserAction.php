@@ -56,13 +56,12 @@ class DetachRolesFromUserAction extends Action
 
     /**
      * @param DetachRolesFromUserRequest $request
+     * @param User $user
      *
      * @return UserResource
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function asController(DetachRolesFromUserRequest $request): UserResource
+    public function asController(DetachRolesFromUserRequest $request, User $user): UserResource
     {
-        $user = User::findOrFail($request->user_id);
         $roles = Arr::wrap($request->role_ids);
 
         return new UserResource(

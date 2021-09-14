@@ -5,7 +5,6 @@ namespace App\Containers\Main\Authorization\UI\API\Tests\Functional;
 use App\Containers\Main\Authorization\Models\Permission;
 use App\Containers\Main\Authorization\Models\Role;
 use App\Containers\Main\Authorization\Tests\ApiTestCase;
-use Illuminate\Testing\Fluent\AssertableJson;
 
 /**
  * @group authorization
@@ -13,7 +12,7 @@ use Illuminate\Testing\Fluent\AssertableJson;
  */
 class SyncRolePermissionsTest extends ApiTestCase
 {
-    protected string $url = 'v1/permissions/sync';
+    protected string $url = 'v1/roles/{id}/permissions/sync';
 
     protected array $access = [
         'permissions' => 'manage-roles',
@@ -26,25 +25,19 @@ class SyncRolePermissionsTest extends ApiTestCase
 
         $permissionA = Permission::factory()->create();
         $permissionB = Permission::factory()->create();
-        $roleA = Role::factory()->create();
-        $roleA->givePermissionTo($permissionA);
+        $role = Role::factory()->create();
+        $role->givePermissionTo($permissionA);
+
+        $url = $this->buildApiUrl(replaces: ['{id}' => $role->getKey()]);
         $data = [
-            'role_id' => $roleA->getKey(),
             'permissions_ids' => [$permissionA->getKey(), $permissionB->getKey()]
         ];
 
-        $this->postJson($this->buildApiUrl(), $data)
-            ->assertOk()
-                ->assertJson(fn (AssertableJson $json) =>
-                $json->has('_profiler')
-                    ->has('data', fn (AssertableJson $json) =>
-                        $json->where('id', $roleA->id)
-                            ->etc()
-                    )
-                );
+        $this->postJson($url, $data)
+            ->assertOk();
 
         $this->assertTrue(
-            Role::find($data['role_id'])
+            Role::find($role->getKey())
                 ->permissions()
                 ->pluck('id')
                 ->diff($data['permissions_ids'])
@@ -56,15 +49,14 @@ class SyncRolePermissionsTest extends ApiTestCase
     {
         $this->getTestingUser();
 
+        $url = $this->buildApiUrl(replaces: ['{id}' => 1]);
         $data = [
-            'role_id' => 'foo',
             'permissions_ids' => ['bar', 'baz']
         ];
 
-        $this->postJson($this->buildApiUrl(), $data)
+        $this->postJson($url, $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
-                'role_id',
                 'permissions_ids.0',
                 'permissions_ids.1'
             ]);

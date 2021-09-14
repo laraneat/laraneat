@@ -24,13 +24,12 @@ class SyncUserRolesAction extends Action
 
     /**
      * @param SyncUserRolesRequest $request
+     * @param User $user
      *
      * @return UserResource
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function asController(SyncUserRolesRequest $request): UserResource
+    public function asController(SyncUserRolesRequest $request, User $user): UserResource
     {
-        $user = User::findOrFail($request->user_id);
         $roles = Arr::wrap($request->role_ids);
 
         return new UserResource($this->handle($user, $roles));

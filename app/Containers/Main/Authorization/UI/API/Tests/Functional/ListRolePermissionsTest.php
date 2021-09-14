@@ -11,34 +11,16 @@ use Illuminate\Testing\Fluent\AssertableJson;
  * @group authorization
  * @group api
  */
-class ListRolesTest extends ApiTestCase
+class ListRolePermissionsTest extends ApiTestCase
 {
-    protected string $url = 'v1/roles';
+    protected string $url = 'v1/roles/{id}/permissions';
 
     protected array $access = [
         'permissions' => 'manage-roles',
         'roles' => '',
     ];
 
-    public function testListRoles(): void
-    {
-        $this->getTestingUser();
-
-        $this->getJson($this->buildApiUrl())
-            ->assertOk()
-            ->assertJsonStructure([
-                '_profiler',
-                'links',
-                'meta',
-                'data'
-            ])
-            ->assertJsonCount(
-                count_on_page(1, Role::query()->count()),
-                'data'
-            );
-    }
-
-    public function testListRolesWithParameters(): void
+    public function testListRolePermissions(): void
     {
         $this->getTestingUser();
 
@@ -47,16 +29,42 @@ class ListRolesTest extends ApiTestCase
             ->create();
 
         $url = $this->buildApiUrl(
+            replaces: ['{id}' => $role->id],
+        );
+
+        $this->getJson($url)
+            ->assertOk()
+            ->assertJsonStructure([
+                '_profiler',
+                'links',
+                'meta',
+                'data'
+            ])
+            ->assertJsonCount(
+                count_on_page(1, $role->permissions()->count()),
+                'data'
+            );
+    }
+
+    public function testListRolePermissionsWithParameters(): void
+    {
+        $this->getTestingUser();
+
+        $role = Role::factory()
+            ->has(Permission::factory()->count(3))
+            ->create();
+        $permission = $role->permissions[0];
+
+        $url = $this->buildApiUrl(
             queryParameters: [
                 'filter' => [
-                    'name' => $role->name,
+                    'name' => $permission->name,
                 ],
                 'fields' => [
-                    'roles' => 'id,name',
-                    'permissions' => 'id,name,group',
+                    'permissions' => 'id,name,display_name',
                 ],
-                'include' => 'permissions'
-            ]
+            ],
+            replaces: ['{id}' => $role->id],
         );
 
         $this->getJson($url)
@@ -68,16 +76,9 @@ class ListRolesTest extends ApiTestCase
                     ->has('meta')
                     ->has('data', 1)
                     ->has('data.0', fn (AssertableJson $json) =>
-                        $json->where('id', $role->id)
-                            ->where('name',$role->name)
-                            ->has('permissions', $role->permissions()->count())
-                            ->has('permissions.0',fn (AssertableJson $json) =>
-                                $json->has('id')
-                                    ->has('name')
-                                    ->has('group')
-                                    ->has('pivot')
-                            )
-
+                        $json->where('id', $permission->id)
+                            ->where('name',$permission->name)
+                            ->where('display_name',$permission->display_name)
                     )
             );
     }
