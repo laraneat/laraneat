@@ -3,7 +3,7 @@
 namespace App\Containers\Main\Authorization\Actions;
 
 use App\Containers\Main\Authorization\Models\Permission;
-use App\Containers\Main\Authorization\UI\API\QueryWizards\PermissionModelWizard;
+use App\Containers\Main\Authorization\UI\API\QueryWizards\PermissionQueryWizard;
 use App\Containers\Main\Authorization\UI\API\Requests\ViewPermissionRequest;
 use App\Containers\Main\Authorization\UI\API\Resources\PermissionResource;
 use App\Ship\Abstracts\Actions\Action;
@@ -19,7 +19,7 @@ class ViewPermissionAction extends Action
      */
     public function handle(ViewPermissionRequest $request, Permission $permission): Model
     {
-        return PermissionModelWizard::for($permission, $request)->build();
+        return PermissionQueryWizard::for($permission, $request)->build();
     }
 
     /**

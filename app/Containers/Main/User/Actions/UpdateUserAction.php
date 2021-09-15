@@ -34,6 +34,13 @@ class UpdateUserAction extends Action
     }
 
 
+    /**
+     * @param UpdateUserRequest $request
+     * @param User $user
+     *
+     * @return UserResource
+     * @throws UpdateResourceFailedException
+     */
     public function asController(UpdateUserRequest $request, User $user): UserResource
     {
         $sanitizedData = $request->sanitizeInput([

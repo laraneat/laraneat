@@ -1529,12 +1529,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Jackardios/laravel-query-wizard.git",
-                "reference": "ac9f3de61568248f29d0a74087cd461175310e80"
+                "reference": "6aa67a937dd9619116efacd6054b853e82f907b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Jackardios/laravel-query-wizard/zipball/ac9f3de61568248f29d0a74087cd461175310e80",
-                "reference": "ac9f3de61568248f29d0a74087cd461175310e80",
+                "url": "https://api.github.com/repos/Jackardios/laravel-query-wizard/zipball/6aa67a937dd9619116efacd6054b853e82f907b9",
+                "reference": "6aa67a937dd9619116efacd6054b853e82f907b9",
                 "shasum": ""
             },
             "require": {
@@ -1594,7 +1594,7 @@
                 "issues": "https://github.com/jackardios/laravel-query-wizard/issues",
                 "source": "https://github.com/jackardios/laravel-query-wizard"
             },
-            "time": "2021-09-14T23:03:08+00:00"
+            "time": "2021-09-15T01:41:27+00:00"
         },
         {
             "name": "laraneat/container-installer",

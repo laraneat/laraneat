@@ -2,9 +2,9 @@
 
 namespace App\Containers\Main\User\UI\API\QueryWizards;
 
-use App\Ship\Abstracts\QueryWizards\EloquentModelWizard;
+use App\Ship\Abstracts\QueryWizards\ModelQueryWizard;
 
-class UserModelWizard extends EloquentModelWizard
+class UserQueryWizard extends ModelQueryWizard
 {
     /**
      * @return string[]

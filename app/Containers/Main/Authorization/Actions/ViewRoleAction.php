@@ -3,7 +3,7 @@
 namespace App\Containers\Main\Authorization\Actions;
 
 use App\Containers\Main\Authorization\Models\Role;
-use App\Containers\Main\Authorization\UI\API\QueryWizards\RoleModelWizard;
+use App\Containers\Main\Authorization\UI\API\QueryWizards\RoleQueryWizard;
 use App\Containers\Main\Authorization\UI\API\Requests\ViewRoleRequest;
 use App\Containers\Main\Authorization\UI\API\Resources\RoleResource;
 use App\Ship\Abstracts\Actions\Action;
@@ -19,7 +19,7 @@ class ViewRoleAction extends Action
      */
     public function handle(ViewRoleRequest $request, Role $role): Model
     {
-        return RoleModelWizard::for($role, $request)->build();
+        return RoleQueryWizard::for($role, $request)->build();
     }
 
     /**

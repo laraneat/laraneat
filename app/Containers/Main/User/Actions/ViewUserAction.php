@@ -3,7 +3,7 @@
 namespace App\Containers\Main\User\Actions;
 
 use App\Containers\Main\User\Models\User;
-use App\Containers\Main\User\UI\API\QueryWizards\UserModelWizard;
+use App\Containers\Main\User\UI\API\QueryWizards\UserQueryWizard;
 use App\Containers\Main\User\UI\API\Requests\ViewUserRequest;
 use App\Containers\Main\User\UI\API\Resources\UserResource;
 use App\Ship\Abstracts\Actions\Action;
@@ -19,7 +19,7 @@ class ViewUserAction extends Action
      */
     public function handle(ViewUserRequest $request, User $user): Model
     {
-        return UserModelWizard::for($user, $request)->build();
+        return UserQueryWizard::for($user, $request)->build();
     }
 
     /**

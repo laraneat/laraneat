@@ -2,9 +2,9 @@
 
 namespace App\Containers\Main\Authorization\UI\API\QueryWizards;
 
-use App\Ship\Abstracts\QueryWizards\EloquentModelWizard;
+use App\Ship\Abstracts\QueryWizards\ModelQueryWizard;
 
-class RoleModelWizard extends EloquentModelWizard
+class PermissionQueryWizard extends ModelQueryWizard
 {
     /**
      * @return string[]
@@ -15,18 +15,18 @@ class RoleModelWizard extends EloquentModelWizard
             'id',
             'name',
             'guard_name',
+            'group',
             'display_name',
             'description',
             'created_at',
             'updated_at',
-            'permissions.id',
-            'permissions.name',
-            'permissions.guard_name',
-            'permissions.group',
-            'permissions.display_name',
-            'permissions.description',
-            'permissions.created_at',
-            'permissions.updated_at',
+            'roles.id',
+            'roles.name',
+            'roles.guard_name',
+            'roles.display_name',
+            'roles.description',
+            'roles.created_at',
+            'roles.updated_at',
         ];
     }
 
@@ -36,7 +36,7 @@ class RoleModelWizard extends EloquentModelWizard
     protected function allowedIncludes(): array
     {
         return [
-            'permissions',
+            'roles',
             'users'
         ];
     }

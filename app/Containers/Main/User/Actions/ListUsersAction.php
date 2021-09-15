@@ -26,6 +26,7 @@ class ListUsersAction extends Action
 
     /**
      * @param ListUsersRequest $request
+     *
      * @return ResourceCollection
      */
     public function asController(ListUsersRequest $request): ResourceCollection
