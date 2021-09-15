@@ -9,8 +9,6 @@ use App\Containers\Main\User\Notifications\UserRegisteredNotification;
 use App\Containers\Main\User\UI\API\Requests\CreateUserRequest;
 use App\Containers\Main\User\UI\API\Resources\UserResource;
 use App\Ship\Abstracts\Actions\Action;
-use App\Ship\Exceptions\CreateResourceFailedException;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -24,7 +22,6 @@ class CreateUserAction extends Action
      * @param string|null $name
      *
      * @return User
-     * @throws CreateResourceFailedException
      */
     public function handle(
         string $email,
@@ -32,24 +29,17 @@ class CreateUserAction extends Action
         string $name = null
     ): User
     {
-        try {
-            $user = User::create([
-                'password' => Hash::make($password),
-                'email' => $email,
-                'name' => $name,
-            ]);
-        } catch (Exception $e) {
-            throw new CreateResourceFailedException();
-        }
-
-        return $user;
+        return User::create([
+            'password' => Hash::make($password),
+            'email' => $email,
+            'name' => $name,
+        ]);
     }
 
     /**
      * @param CreateUserRequest $request
      *
      * @return JsonResponse
-     * @throws CreateResourceFailedException
      */
     public function asController(CreateUserRequest $request): JsonResponse
     {
