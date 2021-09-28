@@ -38,8 +38,7 @@
         "nunomaduro/collision": "^5.3.0",
         "phpunit/phpunit": "^9.5.2",
         "roave/security-advisories": "dev-latest",
-        "tutorigo/laravel-ide-macros": "^1.5",
-        "wulfheart/laravel-actions-ide-helper": "^0.1.0"
+        "tutorigo/laravel-ide-macros": "^1.5"
     },
     "autoload": {
         "psr-4": {
