@@ -128,7 +128,7 @@ return [
     */
 
     'model_locations' => [
-        'app/Containers/*/*/Models'
+        'app/Modules/*/*/Models'
     ],
 
     /*

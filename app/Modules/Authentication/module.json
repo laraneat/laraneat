@@ -1,0 +1,14 @@
+{
+    "name": "Authentication",
+    "namespace": "App\\Modules\\Authentication",
+    "alias": "authentication",
+    "description": "Authentication module",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "App\\Modules\\Authentication\\Providers\\AuthenticationServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

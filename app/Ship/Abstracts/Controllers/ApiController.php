@@ -2,9 +2,9 @@
 
 namespace App\Ship\Abstracts\Controllers;
 
-use Laraneat\Core\Traits\ResponseTrait;
+use Laraneat\Modules\Traits\ResponseHelpersTrait;
 
 abstract class ApiController extends Controller
 {
-    use ResponseTrait;
+    use ResponseHelpersTrait;
 }

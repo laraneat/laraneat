@@ -2,67 +2,6 @@
 
 return [
     'api' => [
-
-        /*
-        |--------------------------------------------------------------------------
-        | API Domain
-        |--------------------------------------------------------------------------
-        */
-        'domain' => env('API_DOMAIN', 'http://localhost'),
-
-        /*
-        |--------------------------------------------------------------------------
-        | API Prefix
-        |--------------------------------------------------------------------------
-        */
-        'prefix' => env('API_PREFIX', '/'),
-
-        /*
-        |--------------------------------------------------------------------------
-        | API Prefix
-        |--------------------------------------------------------------------------
-        */
-        'enable_version_prefix' => true,
-
-
-        /*
-        |--------------------------------------------------------------------------
-        | Access Token Expiration
-        |--------------------------------------------------------------------------
-        |
-        | In Minutes. Default to 1,440 minutes = 1 day
-        |
-        */
-        'expires-in' => env('API_TOKEN_EXPIRES', 1440),
-
-        /*
-        |--------------------------------------------------------------------------
-        | Refresh Token Expiration
-        |--------------------------------------------------------------------------
-        |
-        | In Minutes. Default to 43,200 minutes = 30 days
-        |
-        */
-        'refresh-expires-in' => env('API_REFRESH_TOKEN_EXPIRES', 43200),
-
-        /*
-        |--------------------------------------------------------------------------
-        | Enable Disable API Debugging
-        |--------------------------------------------------------------------------
-        |
-        | If enabled, the Error Exception trace will be injected in the JSON
-        | response, and it will be logged in the default Log file.
-        |
-        */
-        'debug' => env('API_DEBUG', true),
-
-        /*
-        |--------------------------------------------------------------------------
-        | Enable/Disable Implicit Grant
-        |--------------------------------------------------------------------------
-        */
-        'enabled-implicit-grant' => env('API_ENABLE_IMPLICIT_GRANT', true),
-
         /*
         |--------------------------------------------------------------------------
         | Rate Limit (throttle)
@@ -74,11 +13,12 @@ return [
         */
         'throttle' => [
             'enabled' => env('API_RATE_LIMIT_ENABLED', true),
-            'attempts' => env('API_RATE_LIMIT_ATTEMPTS', '30'),
+            'attempts' => env('API_RATE_LIMIT_ATTEMPTS', '60'),
             'expires' => env('API_RATE_LIMIT_EXPIRES', '1'),
         ]
-
     ],
+
+    'spa_url' => env('SPA_URL'),
 
     'requests' => [
         /*
@@ -94,36 +34,6 @@ return [
         |
         */
         'force-accept-header' => false,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Force Valid Request Include Parameters
-        |--------------------------------------------------------------------------
-        |
-        | By default, users can request to include additional resources into the
-        | response by using the ?include=... query parameter. The requested top-level
-        | resource also responds with all available includes. However, the user may
-        | still request an invalid (i.e., not available) include parameter. This flag
-        | determines, how to proceed in such a case:
-        | When set to true, a PHP Exception will be thrown (default)
-        | When set to false, this invalid include will be skipped
-        |
-        */
-        'force-valid-includes' => true,
-
-        /*
-        |--------------------------------------------------------------------------
-        | Use ETags
-        |--------------------------------------------------------------------------
-        |
-        | This option appends an "ETag" HTTP Header to the Response. This ETag is a
-        | calculated hash of the content to be delivered.
-        | Clients can add an "If-None-Match" HTTP Header to the Request and submit
-        | an (old) ETag. These ETags are validated. If they match (are the same),
-        | an empty BODY with HTTP STATUS 304 (not modified) is returned!
-        |
-        */
-        'use-etag' => false,
     ],
 
     'seeders' => [
@@ -147,7 +57,7 @@ return [
         |--------------------------------------------------------------------------
         |
         */
-        'user-class' => App\Containers\Main\User\Models\User::class,
+        'user-class' => App\Modules\User\Models\User::class,
 
         /*
         |--------------------------------------------------------------------------

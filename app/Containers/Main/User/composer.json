@@ -1,6 +1,0 @@
-{
-    "name": "laraneat/user",
-    "description": "User Container for laraneat.",
-    "type": "laraneat-container",
-    "require": {}
-}

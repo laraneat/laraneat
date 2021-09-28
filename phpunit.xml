@@ -6,16 +6,17 @@
             <directory suffix=".php">./app</directory>
         </include>
         <exclude>
-            <directory suffix=".php">./app/Containers/Vendor</directory>
+            <directory suffix=".php">./app/Modules/Vendor</directory>
             <!-- NOTE: Exclude the following directories because they fail when directly included with code-coverage-->
-            <directory suffix=".php">./app/Containers/*/*/UI/*/Routes</directory>
-            <directory suffix=".php">./app/Containers/*/*/Data/Factories</directory>
+            <directory suffix=".php">./app/Modules/*/UI/*/Routes</directory>
+            <directory suffix=".php">./app/Modules/*/Data/Factories</directory>
+            <directory suffix=".php">./app/Modules/*/Data/Migrations</directory>
         </exclude>
     </coverage>
     <testsuites>
-        <testsuite name="Containers Tests">
-            <directory suffix="Test.php">./app/Containers/*/*/Tests</directory>
-            <directory suffix="Test.php">./app/Containers/*/*/UI/*/Tests</directory>
+        <testsuite name="Modules Tests">
+            <directory suffix="Test.php">./app/Modules/*/Tests</directory>
+            <directory suffix="Test.php">./app/Modules/*/UI/*/Tests</directory>
         </testsuite>
     </testsuites>
     <php>

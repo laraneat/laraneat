@@ -1,0 +1,10 @@
+{
+    "name": "laraneat/authorization",
+    "description": "Authorization Module for laraneat.",
+    "require": {
+        "spatie/laravel-permission": "^4.0.0"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    }
+}

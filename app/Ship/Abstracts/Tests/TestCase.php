@@ -7,9 +7,9 @@ use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as LaravelTestCase;
-use Laraneat\Core\Traits\TestsTraits\TestsAuthHelperTrait;
-use Laraneat\Core\Traits\TestsTraits\TestsModelHelperTrait;
-use Laraneat\Core\Traits\TestsTraits\TestsUrlHelperTrait;
+use Laraneat\Modules\Traits\TestsTraits\TestsAuthHelperTrait;
+use Laraneat\Modules\Traits\TestsTraits\TestsModelHelperTrait;
+use Laraneat\Modules\Traits\TestsTraits\TestsUrlHelperTrait;
 
 abstract class TestCase extends LaravelTestCase
 {

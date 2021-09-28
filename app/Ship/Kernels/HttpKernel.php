@@ -2,16 +2,17 @@
 
 namespace App\Ship\Kernels;
 
-use App\Ship\Middlewares\Http\Authenticate;
-use App\Ship\Middlewares\Http\EncryptCookies;
-use App\Ship\Middlewares\Http\PreventRequestsDuringMaintenance;
-use App\Ship\Middlewares\Http\ProcessETagHeadersMiddleware;
-use App\Ship\Middlewares\Http\ProfilerMiddleware;
-use App\Ship\Middlewares\Http\TrimStrings;
-use App\Ship\Middlewares\Http\TrustProxies;
-use App\Ship\Middlewares\Http\ValidateJsonContent;
-use App\Ship\Middlewares\Http\VerifyCsrfToken;
+use App\Ship\Middleware\Http\Authenticate;
+use App\Ship\Middleware\Http\EncryptCookies;
+use App\Ship\Middleware\Http\PreventRequestsDuringMaintenance;
+use App\Ship\Middleware\Http\ProfilerMiddleware;
+use App\Ship\Middleware\Http\RedirectIfAuthenticated;
+use App\Ship\Middleware\Http\TrimStrings;
+use App\Ship\Middleware\Http\TrustProxies;
+use App\Ship\Middleware\Http\ValidateJsonContent;
+use App\Ship\Middleware\Http\VerifyCsrfToken;
 use Fruitcake\Cors\HandleCors;
+use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Auth\Middleware\EnsureEmailIsVerified;
 use Illuminate\Auth\Middleware\RequirePassword;
@@ -26,6 +27,7 @@ use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 class HttpKernel extends LaravelHttpKernel
 {
@@ -37,8 +39,7 @@ class HttpKernel extends LaravelHttpKernel
      * @var array
      */
     protected $middleware = [
-        // Laravel middlewares
-        // \App\Http\Middleware\TrustHosts::class,
+        // \App\Ship\Middleware\Http\TrustHosts::class,
         TrustProxies::class,
         HandleCors::class,
         PreventRequestsDuringMaintenance::class,
@@ -64,10 +65,10 @@ class HttpKernel extends LaravelHttpKernel
         ],
 
         'api' => [
-            // Note: The "throttle" Middleware is registered by the RoutesLoaderTrait in the Core
+            EnsureFrontendRequestsAreStateful::class,
+            'throttle:api',
             SubstituteBindings::class,
             ValidateJsonContent::class,
-            ProcessETagHeadersMiddleware::class,
             ProfilerMiddleware::class,
         ],
     ];
@@ -81,12 +82,10 @@ class HttpKernel extends LaravelHttpKernel
      */
     protected $routeMiddleware = [
         'auth' => Authenticate::class,
-        // 'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'auth.basic' => AuthenticateWithBasicAuth::class,
         'cache.headers' => SetCacheHeaders::class,
-        // Note: The "can" Middleware is registered by MiddlewareServiceProvider in Authorization Container
-        // 'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        // Note: The "guest" Middleware is registered by MiddlewareServiceProvider in Authentication Container
-        // 'guest' => \App\Ship\Middlewares\Http\RedirectIfAuthenticated::class,
+        'can' => Authorize::class,
+        'guest' => RedirectIfAuthenticated::class,
         'password.confirm' => RequirePassword::class,
         'signed' => ValidateSignature::class,
         'throttle' => ThrottleRequests::class,

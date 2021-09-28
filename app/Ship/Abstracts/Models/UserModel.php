@@ -8,6 +8,5 @@ use Spatie\Permission\Traits\HasRoles;
 
 abstract class UserModel extends LaravelAuthenticatableUser
 {
-    use Notifiable;
-    use HasRoles;
+    use Notifiable, HasRoles;
 }

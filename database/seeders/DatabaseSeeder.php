@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Laraneat\Core\Loaders\SeederLoaderTrait;
+use Laraneat\Modules\Traits\SeederLoaderTrait;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,6 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->runLoadingSeeders();
+        $this->runSeedersFromModules();
     }
 }

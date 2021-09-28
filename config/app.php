@@ -163,8 +163,14 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
-         * NOTE: all packages service providers must be registered inside their container's main service providers.
+         * Application Service Providers...
+         * NOTE: all packages service providers must be registered inside their module's main service providers.
          */
+        App\Ship\Providers\ShipServiceProvider::class,
+        App\Ship\Providers\AuthServiceProvider::class,
+//        App\Ship\Providers\BroadcastServiceProvider::class,
+        App\Ship\Providers\EventServiceProvider::class,
+        App\Ship\Providers\RouteServiceProvider::class,
     ],
 
     /*
@@ -219,7 +225,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         /*
-         * NOTE: all packages aliases must be registered inside their containers service providers
+         * NOTE: all packages aliases must be registered inside their module's service providers
          */
     ],
 ];

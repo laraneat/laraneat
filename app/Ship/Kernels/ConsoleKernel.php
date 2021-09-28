@@ -13,8 +13,8 @@ class ConsoleKernel extends LaravelConsoleKernel
      * @var array
      */
     protected $commands = [
-        // NOTE: your Containers command will all be auto registered for you.
-        // Same for the Ship commands who live in the `app/Ship/Commands/` directory.
+        // NOTE: all your module commands will be automatically registered with their service providers.
+        // Same for the Ship commands who live in the `app/Ship/Console/Commands/` directory.
         // If you have commands living somewhere else then consider registering them manually here.
     ];
 
@@ -24,7 +24,7 @@ class ConsoleKernel extends LaravelConsoleKernel
      * @param Schedule $schedule
      * @return void
      */
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
         // $schedule->command('inspire')->hourly();
     }
@@ -34,13 +34,10 @@ class ConsoleKernel extends LaravelConsoleKernel
      *
      * @return void
      */
-    protected function commands()
+    protected function commands(): void
     {
-        // NOTE: No need to load your Commands manually from here.
-        // As they are automatically registered by the Laraneat Loader.
+        $this->load(app_path('Ship/Console/Commands'));
 
-        // $this->load(__DIR__.'/Commands');
-
-        require app_path('Ship/Commands/Routes.php');
+        require app_path('Ship/Console/routes.php');
     }
 }
