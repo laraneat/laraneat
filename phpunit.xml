@@ -6,11 +6,10 @@
             <directory suffix=".php">./app</directory>
         </include>
         <exclude>
-            <directory suffix=".php">./app/Modules/Vendor</directory>
-            <!-- NOTE: Exclude the following directories because they fail when directly included with code-coverage-->
             <directory suffix=".php">./app/Modules/*/UI/*/Routes</directory>
             <directory suffix=".php">./app/Modules/*/Data/Factories</directory>
             <directory suffix=".php">./app/Modules/*/Data/Migrations</directory>
+            <directory suffix=".php">./app/Modules/*/Data/Seeders</directory>
         </exclude>
     </coverage>
     <testsuites>
