@@ -7,9 +7,6 @@ use App\Ship\Abstracts\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 
-/**
- * A.K.A app/Providers/RouteServiceProvider
- */
 class RouteServiceProvider extends ServiceProvider
 {
     /**

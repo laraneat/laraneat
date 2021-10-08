@@ -5,9 +5,6 @@ namespace App\Ship\Providers;
 use App\Ship\Abstracts\Providers\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;
 
-/**
- * A.K.A app/Providers/BroadcastServiceProvider
- */
 class BroadcastServiceProvider extends ServiceProvider
 {
     /**

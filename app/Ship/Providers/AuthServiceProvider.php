@@ -5,9 +5,6 @@ namespace App\Ship\Providers;
 use App\Ship\Abstracts\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
-/**
- * A.K.A app/Providers/AuthServiceProvider
- */
 class AuthServiceProvider extends ServiceProvider
 {
     /**
