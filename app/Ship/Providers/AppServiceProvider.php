@@ -6,10 +6,7 @@ use App\Ship\Abstracts\Providers\ServiceProvider;
 use Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider;
 use Illuminate\Support\Facades\Validator;
 
-/**
- * A.K.A app/Providers/AppServiceProvider
- */
-class ShipServiceProvider extends ServiceProvider
+class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.

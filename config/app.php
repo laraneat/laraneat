@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'Europe/Moscow',
+    'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -166,7 +166,7 @@ return [
          * Application Service Providers...
          * NOTE: all packages service providers must be registered inside their module's main service providers.
          */
-        App\Ship\Providers\ShipServiceProvider::class,
+        App\Ship\Providers\AppServiceProvider::class,
         App\Ship\Providers\AuthServiceProvider::class,
 //        App\Ship\Providers\BroadcastServiceProvider::class,
         App\Ship\Providers\EventServiceProvider::class,
