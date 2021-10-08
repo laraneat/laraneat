@@ -43,16 +43,16 @@ class ViewPermissionTest extends TestCase
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
-                        $json->where('id', $permission->getKey())
-                            ->where('name', $permission->name)
-                            ->has('roles', $permission->roles()->count())
-                            ->has('roles.0', fn (AssertableJson $json) =>
-                                $json->has('id')
-                                    ->has('display_name')
-                                    ->has('name')
-                                    ->has('pivot')
-                            )
-                    )
+                    $json->where('id', $permission->getKey())
+                        ->where('name', $permission->name)
+                        ->has('roles', $permission->roles()->count())
+                        ->has('roles.0', fn (AssertableJson $json) =>
+                            $json->has('id')
+                                ->has('display_name')
+                                ->has('name')
+                                ->has('pivot')
+                        )
+                )
             );
     }
 }

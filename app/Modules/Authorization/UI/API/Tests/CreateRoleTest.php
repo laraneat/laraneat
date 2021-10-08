@@ -36,10 +36,10 @@ class CreateRoleTest extends TestCase
             ->assertCreated()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
-                        $json->has('id')
-                            ->whereAll($data)
-                            ->etc()
-                        )
+                    $json->has('id')
+                        ->whereAll($data)
+                        ->etc()
+                )
             );
 
         $this->assertExistsModelWithAttributes(Role::class, $data);

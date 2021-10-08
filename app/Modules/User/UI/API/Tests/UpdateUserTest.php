@@ -36,11 +36,11 @@ class UpdateUserTest extends TestCase
         $this->patchJson($url, $data)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
-            $json->has('data', fn (AssertableJson $json) =>
-                $json->has('id')
-                    ->whereAll($dataWithoutPassword)
-                    ->etc()
-                )
+                $json->has('data', fn (AssertableJson $json) =>
+                    $json->has('id')
+                        ->whereAll($dataWithoutPassword)
+                        ->etc()
+                    )
             );
 
         $this->assertExistsModelWithAttributes(User::class, $dataWithoutPassword);
@@ -115,9 +115,9 @@ class UpdateUserTest extends TestCase
         $this->patchJson($url, $data)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
-            $json->has('data', fn (AssertableJson $json) =>
-                $json->whereAll($expectedData)
-                    ->etc()
+                $json->has('data', fn (AssertableJson $json) =>
+                    $json->whereAll($expectedData)
+                        ->etc()
                 )
             );
 

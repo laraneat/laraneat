@@ -39,10 +39,10 @@ class CreateUserTest extends TestCase
             ->assertCreated()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
-                        $json->has('id')
-                            ->whereAll($dataWithoutPassword)
-                            ->etc()
-                        )
+                    $json->has('id')
+                        ->whereAll($dataWithoutPassword)
+                        ->etc()
+                )
             );
 
         $this->assertExistsModelWithAttributes(User::class, $dataWithoutPassword);
