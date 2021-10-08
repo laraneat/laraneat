@@ -8,6 +8,7 @@ use App\Modules\Authorization\UI\API\Requests\DetachPermissionsFromRoleRequest;
 use App\Modules\Authorization\UI\API\Resources\RoleResource;
 use App\Ship\Abstracts\Actions\Action;
 use Illuminate\Support\Arr;
+use Spatie\Permission\Models\Permission as SpatiePermission;
 
 class DetachPermissionsFromRoleAction extends Action
 {
@@ -48,7 +49,7 @@ class DetachPermissionsFromRoleAction extends Action
                 return $permission;
             })
             ->filter(function ($permission) {
-                return $permission instanceof Permission;
+                return $permission instanceof SpatiePermission;
             })
             ->map->id
             ->all();

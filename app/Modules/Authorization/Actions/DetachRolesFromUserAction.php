@@ -8,6 +8,7 @@ use App\Modules\User\Models\User;
 use App\Modules\User\UI\API\Resources\UserResource;
 use App\Ship\Abstracts\Actions\Action;
 use Illuminate\Support\Arr;
+use Spatie\Permission\Models\Role as SpatieRole;
 
 class DetachRolesFromUserAction extends Action
 {
@@ -48,7 +49,7 @@ class DetachRolesFromUserAction extends Action
                 return $role;
             })
             ->filter(function ($role) {
-                return $role instanceof Role;
+                return $role instanceof SpatieRole;
             })
             ->map->id
             ->all();
