@@ -27,7 +27,6 @@ class ListUsersTest extends TestCase
         $this->getJson($this->buildUrl())
             ->assertOk()
             ->assertJsonStructure([
-                '_profiler',
                 'links',
                 'meta',
                 'data'

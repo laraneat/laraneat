@@ -36,8 +36,7 @@ class UpdateUserTest extends TestCase
         $this->patchJson($url, $data)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
-            $json->has('_profiler')
-                ->has('data', fn (AssertableJson $json) =>
+            $json->has('data', fn (AssertableJson $json) =>
                 $json->has('id')
                     ->whereAll($dataWithoutPassword)
                     ->etc()
@@ -74,9 +73,8 @@ class UpdateUserTest extends TestCase
         $this->patchJson($url, $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
-                // messages should be updated after modifying the validation rules, to pass this test
-                'password' => 'The password must be at least 6 characters.',
-                'name' => 'The name must be at least 2 characters.'
+                'password',
+                'name'
             ]);
     }
 
@@ -117,8 +115,7 @@ class UpdateUserTest extends TestCase
         $this->patchJson($url, $data)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
-            $json->has('_profiler')
-                ->has('data', fn (AssertableJson $json) =>
+            $json->has('data', fn (AssertableJson $json) =>
                 $json->whereAll($expectedData)
                     ->etc()
                 )

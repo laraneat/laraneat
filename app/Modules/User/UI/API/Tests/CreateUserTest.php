@@ -38,8 +38,7 @@ class CreateUserTest extends TestCase
         $this->postJson($this->buildUrl(), $data)
             ->assertCreated()
             ->assertJson(fn (AssertableJson $json) =>
-                $json->has('_profiler')
-                    ->has('data', fn (AssertableJson $json) =>
+                $json->has('data', fn (AssertableJson $json) =>
                         $json->has('id')
                             ->whereAll($dataWithoutPassword)
                             ->etc()
@@ -66,7 +65,7 @@ class CreateUserTest extends TestCase
         $this->postJson($this->buildUrl(), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
-                'email' => 'The email has already been taken.',
+                'email'
             ]);
     }
 
@@ -81,7 +80,7 @@ class CreateUserTest extends TestCase
         $this->postJson($this->buildUrl(), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
-                'email' => 'The email field is required.',
+                'email'
             ]);
     }
 
@@ -96,7 +95,7 @@ class CreateUserTest extends TestCase
         $this->postJson($this->buildUrl(), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
-                'name' => 'The name field is required.',
+                'name'
             ]);
     }
 
@@ -111,7 +110,7 @@ class CreateUserTest extends TestCase
         $this->postJson($this->buildUrl(), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
-                'password' => 'The password field is required.',
+                'password'
             ]);
     }
 
@@ -127,7 +126,7 @@ class CreateUserTest extends TestCase
         $this->postJson($this->buildUrl(), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
-                'email' => 'The email must be a valid email address.',
+                'email'
             ]);
     }
 }

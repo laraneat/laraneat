@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd">
-    <coverage includeUncoveredFiles="true" processUncoveredFiles="false">
+         xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+>
+    <testsuites>
+        <testsuite name="Modules Tests">
+            <directory suffix="Test.php">./app/Modules/*/Tests</directory>
+            <directory suffix="Test.php">./app/Modules/*/UI/*/Tests</directory>
+        </testsuite>
+    </testsuites>
+    <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">./app</directory>
         </include>
@@ -12,12 +21,6 @@
             <directory suffix=".php">./app/Modules/*/Data/Seeders</directory>
         </exclude>
     </coverage>
-    <testsuites>
-        <testsuite name="Modules Tests">
-            <directory suffix="Test.php">./app/Modules/*/Tests</directory>
-            <directory suffix="Test.php">./app/Modules/*/UI/*/Tests</directory>
-        </testsuite>
-    </testsuites>
     <php>
         <server name="APP_ENV" value="testing"/>
         <server name="BCRYPT_ROUNDS" value="4"/>
@@ -26,8 +29,8 @@
         <server name="DB_DATABASE" value=":memory:"/>
         <server name="MAIL_MAILER" value="array"/>
         <server name="QUEUE_CONNECTION" value="sync"/>
-        <server name="SCOUT_DRIVER" value="collection"/>
         <server name="SESSION_DRIVER" value="array"/>
+        <server name="DEBUGBAR_ENABLED" value="false"/>
         <server name="TELESCOPE_ENABLED" value="false"/>
     </php>
 </phpunit>

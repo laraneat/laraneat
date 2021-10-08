@@ -35,7 +35,6 @@ class ListRolePermissionsTest extends TestCase
         $this->getJson($url)
             ->assertOk()
             ->assertJsonStructure([
-                '_profiler',
                 'links',
                 'meta',
                 'data'
@@ -71,7 +70,6 @@ class ListRolePermissionsTest extends TestCase
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
                 $json
-                    ->has('_profiler')
                     ->has('links')
                     ->has('meta')
                     ->has('data', 1)

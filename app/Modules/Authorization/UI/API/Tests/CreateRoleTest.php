@@ -35,8 +35,7 @@ class CreateRoleTest extends TestCase
         $this->postJson($this->buildUrl(), $data)
             ->assertCreated()
             ->assertJson(fn (AssertableJson $json) =>
-                $json->has('_profiler')
-                    ->has('data', fn (AssertableJson $json) =>
+                $json->has('data', fn (AssertableJson $json) =>
                         $json->has('id')
                             ->whereAll($data)
                             ->etc()

@@ -42,8 +42,7 @@ class ViewPermissionTest extends TestCase
         $this->getJson($url)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
-                $json->has('_profiler')
-                    ->has('data', fn (AssertableJson $json) =>
+                $json->has('data', fn (AssertableJson $json) =>
                         $json->where('id', $permission->getKey())
                             ->where('name', $permission->name)
                             ->has('roles', $permission->roles()->count())
