@@ -3,11 +3,12 @@
 namespace App\Modules\Authorization\UI\API\QueryWizards;
 
 use App\Ship\Abstracts\QueryWizards\ModelQueryWizard;
+use Jackardios\QueryWizard\Handlers\Model\Includes\AbstractModelInclude;
 
 class PermissionQueryWizard extends ModelQueryWizard
 {
     /**
-     * @return string[]
+     * @return array<string>
      */
     protected function allowedFields(): array
     {
@@ -31,7 +32,7 @@ class PermissionQueryWizard extends ModelQueryWizard
     }
 
     /**
-     * @return \Jackardios\QueryWizard\Handlers\Model\Includes\AbstractModelInclude[]|string[]
+     * @return array<string|AbstractModelInclude>
      */
     protected function allowedIncludes(): array
     {

@@ -3,11 +3,12 @@
 namespace App\Modules\User\UI\API\QueryWizards;
 
 use App\Ship\Abstracts\QueryWizards\ModelQueryWizard;
+use Jackardios\QueryWizard\Handlers\Model\Includes\AbstractModelInclude;
 
 class UserQueryWizard extends ModelQueryWizard
 {
     /**
-     * @return string[]
+     * @return array<string>
      */
     protected function allowedFields(): array
     {
@@ -21,7 +22,7 @@ class UserQueryWizard extends ModelQueryWizard
     }
 
     /**
-     * @return \Jackardios\QueryWizard\Handlers\Eloquent\Includes\AbstractEloquentInclude[]|string[]
+     * @return array<string|AbstractModelInclude>
      */
     protected function allowedIncludes(): array
     {

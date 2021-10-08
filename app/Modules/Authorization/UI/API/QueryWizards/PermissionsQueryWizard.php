@@ -3,11 +3,14 @@
 namespace App\Modules\Authorization\UI\API\QueryWizards;
 
 use App\Ship\Abstracts\QueryWizards\EloquentQueryWizard;
+use Jackardios\QueryWizard\Handlers\Eloquent\Filters\AbstractEloquentFilter;
+use Jackardios\QueryWizard\Handlers\Eloquent\Includes\AbstractEloquentInclude;
+use Jackardios\QueryWizard\Handlers\Eloquent\Sorts\AbstractEloquentSort;
 
 class PermissionsQueryWizard extends EloquentQueryWizard
 {
     /**
-     * @return string[]
+     * @return array<string>
      */
     protected function allowedFields(): array
     {
@@ -31,7 +34,7 @@ class PermissionsQueryWizard extends EloquentQueryWizard
     }
 
     /**
-     * @return \Jackardios\QueryWizard\Handlers\Eloquent\Filters\AbstractEloquentFilter[]|string[]
+     * @return array<string|AbstractEloquentFilter>
      */
     protected function allowedFilters(): array
     {
@@ -45,7 +48,7 @@ class PermissionsQueryWizard extends EloquentQueryWizard
     }
 
     /**
-     * @return \Jackardios\QueryWizard\Handlers\Eloquent\Includes\AbstractEloquentInclude[]|string[]
+     * @return array<string|AbstractEloquentInclude>
      */
     protected function allowedIncludes(): array
     {
@@ -56,7 +59,7 @@ class PermissionsQueryWizard extends EloquentQueryWizard
     }
 
     /**
-     * @return \Jackardios\QueryWizard\Handlers\Eloquent\Sorts\AbstractEloquentSort[]|string[]
+     * @return array<string|AbstractEloquentSort>
      */
     protected function allowedSorts(): array
     {
