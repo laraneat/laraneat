@@ -25,7 +25,8 @@ class CreateUserTest extends TestCase
         return [
             'email' => 'laraneat@mail.test',
             'name' => 'Laraneat',
-            'password' => 'secret',
+            'password' => 'some_secret',
+            'password_confirmation' => 'some_secret',
         ];
     }
 
@@ -33,7 +34,7 @@ class CreateUserTest extends TestCase
     {
         $this->getTestingUser();
         $data = $this->getTestData();
-        $dataWithoutPassword = Arr::except($data, ['password']);
+        $dataWithoutPassword = Arr::except($data, ['password', 'password_confirmation']);
 
         $this->postJson($this->buildUrl(), $data)
             ->assertCreated()
@@ -60,7 +61,7 @@ class CreateUserTest extends TestCase
     public function testCreateExistingUser(): void
     {
         $data = $this->getTestData();
-        $this->getTestingUser($data);
+        $this->getTestingUser(Arr::except($data, ['password_confirmation']));
 
         $this->postJson($this->buildUrl(), $data)
             ->assertStatus(422)
@@ -74,7 +75,8 @@ class CreateUserTest extends TestCase
         $this->getTestingUser();
         $data = [
             'name' => 'Laraneat',
-            'password' => 'secret',
+            'password' => 'some_secret',
+            'password_confirmation' => 'some_secret',
         ];
 
         $this->postJson($this->buildUrl(), $data)
@@ -89,7 +91,8 @@ class CreateUserTest extends TestCase
         $this->getTestingUser();
         $data = [
             'email' => 'laraneat@mail.test',
-            'password' => 'secret',
+            'password' => 'some_secret',
+            'password_confirmation' => 'some_secret',
         ];
 
         $this->postJson($this->buildUrl(), $data)
@@ -120,7 +123,8 @@ class CreateUserTest extends TestCase
         $data = [
             'email' => 'missing-at.test',
             'name' => 'Laraneat',
-            'password' => 'secret',
+            'password' => 'some_secret',
+            'password_confirmation' => 'some_secret',
         ];
 
         $this->postJson($this->buildUrl(), $data)

@@ -2,22 +2,29 @@
 
 namespace App\Modules\Authorization\UI\API\Requests;
 
-use App\Modules\Authorization\DTO\CreateRoleDTO;
 use App\Ship\Abstracts\Requests\Request;
 use Illuminate\Validation\Rule;
 
 /**
- * @property string $name
+ * @property string|null $name
  * @property string|null $description
  * @property string|null $display_name
  * @property int[]|null $permission_ids
  */
-class CreateRoleRequest extends Request
+class UpdateRoleRequest extends Request
 {
     public function rules(): array
     {
+        $role = $this->route('role');
+
         return [
-            'name' => 'required|string|unique:' . config('permission.table_names.roles') . ',name|min:2|max:20|no_spaces',
+            'name' => [
+                'string',
+                'min:2',
+                'max:20',
+                'no_spaces',
+                Rule::unique(config('permission.table_names.roles'))->ignore($role->name),
+            ],
             'description' => 'string|max:255',
             'display_name' => 'string|max:100',
             'permission_ids' => 'array|nullable',
@@ -30,17 +37,7 @@ class CreateRoleRequest extends Request
 
     public function authorize(): bool
     {
-        $user = $this->user();
-        return $user && $user->hasAnyPermission(['manage-roles']);
-    }
-
-    public function toDTO(): CreateRoleDTO
-    {
-        return new CreateRoleDTO(
-            name: $this->name,
-            description: $this->description,
-            displayName: $this->display_name,
-            permissions: $this->permission_ids
-        );
+        $role = $this->route('role');
+        return $role && $this->user()?->can('update', $role);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Modules\Authorization\UI\API\Requests;
 
 use App\Ship\Abstracts\Requests\Request;
+use Illuminate\Validation\Rule;
 
 /**
  * @property int[] $role_ids
@@ -13,7 +14,10 @@ class AttachRolesToUserRequest extends Request
     {
         return [
             'role_ids' => 'required|array|min:1',
-            'role_ids.*' => 'integer|exists:' . config('permission.table_names.roles') . ',id',
+            'role_ids.*' => [
+                'integer',
+                Rule::exists(config('permission.table_names.roles'), 'id')
+            ]
         ];
     }
 

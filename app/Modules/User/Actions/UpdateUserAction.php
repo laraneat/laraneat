@@ -29,10 +29,12 @@ class UpdateUserAction extends Action
         return $user;
     }
 
+    /**
+     * @throws UpdateResourceFailedException
+     */
     public function asController(UpdateUserRequest $request, User $user): UserResource
     {
         $sanitizedData = $request->sanitizeInput([
-            'password',
             'name',
         ]);
 

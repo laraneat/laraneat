@@ -4,7 +4,6 @@ namespace App\Modules\User\UI\API\Tests;
 
 use App\Modules\User\Models\User;
 use App\Ship\Abstracts\Tests\TestCase;
-use Illuminate\Support\Arr;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 /**
@@ -29,21 +28,19 @@ class UpdateUserTest extends TestCase
         );
         $data = [
             'name' => 'Updated Name',
-            'password' => 'updated#Password'
         ];
-        $dataWithoutPassword = Arr::except($data, ['password']);
 
         $this->patchJson($url, $data)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
                     $json->has('id')
-                        ->whereAll($dataWithoutPassword)
+                        ->whereAll($data)
                         ->etc()
                     )
             );
 
-        $this->assertExistsModelWithAttributes(User::class, $dataWithoutPassword);
+        $this->assertExistsModelWithAttributes(User::class, $data);
     }
 
     public function testUpdateCurrentUserWithoutData(): void
@@ -67,13 +64,11 @@ class UpdateUserTest extends TestCase
         );
         $data = [
             'name' => '',
-            'password' => ''
         ];
 
         $this->patchJson($url, $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
-                'password',
                 'name'
             ]);
     }
@@ -105,7 +100,6 @@ class UpdateUserTest extends TestCase
         );
         $data = [
             'name' => 'Updated Name',
-            'password' => 'updated#Password'
         ];
         $expectedData = [
             'id' => $anotherUser->getKey(),
@@ -135,7 +129,6 @@ class UpdateUserTest extends TestCase
         );
         $data = [
             'name' => 'Updated Name',
-            'password' => 'updated#Password'
         ];
 
         $this->patchJson($url, $data)
