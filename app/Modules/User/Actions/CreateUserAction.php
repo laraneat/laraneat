@@ -17,10 +17,6 @@ use Illuminate\Support\Facades\Notification;
 
 class CreateUserAction extends Action
 {
-    /**
-     * @param CreateUserDTO $userDTO
-     * @return User
-     */
     public function handle(CreateUserDTO $userDTO): User
     {
         return User::create([
@@ -30,11 +26,6 @@ class CreateUserAction extends Action
         ]);
     }
 
-    /**
-     * @param CreateUserRequest $request
-     *
-     * @return JsonResponse
-     */
     public function asController(CreateUserRequest $request): JsonResponse
     {
         $user = $this->handle($request->toDTO());

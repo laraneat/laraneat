@@ -19,11 +19,6 @@ class ListRolesAction extends Action
             ->jsonPaginate();
     }
 
-    /**
-     * @param ListRolesRequest $request
-     *
-     * @return ResourceCollection
-     */
     public function asController(ListRolesRequest $request): ResourceCollection
     {
         return RoleResource::collection($this->handle($request));

@@ -11,18 +11,12 @@ use Illuminate\Support\Facades\Auth;
 
 class GetAuthenticatedUserAction extends Action
 {
-    /**
-     * @return User|null
-     */
     public function handle(): ?User
     {
         return Auth::user();
     }
 
     /**
-     * @param GetAuthenticatedUserRequest $request
-     *
-     * @return UserResource
      * @throws NotFoundException
      */
     public function asController(GetAuthenticatedUserRequest $request): UserResource

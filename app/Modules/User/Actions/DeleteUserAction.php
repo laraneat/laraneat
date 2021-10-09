@@ -9,22 +9,11 @@ use Illuminate\Http\JsonResponse;
 
 class DeleteUserAction extends Action
 {
-    /**
-     * @param User $user
-     *
-     * @return bool
-     */
     public function handle(User $user): bool
     {
         return $user->delete();
     }
 
-    /**
-     * @param DeleteUserRequest $request
-     * @param User $user
-     *
-     * @return JsonResponse
-     */
     public function asController(DeleteUserRequest $request, User $user): JsonResponse
     {
         $this->handle($user);

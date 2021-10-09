@@ -12,11 +12,6 @@ use Illuminate\Pagination\AbstractPaginator;
 
 class ListUsersAction extends Action
 {
-    /**
-     * @param ListUsersRequest $request
-     *
-     * @return AbstractPaginator
-     */
     public function handle(ListUsersRequest $request): AbstractPaginator
     {
         return UsersQueryWizard::for(User::query(), $request)
@@ -24,11 +19,6 @@ class ListUsersAction extends Action
             ->jsonPaginate();
     }
 
-    /**
-     * @param ListUsersRequest $request
-     *
-     * @return ResourceCollection
-     */
     public function asController(ListUsersRequest $request): ResourceCollection
     {
         return UserResource::collection($this->handle($request));

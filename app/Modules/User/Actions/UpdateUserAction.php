@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\Hash;
 class UpdateUserAction extends Action
 {
     /**
-     * @param User $user
-     * @param array $userData
-     *
-     * @return User
      * @throws UpdateResourceFailedException
      */
     public function handle(User $user, array $userData): User
@@ -33,14 +29,6 @@ class UpdateUserAction extends Action
         return $user;
     }
 
-
-    /**
-     * @param UpdateUserRequest $request
-     * @param User $user
-     *
-     * @return UserResource
-     * @throws UpdateResourceFailedException
-     */
     public function asController(UpdateUserRequest $request, User $user): UserResource
     {
         $sanitizedData = $request->sanitizeInput([
