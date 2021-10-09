@@ -12,11 +12,6 @@ use Illuminate\Pagination\AbstractPaginator;
 
 class ListPermissionsAction extends Action
 {
-    /**
-     * @param ListPermissionsRequest $request
-     *
-     * @return AbstractPaginator
-     */
     public function handle(ListPermissionsRequest $request): AbstractPaginator
     {
         return PermissionsQueryWizard::for(Permission::query(), $request)
@@ -24,11 +19,6 @@ class ListPermissionsAction extends Action
             ->jsonPaginate();
     }
 
-    /**
-     * @param ListPermissionsRequest $request
-     *
-     * @return ResourceCollection
-     */
     public function asController(ListPermissionsRequest $request): ResourceCollection
     {
         return PermissionResource::collection($this->handle($request));

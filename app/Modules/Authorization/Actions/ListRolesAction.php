@@ -12,11 +12,6 @@ use Illuminate\Pagination\AbstractPaginator;
 
 class ListRolesAction extends Action
 {
-    /**
-     * @param ListRolesRequest $request
-     *
-     * @return AbstractPaginator
-     */
     public function handle(ListRolesRequest $request): AbstractPaginator
     {
         return RolesQueryWizard::for(Role::query(), $request)

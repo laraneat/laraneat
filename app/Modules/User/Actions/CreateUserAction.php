@@ -2,6 +2,7 @@
 
 namespace App\Modules\User\Actions;
 
+use App\Modules\User\DTO\CreateUserDTO;
 use App\Modules\User\Events\UserRegisteredEvent;
 use App\Modules\User\Mails\UserRegisteredMail;
 use App\Modules\User\Models\User;
@@ -17,22 +18,15 @@ use Illuminate\Support\Facades\Notification;
 class CreateUserAction extends Action
 {
     /**
-     * @param string $email
-     * @param string $password
-     * @param string|null $name
-     *
+     * @param CreateUserDTO $userDTO
      * @return User
      */
-    public function handle(
-        string $email,
-        string $password,
-        string $name = null
-    ): User
+    public function handle(CreateUserDTO $userDTO): User
     {
         return User::create([
-            'password' => Hash::make($password),
-            'email' => $email,
-            'name' => $name,
+            'name' => $userDTO->name,
+            'email' => $userDTO->email,
+            'password' => Hash::make($userDTO->password),
         ]);
     }
 
@@ -43,11 +37,7 @@ class CreateUserAction extends Action
      */
     public function asController(CreateUserRequest $request): JsonResponse
     {
-        $user = $this->handle(
-            $request->email,
-            $request->password,
-            $request->name,
-        );
+        $user = $this->handle($request->toDTO());
 
         Mail::send(new UserRegisteredMail($user));
         Notification::send($user, new UserRegisteredNotification($user));

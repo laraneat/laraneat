@@ -12,12 +12,6 @@ use Illuminate\Pagination\AbstractPaginator;
 
 class ListUserRolesAction extends Action
 {
-    /**
-     * @param ListRolesRequest $request
-     * @param User $user
-     *
-     * @return AbstractPaginator
-     */
     public function handle(ListRolesRequest $request, User $user): AbstractPaginator
     {
         return RolesQueryWizard::for($user->roles(), $request)
@@ -25,12 +19,6 @@ class ListUserRolesAction extends Action
             ->jsonPaginate();
     }
 
-    /**
-     * @param ListRolesRequest $request
-     * @param User $user
-     *
-     * @return ResourceCollection
-     */
     public function asController(ListRolesRequest $request, User $user): ResourceCollection
     {
         return RoleResource::collection($this->handle($request, $user));

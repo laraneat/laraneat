@@ -4,13 +4,16 @@ namespace App\Modules\Authorization\UI\API\Requests;
 
 use App\Ship\Abstracts\Requests\Request;
 
+/**
+ * @property int[] $permission_ids
+ */
 class DetachPermissionsFromRoleRequest extends Request
 {
     public function rules(): array
     {
         return [
-            'permissions_ids' => 'required|array',
-            'permissions_ids.*' => 'exists:' . config('permission.table_names.permissions') . ',id',
+            'permission_ids' => 'required|array|min:1',
+            'permission_ids.*' => 'integer|exists:' . config('permission.table_names.permissions') . ',id',
         ];
     }
 

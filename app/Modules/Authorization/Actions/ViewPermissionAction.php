@@ -11,23 +11,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class ViewPermissionAction extends Action
 {
-    /**
-     * @param ViewPermissionRequest $request
-     * @param Permission $permission
-     *
-     * @return Model
-     */
     public function handle(ViewPermissionRequest $request, Permission $permission): Model
     {
         return PermissionQueryWizard::for($permission, $request)->build();
     }
 
-    /**
-     * @param ViewPermissionRequest $request
-     * @param Permission $permission
-     *
-     * @return PermissionResource
-     */
     public function asController(ViewPermissionRequest $request, Permission $permission): PermissionResource
     {
         return new PermissionResource($this->handle($request, $permission));

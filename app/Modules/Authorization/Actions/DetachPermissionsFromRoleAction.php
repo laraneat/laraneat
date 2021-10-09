@@ -8,17 +8,12 @@ use App\Modules\Authorization\UI\API\Requests\DetachPermissionsFromRoleRequest;
 use App\Modules\Authorization\UI\API\Resources\RoleResource;
 use App\Ship\Abstracts\Actions\Action;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Permission as SpatiePermission;
 
 class DetachPermissionsFromRoleAction extends Action
 {
-    /**
-     * @param Role $role
-     * @param int|string|Permission|array|\Illuminate\Support\Collection $permissions
-     *
-     * @return Role
-     */
-    public function handle(Role $role, $permissions): Role
+    public function handle(Role $role, int|string|array|Collection|Permission $permissions): Role
     {
         $role->permissions()->detach($this->preparePermissions($permissions));
         $role->forgetCachedPermissions();
@@ -27,11 +22,9 @@ class DetachPermissionsFromRoleAction extends Action
     }
 
     /**
-     * @param int|string|Permission|array|\Illuminate\Support\Collection $permissions
-     *
      * @return Permission[]
      */
-    public function preparePermissions($permissions): array
+    public function preparePermissions(int|string|array|Collection|Permission $permissions): array
     {
         return collect(Arr::wrap($permissions))
             ->flatten()
@@ -55,15 +48,9 @@ class DetachPermissionsFromRoleAction extends Action
             ->all();
     }
 
-    /**
-     * @param DetachPermissionsFromRoleRequest $request
-     * @param Role $role
-     *
-     * @return RoleResource
-     */
     public function asController(DetachPermissionsFromRoleRequest $request, Role $role): RoleResource
     {
-        $permissions = Arr::wrap($request->permissions_ids);
+        $permissions = Arr::wrap($request->permission_ids);
 
         return new RoleResource(
             $this->handle($role, $permissions)

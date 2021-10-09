@@ -8,17 +8,12 @@ use App\Modules\User\Models\User;
 use App\Modules\User\UI\API\Resources\UserResource;
 use App\Ship\Abstracts\Actions\Action;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 class DetachRolesFromUserAction extends Action
 {
-    /**
-     * @param User $user
-     * @param int|string|Role|array|\Illuminate\Support\Collection $roles
-     *
-     * @return User
-     */
-    public function handle(User $user, $roles): User
+    public function handle(User $user, int|string|array|Collection|Role $roles): User
     {
         $user->roles()->detach($this->prepareRoles($roles));
         $user->forgetCachedPermissions();
@@ -26,12 +21,7 @@ class DetachRolesFromUserAction extends Action
         return $user;
     }
 
-    /**
-     * @param int|string|Role|array|\Illuminate\Support\Collection $roles
-     *
-     * @return Role[]
-     */
-    protected function prepareRoles($roles): array
+    protected function prepareRoles(int|string|array|Collection|Role $roles): array
     {
         return collect(Arr::wrap($roles))
             ->flatten()
@@ -55,12 +45,6 @@ class DetachRolesFromUserAction extends Action
             ->all();
     }
 
-    /**
-     * @param DetachRolesFromUserRequest $request
-     * @param User $user
-     *
-     * @return UserResource
-     */
     public function asController(DetachRolesFromUserRequest $request, User $user): UserResource
     {
         $roles = Arr::wrap($request->role_ids);

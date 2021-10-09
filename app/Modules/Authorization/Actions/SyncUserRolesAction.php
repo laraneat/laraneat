@@ -8,26 +8,15 @@ use App\Modules\User\Models\User;
 use App\Modules\User\UI\API\Resources\UserResource;
 use App\Ship\Abstracts\Actions\Action;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class SyncUserRolesAction extends Action
 {
-    /**
-     * @param User $user
-     * @param int|string|Role|array|\Illuminate\Support\Collection $roles
-     *
-     * @return User
-     */
-    public function handle(User $user, $roles): User
+    public function handle(User $user, int|string|array|Collection|Role $roles): User
     {
         return $user->syncRoles($roles);
     }
 
-    /**
-     * @param SyncUserRolesRequest $request
-     * @param User $user
-     *
-     * @return UserResource
-     */
     public function asController(SyncUserRolesRequest $request, User $user): UserResource
     {
         $roles = Arr::wrap($request->role_ids);

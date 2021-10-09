@@ -60,13 +60,16 @@ return [
 
         /*
         |--------------------------------------------------------------------------
-        | Create permission action class
+        | "Create permission" classes
         |--------------------------------------------------------------------------
         |
-        | Customize "create permission" action class
+        | Customize "create permission" classes
         |
         */
-        'create_permission_action' => \App\Modules\Authorization\Actions\CreatePermissionAction::class,
+        'create_permission' => [
+            'action' => \App\Modules\Authorization\Actions\CreatePermissionAction::class,
+            'dto' => \App\Modules\Authorization\DTO\CreatePermissionDTO::class,
+        ],
 
         /*
         |--------------------------------------------------------------------------
@@ -117,6 +120,10 @@ return [
             ],
             'config' => [
                 'path' => 'Config',
+                'generate' => true
+            ],
+            'dto' => [
+                'path' => 'DTO',
                 'generate' => true
             ],
             'event' => [

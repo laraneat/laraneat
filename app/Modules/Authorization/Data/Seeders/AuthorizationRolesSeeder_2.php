@@ -3,6 +3,7 @@
 namespace App\Modules\Authorization\Data\Seeders;
 
 use App\Modules\Authorization\Actions\CreateRoleAction;
+use App\Modules\Authorization\DTO\CreateRoleDTO;
 use App\Modules\Authorization\Models\Permission;
 use App\Ship\Abstracts\Seeders\Seeder;
 
@@ -12,11 +13,11 @@ class AuthorizationRolesSeeder_2 extends Seeder
     {
         $allPermissions = Permission::all();
 
-        $role = CreateRoleAction::make()->handle(
+        $role = CreateRoleAction::make()->handle(new CreateRoleDTO(
             name: 'admin',
             description: 'Полный доступ ко всем возможностям системы.',
             displayName: 'Администратор',
-        );
+        ));
 
         $role->syncPermissions($allPermissions->pluck('name')->toArray());
     }

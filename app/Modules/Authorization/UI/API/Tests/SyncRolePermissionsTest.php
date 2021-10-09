@@ -30,7 +30,7 @@ class SyncRolePermissionsTest extends TestCase
 
         $url = $this->buildUrl(replaces: ['{id}' => $role->getKey()]);
         $data = [
-            'permissions_ids' => [$permissionA->getKey(), $permissionB->getKey()]
+            'permission_ids' => [$permissionA->getKey(), $permissionB->getKey()]
         ];
 
         $this->postJson($url, $data)
@@ -40,7 +40,7 @@ class SyncRolePermissionsTest extends TestCase
             Role::find($role->getKey())
                 ->permissions()
                 ->pluck('id')
-                ->diff($data['permissions_ids'])
+                ->diff($data['permission_ids'])
                 ->isEmpty()
         );
     }
@@ -51,14 +51,14 @@ class SyncRolePermissionsTest extends TestCase
 
         $url = $this->buildUrl(replaces: ['{id}' => 1]);
         $data = [
-            'permissions_ids' => ['bar', 'baz']
+            'permission_ids' => ['bar', 'baz']
         ];
 
         $this->postJson($url, $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
-                'permissions_ids.0',
-                'permissions_ids.1'
+                'permission_ids.0',
+                'permission_ids.1'
             ]);
     }
 }

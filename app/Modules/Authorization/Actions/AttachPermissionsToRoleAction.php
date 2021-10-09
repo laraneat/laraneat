@@ -8,29 +8,18 @@ use App\Modules\Authorization\UI\API\Requests\AttachPermissionsToRoleRequest;
 use App\Modules\Authorization\UI\API\Resources\RoleResource;
 use App\Ship\Abstracts\Actions\Action;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 class AttachPermissionsToRoleAction extends Action
 {
-    /**
-     * @param Role $role
-     * @param int|string|Permission|array|\Illuminate\Support\Collection $permissions
-     *
-     * @return Role
-     */
-    public function handle(Role $role, $permissions): Role
+    public function handle(Role $role, int|string|array|Collection|Permission $permissions): Role
     {
         return $role->givePermissionTo($permissions);
     }
 
-    /**
-     * @param AttachPermissionsToRoleRequest $request
-     * @param Role $role
-     *
-     * @return RoleResource
-     */
     public function asController(AttachPermissionsToRoleRequest $request, Role $role): RoleResource
     {
-        $permissions = Arr::wrap($request->permissions_ids);
+        $permissions = Arr::wrap($request->permission_ids);
 
         return new RoleResource(
             $this->handle($role, $permissions)
