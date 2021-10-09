@@ -3,8 +3,6 @@
 namespace App\Modules\Authentication\Providers;
 
 use App\Modules\Authentication\Actions\Fortify\ResetUserPassword;
-use App\Modules\Authentication\Actions\Fortify\UpdateUserPassword;
-use App\Modules\Authentication\Actions\Fortify\UpdateUserProfileInformation;
 use App\Ship\Abstracts\Providers\ServiceProvider;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -55,8 +53,6 @@ class AuthenticationServiceProvider extends ServiceProvider
 
     public function setUpServices(): void
     {
-        Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
-        Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         RateLimiter::for('login', function (Request $request) {
