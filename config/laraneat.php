@@ -43,8 +43,8 @@ return [
         |--------------------------------------------------------------------------
         |
         */
-        'deployment' => App\Ship\Seeders\SeedDeploymentData::class,
-        'testing' => App\Ship\Seeders\SeedTestingData::class
+        'deployment' => Database\Seeders\SeedDeploymentData::class,
+        'testing' => Database\Seeders\SeedTestingData::class
     ],
 
     'tests' => [

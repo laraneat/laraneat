@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Ship\Seeders;
+namespace Database\Seeders;
 
 use App\Ship\Abstracts\Seeders\Seeder;
+use Laraneat\Modules\Traits\SeederLoaderTrait;
 
 class SeedTestingData extends Seeder
 {
+    use SeederLoaderTrait;
+
     /**
      * Note: This seeder is not loaded automatically by Laraneat
      * This is a special seeder which can be called by "laraneat:seed:test" command
@@ -13,6 +16,7 @@ class SeedTestingData extends Seeder
      */
     public function run(): void
     {
-        // Create testing data here
+        // run module seeders from `/Seeders` and `/Seeders/Testing` directories
+        $this->runSeedersFromModules(['/', '/Testing']);
     }
 }

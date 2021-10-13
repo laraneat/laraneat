@@ -2,11 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Ship\Seeders\SeedDeploymentData;
-use App\Ship\Seeders\SeedTestingData;
 use Illuminate\Support\Facades\App;
-use Laraneat\Modules\Traits\SeederLoaderTrait;
 use Illuminate\Database\Seeder;
+use Laraneat\Modules\Traits\SeederLoaderTrait;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,9 +21,13 @@ class DatabaseSeeder extends Seeder
             $this->call(SeedDeploymentData::class);
             return;
         }
+
         if (App::runningUnitTests()) {
             $this->call(SeedTestingData::class);
             return;
         }
+
+        // run common module seeders from `/Seeders` directory
+        $this->runSeedersFromModules();
     }
 }
