@@ -47,7 +47,7 @@ class SyncRolePermissionsTest extends TestCase
     {
         $this->getTestingUser();
 
-        $role = Role::query()->first();
+        $role = Role::factory()->create();
 
         $url = route('api.roles.permissions.sync', ['role' => $role->id]);
         $data = [

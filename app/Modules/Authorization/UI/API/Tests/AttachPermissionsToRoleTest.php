@@ -45,8 +45,8 @@ class AttachPermissionsToRoleTest extends TestCase
     {
         $this->getTestingUser();
 
-        $role = Role::query()->first();
-        
+        $role = Role::factory()->create()->first();
+
         $url = route('api.roles.permissions.attach', ['role' => $role->id]);
         $data = [
             'permission_ids' => ['bar', 'baz']
