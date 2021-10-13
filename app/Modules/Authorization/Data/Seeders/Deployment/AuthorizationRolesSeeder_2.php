@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Authorization\Data\Seeders;
+namespace App\Modules\Authorization\Data\Seeders\Deployment;
 
 use App\Modules\Authorization\Actions\CreateRoleAction;
 use App\Modules\Authorization\DTO\CreateRoleDTO;

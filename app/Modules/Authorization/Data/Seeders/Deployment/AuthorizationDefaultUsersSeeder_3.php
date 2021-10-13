@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Authorization\Data\Seeders;
+namespace App\Modules\Authorization\Data\Seeders\Deployment;
 
 use App\Modules\Authorization\Actions\FindRoleAction;
 use App\Modules\User\Actions\CreateUserAction;
