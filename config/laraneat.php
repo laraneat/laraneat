@@ -39,7 +39,7 @@ return [
     'seeders' => [
         /*
         |--------------------------------------------------------------------------
-        | Special seeders for laraneat:seed-deploy & laraneat:seed-test commands
+        | Special seeders for laraneat:seed:deploy & laraneat:seed:test commands
         |--------------------------------------------------------------------------
         |
         */
