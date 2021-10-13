@@ -9,7 +9,7 @@ use App\Ship\Abstracts\Console\Command;
 
 class GiveAllPermissionsToRoleCommand extends Command
 {
-    protected $signature = 'laraneat:permissions:toRole {role}';
+    protected $signature = 'laraneat:permissions:to-role {role}';
 
     protected $description = 'Give all system Permissions to a specific Role.';
 
