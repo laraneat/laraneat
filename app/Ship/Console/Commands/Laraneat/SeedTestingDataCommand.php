@@ -25,6 +25,6 @@ class SeedTestingDataCommand extends Command
 
         $this->info('Testing Data Seeded Successfully.');
 
-        return 0;
+        return self::SUCCESS;
     }
 }

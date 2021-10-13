@@ -16,7 +16,7 @@ class GiveAllPermissionsToRoleCommand extends Command
     /**
      * @throws RoleNotFoundException
      */
-    public function handle(): void
+    public function handle(): int
     {
         $roleNameOrId = $this->argument('role');
         $allPermissions = Permission::all();
@@ -31,5 +31,7 @@ class GiveAllPermissionsToRoleCommand extends Command
 
         $this->info('Gave the Role (' . $role->name . ') the following Permissions: ' . implode(' - ',
                 $allPermissionsNames) . '.');
+
+        return self::SUCCESS;
     }
 }

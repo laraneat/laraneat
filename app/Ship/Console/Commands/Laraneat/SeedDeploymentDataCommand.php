@@ -25,6 +25,6 @@ class SeedDeploymentDataCommand extends Command
 
         $this->info('Deployment Data Seeded Successfully.');
 
-        return 0;
+        return self::SUCCESS;
     }
 }
