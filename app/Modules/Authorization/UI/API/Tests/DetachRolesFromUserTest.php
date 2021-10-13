@@ -12,8 +12,6 @@ use App\Ship\Abstracts\Tests\TestCase;
  */
 class DetachRolesFromUserTest extends TestCase
 {
-    protected string $url = 'api/v1/users/{id}/roles/detach';
-
     protected array $access = [
         'permissions' => 'attach-roles',
         'roles' => '',
@@ -28,7 +26,7 @@ class DetachRolesFromUserTest extends TestCase
         $user = User::factory()->create();
         $user->assignRole($roleA, $roleB);
 
-        $url = $this->buildUrl(replaces: ['{id}' => $user->getKey()]);
+        $url = route('api.users.roles.detach', ['user' => $user->id]);
         $data = [
             'role_ids' => [$roleA->getKey(), $roleB->getKey()],
         ];
@@ -48,7 +46,9 @@ class DetachRolesFromUserTest extends TestCase
     {
         $this->getTestingUser();
 
-        $url = $this->buildUrl(replaces: ['{id}' => 1]);
+        $user = User::query()->first();
+
+        $url = route('api.users.roles.detach', ['user' => $user->id]);
         $data = [
             'role_ids' => ['bar', 'baz']
         ];

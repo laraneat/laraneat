@@ -12,8 +12,6 @@ use Illuminate\Testing\Fluent\AssertableJson;
  */
 class UpdateUserTest extends TestCase
 {
-    protected string $url = 'api/v1/users/{id}';
-
     protected array $access = [
         'roles' => '',
         'permissions' => 'update-users',
@@ -22,15 +20,11 @@ class UpdateUserTest extends TestCase
     public function testUpdateCurrentUser(): void
     {
         $user = $this->getTestingUserWithoutAccess();
-
-        $url = $this->buildUrl(
-            replaces: ['{id}' => $user->getKey()]
-        );
         $data = [
             'name' => 'Updated Name',
         ];
 
-        $this->patchJson($url, $data)
+        $this->patchJson(route('api.users.update', ['user' => $user->id]), $data)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
@@ -47,11 +41,7 @@ class UpdateUserTest extends TestCase
     {
         $user = $this->getTestingUserWithoutAccess();
 
-        $url = $this->buildUrl(
-            replaces: ['{id}' => $user->getKey()]
-        );
-
-        $this->patchJson($url)
+        $this->patchJson(route('api.users.update', ['user' => $user->id]))
             ->assertStatus(417);
     }
 
@@ -59,14 +49,11 @@ class UpdateUserTest extends TestCase
     {
         $user = $this->getTestingUserWithoutAccess();
 
-        $url = $this->buildUrl(
-            replaces: ['{id}' => $user->getKey()]
-        );
         $data = [
             'name' => '',
         ];
 
-        $this->patchJson($url, $data)
+        $this->patchJson(route('api.users.update', ['user' => $user->id]), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
                 'name'
@@ -77,15 +64,11 @@ class UpdateUserTest extends TestCase
     {
         $this->getTestingUser();
 
-        $fakeUserId = 7777;
-        $url = $this->buildUrl(
-            replaces: ['{id}' => $fakeUserId]
-        );
         $data = [
             'name' => 'Updated Name',
         ];
 
-        $this->patchJson($url, $data)
+        $this->patchJson(route('api.users.update', ['user' => 7777]), $data)
             ->assertStatus(404);
     }
 
@@ -94,10 +77,6 @@ class UpdateUserTest extends TestCase
         $this->getTestingUser();
 
         $anotherUser = User::factory()->create();
-
-        $url = $this->buildUrl(
-            replaces: ['{id}' => $anotherUser->getKey()]
-        );
         $data = [
             'name' => 'Updated Name',
         ];
@@ -106,7 +85,7 @@ class UpdateUserTest extends TestCase
             'name' => $data['name']
         ];
 
-        $this->patchJson($url, $data)
+        $this->patchJson(route('api.users.update', ['user' => $anotherUser->id]), $data)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
@@ -123,15 +102,11 @@ class UpdateUserTest extends TestCase
         $this->getTestingUserWithoutAccess();
 
         $anotherUser = User::factory()->create();
-
-        $url = $this->buildUrl(
-            replaces: ['{id}' => $anotherUser->getKey()]
-        );
         $data = [
             'name' => 'Updated Name',
         ];
 
-        $this->patchJson($url, $data)
+        $this->patchJson(route('api.users.update', ['user' => $anotherUser->id]), $data)
             ->assertStatus(403);
     }
 }

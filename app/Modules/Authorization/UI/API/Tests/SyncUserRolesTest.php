@@ -12,8 +12,6 @@ use App\Ship\Abstracts\Tests\TestCase;
  */
 class SyncUserRolesTest extends TestCase
 {
-    protected string $url = 'api/v1/users/{id}/roles/sync';
-
     protected array $access = [
         'permissions' => 'attach-roles',
         'roles' => '',
@@ -28,7 +26,7 @@ class SyncUserRolesTest extends TestCase
         $user = User::factory()->create();
         $user->assignRole($roleA);
 
-        $url = $this->buildUrl(replaces: ['{id}' => $user->getKey()]);
+        $url = route('api.users.roles.sync', ['user' => $user->id]);
         $data = [
             'role_ids' => [
                 $roleA->getKey(),
@@ -52,7 +50,9 @@ class SyncUserRolesTest extends TestCase
     {
         $this->getTestingUser();
 
-        $url = $this->buildUrl(replaces: ['{id}' => 1]);
+        $user = User::query()->first();
+
+        $url = route('api.users.roles.sync', ['user' => $user->id]);
         $data = [
             'role_ids' => ['bar', 'baz']
         ];

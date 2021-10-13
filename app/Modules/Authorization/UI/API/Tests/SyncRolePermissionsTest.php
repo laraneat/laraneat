@@ -12,8 +12,6 @@ use App\Ship\Abstracts\Tests\TestCase;
  */
 class SyncRolePermissionsTest extends TestCase
 {
-    protected string $url = 'api/v1/roles/{id}/permissions/sync';
-
     protected array $access = [
         'permissions' => 'manage-roles',
         'roles' => '',
@@ -28,7 +26,7 @@ class SyncRolePermissionsTest extends TestCase
         $role = Role::factory()->create();
         $role->givePermissionTo($permissionA);
 
-        $url = $this->buildUrl(replaces: ['{id}' => $role->getKey()]);
+        $url = route('api.roles.permissions.sync', ['role' => $role->id]);
         $data = [
             'permission_ids' => [$permissionA->getKey(), $permissionB->getKey()]
         ];
@@ -49,7 +47,9 @@ class SyncRolePermissionsTest extends TestCase
     {
         $this->getTestingUser();
 
-        $url = $this->buildUrl(replaces: ['{id}' => 1]);
+        $role = Role::query()->first();
+
+        $url = route('api.roles.permissions.sync', ['role' => $role->id]);
         $data = [
             'permission_ids' => ['bar', 'baz']
         ];

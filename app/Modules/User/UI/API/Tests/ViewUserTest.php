@@ -12,8 +12,6 @@ use Illuminate\Testing\Fluent\AssertableJson;
  */
 class ViewUserTest extends TestCase
 {
-    protected string $url = 'api/v1/users/{id}';
-
     protected array $access = [
         'roles' => '',
         'permissions' => 'view-users',
@@ -23,16 +21,12 @@ class ViewUserTest extends TestCase
     {
         $user = $this->getTestingUserWithoutAccess();
 
-        $url = $this->buildUrl(
-            replaces: ['{id}' => $user->getKey()]
-        );
-
         $expectedData = [
             'id' => $user->getKey(),
             'email' => $user->email,
         ];
 
-        $this->getJson($url)
+        $this->getJson(route('api.users.view', ['user' => $user->id]))
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
@@ -47,15 +41,12 @@ class ViewUserTest extends TestCase
         $this->getTestingUser();
 
         $anotherUser = User::factory()->create();
-        $url = $this->buildUrl(
-            replaces: ['{id}' => $anotherUser->getKey()]
-        );
         $expectedData = [
             'id' => $anotherUser->getKey(),
             'email' => $anotherUser->email,
         ];
 
-        $this->getJson($url)
+        $this->getJson(route('api.users.view', ['user' => $anotherUser->id]))
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
@@ -70,11 +61,8 @@ class ViewUserTest extends TestCase
         $this->getTestingUserWithoutAccess();
 
         $anotherUser = User::factory()->create();
-        $url = $this->buildUrl(
-            replaces: ['{id}' => $anotherUser->getKey()]
-        );
 
-        $this->getJson($url)
+        $this->getJson(route('api.users.view', ['user' => $anotherUser->id]))
             ->assertForbidden();
     }
 
@@ -82,12 +70,7 @@ class ViewUserTest extends TestCase
     {
         $this->getTestingUser();
 
-        $fakeUserId = 7777;
-        $url = $this->buildUrl(
-            replaces: ['{id}' => $fakeUserId]
-        );
-
-        $this->getJson($url)
+        $this->getJson(route('api.users.view', ['user' => 7777]))
             ->assertNotFound();
     }
 }

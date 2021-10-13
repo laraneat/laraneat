@@ -12,8 +12,6 @@ use App\Ship\Abstracts\Tests\TestCase;
  */
 class AttachPermissionsToRoleTest extends TestCase
 {
-    protected string $url = 'api/v1/roles/{id}/permissions/attach';
-
     protected array $access = [
         'permissions' => 'manage-roles',
         'roles' => '',
@@ -27,7 +25,7 @@ class AttachPermissionsToRoleTest extends TestCase
         $permissionA = Permission::factory()->create();
         $permissionB = Permission::factory()->create();
 
-        $url = $this->buildUrl(replaces: ['{id}' => $role->getKey()]);
+        $url = route('api.roles.permissions.attach', ['role' => $role->id]);
         $data = [
             'permission_ids' => [$permissionA->getKey(), $permissionB->getKey()]
         ];
@@ -47,7 +45,9 @@ class AttachPermissionsToRoleTest extends TestCase
     {
         $this->getTestingUser();
 
-        $url = $this->buildUrl(replaces: ['{id}' => 1]);
+        $role = Role::query()->first();
+        
+        $url = route('api.roles.permissions.attach', ['role' => $role->id]);
         $data = [
             'permission_ids' => ['bar', 'baz']
         ];

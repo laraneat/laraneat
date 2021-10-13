@@ -11,8 +11,6 @@ use App\Ship\Abstracts\Tests\TestCase;
  */
 class DeleteRoleTest extends TestCase
 {
-    protected string $url = 'api/v1/roles/{id}';
-
     protected array $access = [
         'permissions' => 'manage-roles',
         'roles' => '',
@@ -23,10 +21,8 @@ class DeleteRoleTest extends TestCase
         $this->getTestingUser();
 
         $role = Role::factory()->create();
-        $url = $this->buildUrl(
-            replaces: ['{id}' => $role->getKey()]
-        );
-        $this->deleteJson($url)->assertNoContent();
+        $this->deleteJson(route('api.roles.delete', ['role' => $role->id]))
+            ->assertNoContent();
 
         $this->assertNull(Role::find($role->getKey()));
     }
@@ -35,11 +31,7 @@ class DeleteRoleTest extends TestCase
     {
         $this->getTestingUser();
 
-        $url = $this->buildUrl(
-            replaces: ['{id}' => '12345']
-        );
-
-        $this->deleteJson($url)
+        $this->deleteJson(route('api.roles.delete', ['role' => 7777]))
             ->assertNotFound();
     }
 }

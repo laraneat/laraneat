@@ -13,8 +13,6 @@ use Illuminate\Testing\Fluent\AssertableJson;
  */
 class CreateUserTest extends TestCase
 {
-    protected string $url = 'api/v1/users';
-
     protected array $access = [
         'roles' => '',
         'permissions' => 'create-users',
@@ -36,7 +34,7 @@ class CreateUserTest extends TestCase
         $data = $this->getTestData();
         $dataWithoutPassword = Arr::except($data, ['password', 'password_confirmation']);
 
-        $this->postJson($this->buildUrl(), $data)
+        $this->postJson(route('api.users.create'), $data)
             ->assertCreated()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
@@ -54,7 +52,7 @@ class CreateUserTest extends TestCase
         $this->getTestingUserWithoutAccess();
         $data = $this->getTestData();
 
-        $this->postJson($this->buildUrl(), $data)
+        $this->postJson(route('api.users.create'), $data)
             ->assertForbidden();
     }
 
@@ -63,7 +61,7 @@ class CreateUserTest extends TestCase
         $data = $this->getTestData();
         $this->getTestingUser(Arr::except($data, ['password_confirmation']));
 
-        $this->postJson($this->buildUrl(), $data)
+        $this->postJson(route('api.users.create'), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
                 'email'
@@ -79,7 +77,7 @@ class CreateUserTest extends TestCase
             'password_confirmation' => 'some_secret',
         ];
 
-        $this->postJson($this->buildUrl(), $data)
+        $this->postJson(route('api.users.create'), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
                 'email'
@@ -95,7 +93,7 @@ class CreateUserTest extends TestCase
             'password_confirmation' => 'some_secret',
         ];
 
-        $this->postJson($this->buildUrl(), $data)
+        $this->postJson(route('api.users.create'), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
                 'name'
@@ -110,7 +108,7 @@ class CreateUserTest extends TestCase
             'name' => 'Laraneat',
         ];
 
-        $this->postJson($this->buildUrl(), $data)
+        $this->postJson(route('api.users.create'), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
                 'password'
@@ -127,7 +125,7 @@ class CreateUserTest extends TestCase
             'password_confirmation' => 'some_secret',
         ];
 
-        $this->postJson($this->buildUrl(), $data)
+        $this->postJson(route('api.users.create'), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
                 'email'

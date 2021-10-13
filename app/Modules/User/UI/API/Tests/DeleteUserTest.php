@@ -11,8 +11,6 @@ use App\Ship\Abstracts\Tests\TestCase;
  */
 class DeleteUserTest extends TestCase
 {
-    protected string $url = 'api/v1/users/{id}';
-
     protected array $access = [
         'roles' => '',
         'permissions' => 'delete-users',
@@ -22,11 +20,8 @@ class DeleteUserTest extends TestCase
     {
         $user = $this->getTestingUser();
 
-        $url = $this->buildUrl(
-            replaces: ['{id}' => $user->getKey()]
-        );
-
-        $this->deleteJson($url)->assertNoContent();
+        $this->deleteJson(route('api.users.delete', ['user' => $user->id]))
+            ->assertNoContent();
 
         $this->assertNull(User::find($user->getKey()));
     }
@@ -37,21 +32,15 @@ class DeleteUserTest extends TestCase
 
         $anotherUser = User::factory()->create();
 
-        $url = $this->buildUrl(
-            replaces: ['{id}' => $anotherUser->getKey()]
-        );
-        $this->deleteJson($url)->assertForbidden();
+        $this->deleteJson(route('api.users.delete', ['user' => $anotherUser->id]))
+            ->assertForbidden();
     }
 
     public function testDeleteNotExistingUser(): void
     {
         $this->getTestingUser();
 
-        $url = $this->buildUrl(
-            replaces: ['{id}' => '12345']
-        );
-
-        $this->deleteJson($url)
+        $this->deleteJson(route('api.users.delete', ['user' => 12345]))
             ->assertNotFound();
     }
 }

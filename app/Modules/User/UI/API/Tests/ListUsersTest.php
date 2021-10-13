@@ -11,8 +11,6 @@ use App\Ship\Abstracts\Tests\TestCase;
  */
 class ListUsersTest extends TestCase
 {
-    protected string $url = 'api/v1/users';
-
     protected array $access = [
         'roles' => '',
         'permissions' => 'view-users',
@@ -24,7 +22,7 @@ class ListUsersTest extends TestCase
 
         User::factory()->count(2)->create();
 
-        $this->getJson($this->buildUrl())
+        $this->getJson(route('api.users.list'))
             ->assertOk()
             ->assertJsonStructure([
                 'links',
@@ -40,7 +38,7 @@ class ListUsersTest extends TestCase
 
         User::factory()->count(2)->create();
 
-        $this->getJson($this->buildUrl())
+        $this->getJson(route('api.users.list'))
             ->assertForbidden();
     }
 }

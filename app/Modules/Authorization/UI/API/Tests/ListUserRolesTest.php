@@ -14,8 +14,6 @@ use Illuminate\Testing\Fluent\AssertableJson;
  */
 class ListUserRolesTest extends TestCase
 {
-    protected string $url = 'api/v1/users/{id}/roles';
-
     protected array $access = [
         'permissions' => 'manage-roles',
         'users' => '',
@@ -29,11 +27,7 @@ class ListUserRolesTest extends TestCase
             ->has(Role::factory()->count(3))
             ->create();
 
-        $url = $this->buildUrl(
-            replaces: ['{id}' => $user->id],
-        );
-
-        $this->getJson($url)
+        $this->getJson(route('api.users.roles.list', ['user' => $user->id]))
             ->assertOk()
             ->assertJsonStructure([
                 'links',
@@ -58,19 +52,18 @@ class ListUserRolesTest extends TestCase
             ->create();
         $role = $user->roles[0];
 
-        $url = $this->buildUrl(
-            queryParameters: [
-                'filter' => [
-                    'name' => $role->name,
-                ],
-                'fields' => [
-                    'roles' => 'id,name,display_name',
-                    'permissions' => 'id,name,group'
-                ],
-                'include' => 'permissions'
+        $url = route('api.users.roles.list', [
+            'user' => $user->id,
+            'filter' => [
+                'name' => $role->name,
             ],
-            replaces: ['{id}' => $user->id],
-        );
+            'fields' => [
+                'roles' => 'id,name,display_name',
+                'permissions' => 'id,name,group'
+            ],
+            'include' => 'permissions'
+
+        ]);
 
         $this->getJson($url)
             ->assertOk()

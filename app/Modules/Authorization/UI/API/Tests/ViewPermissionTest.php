@@ -13,8 +13,6 @@ use Illuminate\Testing\Fluent\AssertableJson;
  */
 class ViewPermissionTest extends TestCase
 {
-    protected string $url = 'api/v1/permissions/{id}';
-
     protected array $access = [
         'permissions' => 'manage-roles',
         'roles' => '',
@@ -28,16 +26,14 @@ class ViewPermissionTest extends TestCase
             ->has(Role::factory()->count(3))
             ->create();
 
-        $url = $this->buildUrl(
-            queryParameters: [
-                'fields' => [
-                    'permissions' => 'id,name',
-                    'roles' => 'id,display_name,name'
-                ],
-                'include' => 'roles'
+        $url = route('api.permissions.view', [
+            'permission' => $permission->id,
+            'fields' => [
+                'permissions' => 'id,name',
+                'roles' => 'id,display_name,name'
             ],
-            replaces: ['{id}' => $permission->getKey()],
-        );
+            'include' => 'roles'
+        ]);
 
         $this->getJson($url)
             ->assertOk()

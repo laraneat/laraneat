@@ -12,8 +12,6 @@ use Illuminate\Testing\Fluent\AssertableJson;
  */
 class CreateRoleTest extends TestCase
 {
-    protected string $url = 'api/v1/roles';
-
     /**
      * @var array{permissions: string|array<string>, roles:string|array<string>}
      */
@@ -32,7 +30,7 @@ class CreateRoleTest extends TestCase
             'description' => 'he manages things',
         ];
 
-        $this->postJson($this->buildUrl(), $data)
+        $this->postJson(route('api.roles.create'), $data)
             ->assertCreated()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
@@ -54,7 +52,7 @@ class CreateRoleTest extends TestCase
         ];
 
         $this->getTestingUser();
-        $this->postJson($this->buildUrl(), $data)
+        $this->postJson(route('api.roles.create'), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors(['name']);
     }

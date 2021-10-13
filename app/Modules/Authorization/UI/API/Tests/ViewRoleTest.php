@@ -28,16 +28,14 @@ class ViewRoleTest extends TestCase
             ->has(Permission::factory()->count(3))
             ->create();
 
-        $url = $this->buildUrl(
-            queryParameters: [
-                'fields' => [
-                    'roles' => 'id,name',
-                    'permissions' => 'id,display_name,group'
-                ],
-                'include' => 'permissions'
+        $url = route('api.roles.view', [
+            'role' => $role->id,
+            'fields' => [
+                'roles' => 'id,name',
+                'permissions' => 'id,display_name,group'
             ],
-            replaces: ['{id}' => $role->getKey()],
-        );
+            'include' => 'permissions'
+        ]);
 
         $this->getJson($url)
             ->assertOk()
