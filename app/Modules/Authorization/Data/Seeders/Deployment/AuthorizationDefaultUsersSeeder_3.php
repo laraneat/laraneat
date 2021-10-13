@@ -12,9 +12,9 @@ class AuthorizationDefaultUsersSeeder_3 extends Seeder
     public function run(): void
     {
         $admin = CreateUserAction::make()->handle(new CreateUserDTO(
-            email: 'admin@admin.com',
-            password: 'admin',
-            name: 'Супер администратор'
+            name: 'Администратор',
+            email: config('authorization-module.admin.email', 'admin@example.com'),
+            password: config('authorization-module.admin.password', 'changeme'),
         ));
         $admin->assignRole(FindRoleAction::make()->handle('admin'));
         $admin->email_verified_at = now();
