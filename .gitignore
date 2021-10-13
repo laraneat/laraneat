@@ -7,7 +7,6 @@
 .vscode
 _ide_helper*.php
 _ide_macros*.php
-app/Modules/Vendor
 Homestead.json
 Homestead.yaml
 html-coverage
