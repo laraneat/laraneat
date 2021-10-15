@@ -9,20 +9,11 @@ class UserServiceProvider extends ServiceProvider
 {
     use ModuleProviderHelpersTrait;
 
-    /**
-     * @var string $moduleName
-     */
     protected string $moduleName = 'User';
-
-    /**
-     * @var string $moduleNameLower
-     */
     protected string $moduleNameLower = 'user';
 
     /**
      * Register services.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -31,8 +22,6 @@ class UserServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap services.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -45,8 +34,6 @@ class UserServiceProvider extends ServiceProvider
 
     /**
      * Register translations.
-     *
-     * @return void
      */
     public function registerTranslations(): void
     {
@@ -62,8 +49,6 @@ class UserServiceProvider extends ServiceProvider
 
     /**
      * Register config.
-     *
-     * @return void
      */
     protected function registerConfig(): void
     {
@@ -79,8 +64,6 @@ class UserServiceProvider extends ServiceProvider
 
     /**
      * Register views.
-     *
-     * @return void
      */
     public function registerViews(): void
     {
@@ -99,8 +82,6 @@ class UserServiceProvider extends ServiceProvider
 
     /**
      * Register migrations.
-     *
-     * @return void
      */
     public function registerMigrations(): void
     {
@@ -116,8 +97,6 @@ class UserServiceProvider extends ServiceProvider
 
     /**
      * Register artisan commands.
-     *
-     * @return void
      */
     public function registerCommands(): void
     {

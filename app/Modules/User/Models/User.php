@@ -60,8 +60,6 @@ class User extends UserModel implements MustVerifyEmail
     use Notifiable;
     use HasFactory;
 
-    protected $table = 'users';
-
     protected $fillable = [
         'name',
         'email',
@@ -81,9 +79,6 @@ class User extends UserModel implements MustVerifyEmail
 
     /**
      * Scope a query to only include popular users.
-     *
-     * @param Builder $query
-     * @return Builder
      */
     public function scopeWithEmail(Builder $query): Builder
     {
@@ -92,8 +87,6 @@ class User extends UserModel implements MustVerifyEmail
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return Factory
      */
     protected static function newFactory(): Factory
     {

@@ -2,14 +2,12 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreatePermissionTables extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
-     * @throws Exception
      */
     public function up(): void
     {
@@ -99,9 +97,6 @@ class CreatePermissionTables extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
-     * @throws Exception
      */
     public function down(): void
     {
@@ -117,4 +112,4 @@ class CreatePermissionTables extends Migration
         Schema::drop($tableNames['roles']);
         Schema::drop($tableNames['permissions']);
     }
-}
+};

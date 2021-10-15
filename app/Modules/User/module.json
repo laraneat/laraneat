@@ -10,7 +10,7 @@
         "App\\Modules\\User\\Providers\\RouteServiceProvider",
         "App\\Modules\\User\\Providers\\EventServiceProvider"
     ],
-    "aliases": {},
+    "aliases": [],
     "files": [],
     "requires": []
 }

@@ -55,8 +55,6 @@ class Role extends SpatieRole
 
     /**
      * Create a new factory instance for the model.
-     *
-     * @return Factory
      */
     protected static function newFactory(): Factory
     {

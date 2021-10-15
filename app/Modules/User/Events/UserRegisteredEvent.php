@@ -4,7 +4,6 @@ namespace App\Modules\User\Events;
 
 use App\Modules\User\Models\User;
 use App\Ship\Abstracts\Events\Event;
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Log;
@@ -28,10 +27,8 @@ class UserRegisteredEvent extends Event implements ShouldQueue
 
     /**
      * Get the channels the event should broadcast on.
-     *
-     * @return Channel|array
      */
-    public function broadcastOn()
+    public function broadcastOn(): PrivateChannel
     {
         return new PrivateChannel('channel-name');
     }
