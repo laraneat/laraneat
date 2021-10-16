@@ -1,7 +1,6 @@
 <?php
 
 use Laraneat\Modules\Activators\FileActivator;
-use Laraneat\Modules\Commands;
 
 return [
     'paths' => [
