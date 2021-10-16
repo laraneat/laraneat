@@ -2,8 +2,8 @@
     "name": "laraneat/authentication",
     "description": "Authentication Module for laraneat.",
     "require": {
-        "laravel/fortify": "^1.7.14",
-        "laravel/sanctum": "^2.11.2"
+        "laravel/fortify": "^1.7",
+        "laravel/sanctum": "^2.11"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest"
