@@ -15,7 +15,7 @@ class AuthorizationRolesSeeder_2 extends Seeder
 
         $role = CreateRoleAction::make()->handle(new CreateRoleDTO(
             name: 'admin',
-            description: 'Полный доступ ко всем возможностям системы.',
+            description: 'Full access to all system capabilities.',
             displayName: 'Администратор',
         ));
 
