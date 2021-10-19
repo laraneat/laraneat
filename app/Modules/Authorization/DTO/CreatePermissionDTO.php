@@ -12,5 +12,5 @@ class CreatePermissionDTO extends DataTransferObject
     public ?string $displayName;
     public ?string $group;
     public ?string $description;
-    public string $guard_name = 'web';
+    public string $guardName = 'web';
 }

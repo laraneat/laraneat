@@ -8,14 +8,14 @@ use App\Ship\Abstracts\Actions\Action;
 
 class CreatePermissionAction extends Action
 {
-    public function handle(CreatePermissionDTO $permissionDTO): Permission
+    public function handle(CreatePermissionDTO $dto): Permission
     {
         return Permission::create([
-            'name' => $permissionDTO->name,
-            'description' => $permissionDTO->description,
-            'display_name' => $permissionDTO->displayName,
-            'group' => $permissionDTO->group,
-            'guard_name' => $permissionDTO->guard_name,
+            'name' => $dto->name,
+            'description' => $dto->description,
+            'display_name' => $dto->displayName,
+            'group' => $dto->group,
+            'guard_name' => $dto->guardName,
         ]);
     }
 }
