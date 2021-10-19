@@ -18,8 +18,8 @@ class CreateRoleRequest extends Request
     {
         return [
             'name' => 'required|string|unique:' . config('permission.table_names.roles') . ',name|min:2|max:20|no_spaces',
-            'description' => 'string|max:255',
-            'display_name' => 'string|max:100',
+            'description' => 'string|max:255|nullable',
+            'display_name' => 'string|max:100|nullable',
             'permission_ids' => 'array|nullable',
             'permission_ids.*' => [
                 'integer',

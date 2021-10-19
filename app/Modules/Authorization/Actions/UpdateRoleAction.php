@@ -7,6 +7,7 @@ use App\Modules\Authorization\UI\API\Requests\UpdateRoleRequest;
 use App\Modules\Authorization\UI\API\Resources\RoleResource;
 use App\Ship\Abstracts\Actions\Action;
 use App\Ship\Exceptions\UpdateResourceFailedException;
+use Illuminate\Support\Facades\DB;
 
 class UpdateRoleAction extends Action
 {
@@ -22,13 +23,15 @@ class UpdateRoleAction extends Action
         $permissionIds = $roleData['permission_ids'] ?? null;
         unset($roleData['permission_ids']);
 
-        $role->update($roleData);
+        return DB::transaction(function() use (&$role, $roleData, $permissionIds) {
+            $role->update($roleData);
 
-        if ($permissionIds) {
-            AttachPermissionsToRoleAction::make()->handle($role, $permissionIds);
-        }
+            if ($permissionIds) {
+                SyncRolePermissionsAction::make()->handle($role, $permissionIds);
+            }
 
-        return $role;
+            return $role;
+        });
     }
 
     /**

@@ -2,8 +2,11 @@
 
 namespace App\Modules\Authorization\UI\API\Tests;
 
+use App\Modules\Authorization\Models\Permission;
 use App\Modules\Authorization\Models\Role;
 use App\Ship\Abstracts\Tests\TestCase;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 /**
@@ -20,6 +23,15 @@ class CreateRoleTest extends TestCase
         'roles' => '',
     ];
 
+    protected Collection $permissions;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->permissions = Permission::factory()->count(3)->create();
+    }
+
     public function testCreateRole(): void
     {
         $this->getTestingUser();
@@ -28,19 +40,29 @@ class CreateRoleTest extends TestCase
             'name' => 'manager',
             'display_name' => 'manager',
             'description' => 'he manages things',
+            'permission_ids' => $this->permissions->pluck('id')->toArray()
         ];
+
+        $expectedData = Arr::except($data, ['permission_ids']);
 
         $this->postJson(route('api.roles.create'), $data)
             ->assertCreated()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
                     $json->has('id')
-                        ->whereAll($data)
+                        ->whereAll($expectedData)
                         ->etc()
                 )
             );
 
-        $this->assertExistsModelWithAttributes(Role::class, $data);
+        $query = Role::query();
+        foreach ($expectedData as $key => $value) {
+            $query->where($key, $value);
+        }
+        $role = $query->first();
+
+        $this->assertNotNull($role);
+        $this->assertEqualsCanonicalizing($data['permission_ids'], $role->permissions->pluck('id')->toArray());
     }
 
     public function testCreateRoleWithWrongName(): void
@@ -49,6 +71,7 @@ class CreateRoleTest extends TestCase
             'name' => 'include Space',
             'display_name' => 'manager',
             'description' => 'he manages things',
+            'permission_ids' => $this->permissions->pluck('id')->toArray()
         ];
 
         $this->getTestingUser();
