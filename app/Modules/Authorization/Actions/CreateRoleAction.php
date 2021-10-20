@@ -26,7 +26,7 @@ class CreateRoleAction extends Action
             ]);
 
             if (!empty($dto->permissions)) {
-                AttachPermissionsToRoleAction::make()->handle($role, $dto->permissions);
+                $role = AttachPermissionsToRoleAction::make()->handle($role, $dto->permissions);
             }
 
             return $role;

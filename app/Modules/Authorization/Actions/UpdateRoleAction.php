@@ -7,6 +7,7 @@ use App\Modules\Authorization\UI\API\Requests\UpdateRoleRequest;
 use App\Modules\Authorization\UI\API\Resources\RoleResource;
 use App\Ship\Abstracts\Actions\Action;
 use App\Ship\Exceptions\UpdateResourceFailedException;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class UpdateRoleAction extends Action
@@ -20,8 +21,7 @@ class UpdateRoleAction extends Action
             throw new UpdateResourceFailedException();
         }
 
-        $permissionIds = $roleData['permission_ids'] ?? null;
-        unset($roleData['permission_ids']);
+        $permissionIds = Arr::pull($roleData, 'permission_ids');
 
         return DB::transaction(function() use (&$role, $roleData, $permissionIds) {
             $role->update($roleData);
