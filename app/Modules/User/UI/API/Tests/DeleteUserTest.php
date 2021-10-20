@@ -20,7 +20,7 @@ class DeleteUserTest extends TestCase
     {
         $user = $this->getTestingUser();
 
-        $this->deleteJson(route('api.users.delete', ['user' => $user->id]))
+        $this->deleteJson(route('api.users.delete', ['user' => $user->getKey()]))
             ->assertNoContent();
 
         $this->assertNull(User::find($user->getKey()));
@@ -32,7 +32,7 @@ class DeleteUserTest extends TestCase
 
         $anotherUser = User::factory()->create();
 
-        $this->deleteJson(route('api.users.delete', ['user' => $anotherUser->id]))
+        $this->deleteJson(route('api.users.delete', ['user' => $anotherUser->getKey()]))
             ->assertForbidden();
     }
 

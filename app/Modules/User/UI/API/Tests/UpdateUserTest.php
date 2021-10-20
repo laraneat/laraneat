@@ -24,7 +24,7 @@ class UpdateUserTest extends TestCase
             'name' => 'Updated Name',
         ];
 
-        $this->patchJson(route('api.users.update', ['user' => $user->id]), $data)
+        $this->patchJson(route('api.users.update', ['user' => $user->getKey()]), $data)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
@@ -41,7 +41,7 @@ class UpdateUserTest extends TestCase
     {
         $user = $this->getTestingUserWithoutAccess();
 
-        $this->patchJson(route('api.users.update', ['user' => $user->id]))
+        $this->patchJson(route('api.users.update', ['user' => $user->getKey()]))
             ->assertStatus(417);
     }
 
@@ -53,7 +53,7 @@ class UpdateUserTest extends TestCase
             'name' => '',
         ];
 
-        $this->patchJson(route('api.users.update', ['user' => $user->id]), $data)
+        $this->patchJson(route('api.users.update', ['user' => $user->getKey()]), $data)
             ->assertStatus(422)
             ->assertJsonValidationErrors([
                 'name'
@@ -85,7 +85,7 @@ class UpdateUserTest extends TestCase
             'name' => $data['name']
         ];
 
-        $this->patchJson(route('api.users.update', ['user' => $anotherUser->id]), $data)
+        $this->patchJson(route('api.users.update', ['user' => $anotherUser->getKey()]), $data)
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
@@ -106,7 +106,7 @@ class UpdateUserTest extends TestCase
             'name' => 'Updated Name',
         ];
 
-        $this->patchJson(route('api.users.update', ['user' => $anotherUser->id]), $data)
+        $this->patchJson(route('api.users.update', ['user' => $anotherUser->getKey()]), $data)
             ->assertStatus(403);
     }
 }

@@ -27,7 +27,7 @@ class ViewPermissionTest extends TestCase
             ->create();
 
         $url = route('api.permissions.view', [
-            'permission' => $permission->id,
+            'permission' => $permission->getKey(),
             'fields' => [
                 'permissions' => 'id,name',
                 'roles' => 'id,display_name,name'

@@ -52,7 +52,7 @@ class DetachRolesFromUserActionTest extends TestCase
         DetachRolesFromUserAction::make()->handle($this->user, $roleNamesToDetach);
 
         $this->assertEqualsCanonicalizing(
-            [$roles[1]->id],
+            [$roles[1]->getKey()],
             User::find($this->user->getKey())
                 ->roles()
                 ->pluck('id')
@@ -67,7 +67,7 @@ class DetachRolesFromUserActionTest extends TestCase
         DetachRolesFromUserAction::make()->handle($this->user, $rolesToDetach);
 
         $this->assertEqualsCanonicalizing(
-            [$roles[1]->id],
+            [$roles[1]->getKey()],
             User::find($this->user->getKey())
                 ->roles()
                 ->pluck('id')
@@ -81,7 +81,7 @@ class DetachRolesFromUserActionTest extends TestCase
         DetachRolesFromUserAction::make()->handle($this->user, $roles[1]);
 
         $this->assertEqualsCanonicalizing(
-            [$roles[0]->id, $roles[2]->id],
+            [$roles[0]->getKey(), $roles[2]->getKey()],
             User::find($this->user->getKey())
                 ->roles()
                 ->pluck('id')

@@ -26,7 +26,7 @@ class ViewUserTest extends TestCase
             'email' => $user->email,
         ];
 
-        $this->getJson(route('api.users.view', ['user' => $user->id]))
+        $this->getJson(route('api.users.view', ['user' => $user->getKey()]))
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
@@ -46,7 +46,7 @@ class ViewUserTest extends TestCase
             'email' => $anotherUser->email,
         ];
 
-        $this->getJson(route('api.users.view', ['user' => $anotherUser->id]))
+        $this->getJson(route('api.users.view', ['user' => $anotherUser->getKey()]))
             ->assertOk()
             ->assertJson(fn (AssertableJson $json) =>
                 $json->has('data', fn (AssertableJson $json) =>
@@ -62,7 +62,7 @@ class ViewUserTest extends TestCase
 
         $anotherUser = User::factory()->create();
 
-        $this->getJson(route('api.users.view', ['user' => $anotherUser->id]))
+        $this->getJson(route('api.users.view', ['user' => $anotherUser->getKey()]))
             ->assertForbidden();
     }
 

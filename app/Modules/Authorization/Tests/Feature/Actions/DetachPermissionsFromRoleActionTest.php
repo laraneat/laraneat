@@ -52,7 +52,7 @@ class DetachPermissionsFromRoleActionTest extends TestCase
         DetachPermissionsFromRoleAction::make()->handle($this->role, $permissionNamesToDetach);
 
         $this->assertEqualsCanonicalizing(
-            [$permissions[1]->id],
+            [$permissions[1]->getKey()],
             Role::find($this->role->getKey())
                 ->permissions()
                 ->pluck('id')
@@ -67,7 +67,7 @@ class DetachPermissionsFromRoleActionTest extends TestCase
         DetachPermissionsFromRoleAction::make()->handle($this->role, $permissionsToDetach);
 
         $this->assertEqualsCanonicalizing(
-            [$permissions[1]->id],
+            [$permissions[1]->getKey()],
             Role::find($this->role->getKey())
                 ->permissions()
                 ->pluck('id')
@@ -81,7 +81,7 @@ class DetachPermissionsFromRoleActionTest extends TestCase
         DetachPermissionsFromRoleAction::make()->handle($this->role, $permissions[1]);
 
         $this->assertEqualsCanonicalizing(
-            [$permissions[0]->id, $permissions[2]->id],
+            [$permissions[0]->getKey(), $permissions[2]->getKey()],
             Role::find($this->role->getKey())
                 ->permissions()
                 ->pluck('id')

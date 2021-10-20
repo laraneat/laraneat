@@ -21,16 +21,13 @@ class AttachRolesToUserTest extends TestCase
     {
         $this->getTestingUser();
 
-        $user = User::factory()->create()->first();
+        $user = User::factory()->create();
         $roleA = Role::factory()->create();
         $roleB = Role::factory()->create();
 
-        $url = route('api.users.roles.attach', ['user' => $user->id]);
+        $url = route('api.users.roles.attach', ['user' => $user->getKey()]);
         $data = [
-            'role_ids' => [
-                $roleA->getKey(),
-                $roleB->getKey(),
-            ],
+            'role_ids' => [$roleA->getKey(), $roleB->getKey()],
         ];
 
         $this->postJson($url, $data)
@@ -50,7 +47,7 @@ class AttachRolesToUserTest extends TestCase
 
         $user = User::query()->first();
 
-        $url = route('api.users.roles.attach', ['user' => $user->id]);
+        $url = route('api.users.roles.attach', ['user' => $user->getKey()]);
         $data = [
             'role_ids' => ['bar', 'baz']
         ];

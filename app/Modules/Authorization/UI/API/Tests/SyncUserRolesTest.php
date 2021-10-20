@@ -21,17 +21,17 @@ class SyncUserRolesTest extends TestCase
     {
         $this->getTestingUser();
 
-        $roleA = Role::factory()->create(['display_name' => '111']);
-        $roleB = Role::factory()->create(['display_name' => '222']);
-        $user = User::factory()->create();
+        $roleA = Role::factory()->create();
+        $roleB = Role::factory()->create();
+
+        $user = User::factory()
+            ->has(Role::factory()->count(3))
+            ->create();
         $user->assignRole($roleA);
 
-        $url = route('api.users.roles.sync', ['user' => $user->id]);
+        $url = route('api.users.roles.sync', ['user' => $user->getKey()]);
         $data = [
-            'role_ids' => [
-                $roleA->getKey(),
-                $roleB->getKey(),
-            ],
+            'role_ids' => [$roleA->getKey(), $roleB->getKey()],
         ];
 
         $this->postJson($url, $data)
@@ -52,7 +52,7 @@ class SyncUserRolesTest extends TestCase
 
         $user = User::query()->first();
 
-        $url = route('api.users.roles.sync', ['user' => $user->id]);
+        $url = route('api.users.roles.sync', ['user' => $user->getKey()]);
         $data = [
             'role_ids' => ['bar', 'baz']
         ];

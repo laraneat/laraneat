@@ -29,7 +29,7 @@ class ViewRoleTest extends TestCase
             ->create();
 
         $url = route('api.roles.view', [
-            'role' => $role->id,
+            'role' => $role->getKey(),
             'fields' => [
                 'roles' => 'id,name',
                 'permissions' => 'id,display_name,group'

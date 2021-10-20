@@ -27,7 +27,7 @@ class ListUserRolesTest extends TestCase
             ->has(Role::factory()->count(3))
             ->create();
 
-        $this->getJson(route('api.users.roles.list', ['user' => $user->id]))
+        $this->getJson(route('api.users.roles.list', ['user' => $user->getKey()]))
             ->assertOk()
             ->assertJsonStructure([
                 'links',
@@ -53,7 +53,7 @@ class ListUserRolesTest extends TestCase
         $role = $user->roles[0];
 
         $url = route('api.users.roles.list', [
-            'user' => $user->id,
+            'user' => $user->getKey(),
             'filter' => [
                 'name' => $role->name,
             ],
@@ -73,7 +73,7 @@ class ListUserRolesTest extends TestCase
                     ->has('meta')
                     ->has('data', 1)
                     ->has('data.0', fn (AssertableJson $json) =>
-                        $json->where('id', $role->id)
+                        $json->where('id', $role->getKey())
                             ->where('name',$role->name)
                             ->where('display_name',$role->display_name)
                             ->has('permissions', $role->permissions()->count())

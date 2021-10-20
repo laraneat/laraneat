@@ -23,10 +23,13 @@ class SyncRolePermissionsTest extends TestCase
 
         $permissionA = Permission::factory()->create();
         $permissionB = Permission::factory()->create();
-        $role = Role::factory()->create();
+
+        $role = Role::factory()
+            ->has(Permission::factory()->count(3))
+            ->create();
         $role->givePermissionTo($permissionA);
 
-        $url = route('api.roles.permissions.sync', ['role' => $role->id]);
+        $url = route('api.roles.permissions.sync', ['role' => $role->getKey()]);
         $data = [
             'permission_ids' => [$permissionA->getKey(), $permissionB->getKey()]
         ];
@@ -49,7 +52,7 @@ class SyncRolePermissionsTest extends TestCase
 
         $role = Role::factory()->create();
 
-        $url = route('api.roles.permissions.sync', ['role' => $role->id]);
+        $url = route('api.roles.permissions.sync', ['role' => $role->getKey()]);
         $data = [
             'permission_ids' => ['bar', 'baz']
         ];

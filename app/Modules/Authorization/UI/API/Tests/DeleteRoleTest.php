@@ -21,7 +21,7 @@ class DeleteRoleTest extends TestCase
         $this->getTestingUser();
 
         $role = Role::factory()->create();
-        $this->deleteJson(route('api.roles.delete', ['role' => $role->id]))
+        $this->deleteJson(route('api.roles.delete', ['role' => $role->getKey()]))
             ->assertNoContent();
 
         $this->assertNull(Role::find($role->getKey()));

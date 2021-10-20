@@ -62,7 +62,7 @@ class ListPermissionsTest extends TestCase
                     ->has('meta')
                     ->has('data', 1)
                     ->has('data.0', fn (AssertableJson $json) =>
-                        $json->where('id', $permission->id)
+                        $json->where('id', $permission->getKey())
                             ->where('name',$permission->name)
                             ->where('display_name',$permission->display_name)
                             ->has('roles',  $permission->roles()->count())

@@ -21,14 +21,15 @@ class DetachPermissionsFromRoleTest extends TestCase
     {
         $this->getTestingUser();
 
-        $permissionA = Permission::factory()->create();
-        $permissionB = Permission::factory()->create();
-        $role = Role::factory()->create();
-        $role->givePermissionTo($permissionA, $permissionB);
+        $role = Role::factory()
+            ->has(Permission::factory()->count(3))
+            ->create();
 
-        $url = route('api.roles.permissions.detach', ['role' => $role->id]);
+        $permissionIds = $role->permissions()->pluck('id')->toArray();
+
+        $url = route('api.roles.permissions.detach', ['role' => $role->getKey()]);
         $data = [
-            'permission_ids' => [$permissionA->getKey(), $permissionB->getKey()],
+            'permission_ids' => [$permissionIds[0], $permissionIds[2]],
         ];
 
         $this->postJson($url, $data)
@@ -40,6 +41,13 @@ class DetachPermissionsFromRoleTest extends TestCase
                 ->whereIn('id', $data['permission_ids'])
                 ->exists()
         );
+
+        $this->assertTrue(
+            Role::find($role->getKey())
+                ->permissions()
+                ->where('id', $permissionIds[1])
+                ->exists()
+        );
     }
 
     public function testDetachPermissionsFromRolesWithWrongData(): void
@@ -48,7 +56,7 @@ class DetachPermissionsFromRoleTest extends TestCase
 
         $role = Role::factory()->create();
 
-        $url = route('api.roles.permissions.detach', ['role' => $role->id]);
+        $url = route('api.roles.permissions.detach', ['role' => $role->getKey()]);
         $data = [
             'permission_ids' => ['bar', 'baz']
         ];

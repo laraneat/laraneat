@@ -21,14 +21,14 @@ class DetachRolesFromUserTest extends TestCase
     {
         $this->getTestingUser();
 
-        $roleA = Role::factory()->create();
-        $roleB = Role::factory()->create();
-        $user = User::factory()->create();
-        $user->assignRole($roleA, $roleB);
+        $user = User::factory()
+            ->has(Role::factory()->count(3))
+            ->create();
+        $roleIds = $user->roles()->pluck('id')->toArray();
 
-        $url = route('api.users.roles.detach', ['user' => $user->id]);
+        $url = route('api.users.roles.detach', ['user' => $user->getKey()]);
         $data = [
-            'role_ids' => [$roleA->getKey(), $roleB->getKey()],
+            'role_ids' => [$roleIds[0], $roleIds[2]],
         ];
 
         $this->postJson($url, $data)
@@ -40,6 +40,13 @@ class DetachRolesFromUserTest extends TestCase
                 ->whereIn('id', $data['role_ids'])
                 ->exists()
         );
+
+        $this->assertTrue(
+            User::find($user->getKey())
+                ->roles()
+                ->where('id', $roleIds[1])
+                ->exists()
+        );
     }
 
     public function testDetachRolesFromUserWithWrongData(): void
@@ -48,7 +55,7 @@ class DetachRolesFromUserTest extends TestCase
 
         $user = User::query()->first();
 
-        $url = route('api.users.roles.detach', ['user' => $user->id]);
+        $url = route('api.users.roles.detach', ['user' => $user->getKey()]);
         $data = [
             'role_ids' => ['bar', 'baz']
         ];

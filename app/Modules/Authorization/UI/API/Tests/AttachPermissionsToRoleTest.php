@@ -21,11 +21,11 @@ class AttachPermissionsToRoleTest extends TestCase
     {
         $this->getTestingUser();
 
-        $role = Role::factory()->create()->first();
+        $role = Role::factory()->create();
         $permissionA = Permission::factory()->create();
         $permissionB = Permission::factory()->create();
 
-        $url = route('api.roles.permissions.attach', ['role' => $role->id]);
+        $url = route('api.roles.permissions.attach', ['role' => $role->getKey()]);
         $data = [
             'permission_ids' => [$permissionA->getKey(), $permissionB->getKey()]
         ];
@@ -45,9 +45,9 @@ class AttachPermissionsToRoleTest extends TestCase
     {
         $this->getTestingUser();
 
-        $role = Role::factory()->create()->first();
+        $role = Role::factory()->create();
 
-        $url = route('api.roles.permissions.attach', ['role' => $role->id]);
+        $url = route('api.roles.permissions.attach', ['role' => $role->getKey()]);
         $data = [
             'permission_ids' => ['bar', 'baz']
         ];

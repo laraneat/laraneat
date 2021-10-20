@@ -26,7 +26,7 @@ class ListRolePermissionsTest extends TestCase
             ->has(Permission::factory()->count(3))
             ->create();
 
-        $this->getJson(route('api.roles.permissions.list', ['role' => $role->id]))
+        $this->getJson(route('api.roles.permissions.list', ['role' => $role->getKey()]))
             ->assertOk()
             ->assertJsonStructure([
                 'links',
@@ -49,7 +49,7 @@ class ListRolePermissionsTest extends TestCase
         $permission = $role->permissions[0];
 
         $url = route('api.roles.permissions.list', [
-            'role' => $role->id,
+            'role' => $role->getKey(),
             'filter' => [
                 'name' => $permission->name,
             ],
@@ -66,7 +66,7 @@ class ListRolePermissionsTest extends TestCase
                     ->has('meta')
                     ->has('data', 1)
                     ->has('data.0', fn (AssertableJson $json) =>
-                        $json->where('id', $permission->id)
+                        $json->where('id', $permission->getKey())
                             ->where('name',$permission->name)
                             ->where('display_name',$permission->display_name)
                     )
