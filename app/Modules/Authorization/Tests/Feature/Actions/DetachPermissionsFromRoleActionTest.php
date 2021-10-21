@@ -15,14 +15,14 @@ class DetachPermissionsFromRoleActionTest extends TestCase
 {
     private Role $role;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->setUpData();
     }
 
-    public function setUpData(): void
+    protected function setUpData(): void
     {
         $this->role = Role::factory()
             ->has(Permission::factory()->count(3))

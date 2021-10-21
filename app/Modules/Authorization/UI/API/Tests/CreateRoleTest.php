@@ -25,7 +25,7 @@ class CreateRoleTest extends TestCase
 
     protected Collection $permissions;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

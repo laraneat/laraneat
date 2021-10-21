@@ -30,7 +30,7 @@ abstract class TestCase extends LaravelTestCase
      *
      * @return void
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
     }
@@ -38,7 +38,7 @@ abstract class TestCase extends LaravelTestCase
     /**
      * Reset the test environment, after each test.
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         parent::tearDown();
     }

@@ -15,14 +15,14 @@ class DetachRolesFromUserActionTest extends TestCase
 {
     private User $user;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
         $this->setUpData();
     }
 
-    public function setUpData(): void
+    protected function setUpData(): void
     {
         $this->user = User::factory()
             ->has(Role::factory()->count(3))
