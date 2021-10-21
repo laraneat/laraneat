@@ -42,7 +42,7 @@ class RolesQueryWizard extends EloquentQueryWizard
             'id',
             'name',
             'guard_name',
-            'display_name'
+            'display_name',
         ];
     }
 
@@ -53,7 +53,9 @@ class RolesQueryWizard extends EloquentQueryWizard
     {
         return [
             'permissions',
-            'users'
+            'permissionsCount',
+            'users',
+            'usersCount',
         ];
     }
 
@@ -68,7 +70,7 @@ class RolesQueryWizard extends EloquentQueryWizard
             'guard_name',
             'display_name',
             'created_at',
-            'updated_at'
+            'updated_at',
         ];
     }
 }

@@ -41,7 +41,10 @@ class UsersQueryWizard extends EloquentQueryWizard
     protected function allowedIncludes(): array
     {
         return [
-            'roles'
+            'roles',
+            'rolesCount',
+            'permissions',
+            'permissionsCount',
         ];
     }
 

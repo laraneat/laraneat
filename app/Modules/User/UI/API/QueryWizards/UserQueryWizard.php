@@ -27,7 +27,10 @@ class UserQueryWizard extends ModelQueryWizard
     protected function allowedIncludes(): array
     {
         return [
-            'roles'
+            'roles',
+            'rolesCount',
+            'permissions',
+            'permissionsCount',
         ];
     }
 }

@@ -38,7 +38,9 @@ class PermissionQueryWizard extends ModelQueryWizard
     {
         return [
             'roles',
-            'users'
+            'rolesCount',
+            'users',
+            'usersCount',
         ];
     }
 }
