@@ -39,7 +39,7 @@ class CreateRoleRequest extends Request
         return new CreateRoleDTO(
             name: $this->name,
             description: $this->description,
-            displayName: $this->display_name,
+            display_name: $this->display_name,
             permissions: $this->permission_ids
         );
     }

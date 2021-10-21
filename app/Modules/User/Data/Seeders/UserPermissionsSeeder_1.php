@@ -13,27 +13,27 @@ class UserPermissionsSeeder_1 extends Seeder
         $createPermissionAction = CreatePermissionAction::make();
         $createPermissionAction->handle(new CreatePermissionDTO(
             name: 'view-users',
-            displayName: 'View users',
+            display_name: 'View users',
             group: 'users'
         ));
         $createPermissionAction->handle(new CreatePermissionDTO(
             name: 'create-users',
-            displayName: 'Create users',
+            display_name: 'Create users',
             group: 'users'
         ));
         $createPermissionAction->handle(new CreatePermissionDTO(
             name: 'update-users',
-            displayName: 'Update users',
+            display_name: 'Update users',
             group: 'users'
         ));
         $createPermissionAction->handle(new CreatePermissionDTO(
             name: 'delete-users',
-            displayName: 'Delete users',
+            display_name: 'Delete users',
             group: 'users'
         ));
         $createPermissionAction->handle(new CreatePermissionDTO(
             name: 'force-delete-users',
-            displayName: 'Force delete users',
+            display_name: 'Force delete users',
             group: 'users'
         ));
     }

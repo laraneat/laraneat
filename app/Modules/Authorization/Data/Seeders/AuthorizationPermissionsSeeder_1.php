@@ -13,13 +13,13 @@ class AuthorizationPermissionsSeeder_1 extends Seeder
         $createPermissionAction = CreatePermissionAction::make();
         $createPermissionAction->handle(new CreatePermissionDTO(
             name: 'manage-roles',
-            displayName: 'Managing roles',
+            display_name: 'Managing roles',
             group: 'roles',
             description: 'View, create, change and delete any roles and assign any permissions to them.'
         ));
         $createPermissionAction->handle(new CreatePermissionDTO(
             name: 'attach-roles',
-            displayName: 'Assigning roles to users',
+            display_name: 'Assigning roles to users',
             group: 'roles',
         ));
     }

@@ -9,8 +9,8 @@ use Spatie\DataTransferObject\Attributes\Strict;
 class CreatePermissionDTO extends DataTransferObject
 {
     public string $name;
-    public ?string $displayName;
+    public ?string $display_name;
     public ?string $group;
     public ?string $description;
-    public string $guardName = 'web';
+    public string $guard_name = 'web';
 }

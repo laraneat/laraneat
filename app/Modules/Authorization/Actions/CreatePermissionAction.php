@@ -13,9 +13,9 @@ class CreatePermissionAction extends Action
         return Permission::create([
             'name' => $dto->name,
             'description' => $dto->description,
-            'display_name' => $dto->displayName,
+            'display_name' => $dto->display_name,
             'group' => $dto->group,
-            'guard_name' => $dto->guardName,
+            'guard_name' => $dto->guard_name,
         ]);
     }
 }

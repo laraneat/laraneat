@@ -21,8 +21,8 @@ class CreateRoleAction extends Action
             $role = Role::create([
                 'name' => strtolower($dto->name),
                 'description' => $dto->description,
-                'display_name' => $dto->displayName,
-                'guard_name' => $dto->guardName,
+                'display_name' => $dto->display_name,
+                'guard_name' => $dto->guard_name,
             ]);
 
             if (!empty($dto->permissions)) {
