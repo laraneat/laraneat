@@ -34,11 +34,7 @@ class UpdateUserAction extends Action
      */
     public function asController(UpdateUserRequest $request, User $user): UserResource
     {
-        $sanitizedData = $request->sanitizeInput([
-            'name',
-        ]);
-
-        $user = $this->handle($user, $sanitizedData);
+        $user = $this->handle($user, $request->validated());
 
         return new UserResource($user);
     }

@@ -39,14 +39,7 @@ class UpdateRoleAction extends Action
      */
     public function asController(UpdateRoleRequest $request, Role $role): RoleResource
     {
-        $sanitizedData = $request->sanitizeInput([
-            'name',
-            'description',
-            'display_name',
-            'permission_ids'
-        ]);
-
-        $role = $this->handle($role, $sanitizedData);
+        $role = $this->handle($role, $request->validated());
 
         return new RoleResource($role);
     }
