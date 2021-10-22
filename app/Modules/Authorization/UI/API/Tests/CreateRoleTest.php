@@ -55,12 +55,8 @@ class CreateRoleTest extends TestCase
                 )
             );
 
-        $query = Role::query();
-        foreach ($expectedData as $key => $value) {
-            $query->where($key, $value);
-        }
-        $role = $query->first();
-
+        /** @var Role $role */
+        $role = $this->makeQueryWhereColumns(Role::class, $expectedData)->first();
         $this->assertNotNull($role);
         $this->assertEqualsCanonicalizing($data['permission_ids'], $role->permissions->pluck('id')->toArray());
     }

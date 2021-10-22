@@ -44,7 +44,7 @@ class CreateUserTest extends TestCase
                 )
             );
 
-        $this->assertExistsModelWithAttributes(User::class, $dataWithoutPassword);
+        $this->assertExistsModelWhereColumns(User::class, $dataWithoutPassword);
     }
 
     public function testCreateUserWithoutAccess(): void

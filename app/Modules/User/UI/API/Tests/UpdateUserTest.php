@@ -34,7 +34,7 @@ class UpdateUserTest extends TestCase
                     )
             );
 
-        $this->assertExistsModelWithAttributes(User::class, $data);
+        $this->assertExistsModelWhereColumns(User::class, $data);
     }
 
     public function testUpdateCurrentUserWithoutData(): void
@@ -94,7 +94,7 @@ class UpdateUserTest extends TestCase
                 )
             );
 
-        $this->assertExistsModelWithAttributes(User::class, $expectedData);
+        $this->assertExistsModelWhereColumns(User::class, $expectedData);
     }
 
     public function testUpdateAnotherUserWithoutAccess(): void
