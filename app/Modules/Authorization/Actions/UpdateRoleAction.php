@@ -15,16 +15,16 @@ class UpdateRoleAction extends Action
     /**
      * @throws UpdateResourceFailedException
      */
-    public function handle(Role $role, array $roleData): Role
+    public function handle(Role $role, array $data): Role
     {
-        if (empty($roleData)) {
+        if (empty($data)) {
             throw new UpdateResourceFailedException();
         }
 
-        $permissionIds = Arr::pull($roleData, 'permission_ids');
+        $permissionIds = Arr::pull($data, 'permission_ids');
 
-        return DB::transaction(function() use (&$role, $roleData, $permissionIds) {
-            $role->update($roleData);
+        return DB::transaction(function() use (&$role, $data, $permissionIds) {
+            $role->update($data);
 
             if ($permissionIds) {
                 SyncRolePermissionsAction::make()->handle($role, $permissionIds);
