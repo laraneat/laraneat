@@ -54,7 +54,7 @@ class UpdateUserTest extends TestCase
         ];
 
         $this->patchJson(route('api.users.update', ['user' => $user->getKey()]), $data)
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJsonValidationErrors([
                 'name'
             ]);

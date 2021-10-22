@@ -53,7 +53,7 @@ class AttachPermissionsToRoleTest extends TestCase
         ];
 
         $this->postJson($url, $data)
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJsonValidationErrors([
                 'permission_ids.0',
                 'permission_ids.1'

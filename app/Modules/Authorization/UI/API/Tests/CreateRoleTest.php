@@ -72,7 +72,7 @@ class CreateRoleTest extends TestCase
 
         $this->getTestingUser();
         $this->postJson(route('api.roles.create'), $data)
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJsonValidationErrors(['name']);
     }
 }

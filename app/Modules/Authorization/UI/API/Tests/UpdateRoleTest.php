@@ -56,7 +56,7 @@ class UpdateRoleTest extends TestCase
                         ->etc()
                 )
             );
-        
+
         /** @var Role $role */
         $role = $this->makeQueryWhereColumns(Role::class, $expectedData)->first();
         $this->assertNotNull($role);
@@ -75,7 +75,7 @@ class UpdateRoleTest extends TestCase
 
         $this->getTestingUser();
         $this->postJson(route('api.roles.update', ['role' => $this->role->getKey()]), $data)
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJsonValidationErrors(['name']);
     }
 }

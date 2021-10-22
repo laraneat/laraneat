@@ -61,7 +61,7 @@ class DetachRolesFromUserTest extends TestCase
         ];
 
         $this->postJson($url, $data)
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJsonValidationErrors([
                 'role_ids.0',
                 'role_ids.1'

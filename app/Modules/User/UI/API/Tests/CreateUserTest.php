@@ -62,7 +62,7 @@ class CreateUserTest extends TestCase
         $this->getTestingUser(Arr::except($data, ['password_confirmation']));
 
         $this->postJson(route('api.users.create'), $data)
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJsonValidationErrors([
                 'email'
             ]);
@@ -78,7 +78,7 @@ class CreateUserTest extends TestCase
         ];
 
         $this->postJson(route('api.users.create'), $data)
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJsonValidationErrors([
                 'email'
             ]);
@@ -94,7 +94,7 @@ class CreateUserTest extends TestCase
         ];
 
         $this->postJson(route('api.users.create'), $data)
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJsonValidationErrors([
                 'name'
             ]);
@@ -109,7 +109,7 @@ class CreateUserTest extends TestCase
         ];
 
         $this->postJson(route('api.users.create'), $data)
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJsonValidationErrors([
                 'password'
             ]);
@@ -126,7 +126,7 @@ class CreateUserTest extends TestCase
         ];
 
         $this->postJson(route('api.users.create'), $data)
-            ->assertStatus(422)
+            ->assertUnprocessable()
             ->assertJsonValidationErrors([
                 'email'
             ]);
